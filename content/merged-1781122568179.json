@@ -1,0 +1,2651 @@
+{
+  "title": "AI-Enhanced Public Domain Books",
+  "date": "2025-06-27",
+  "objective": "I wanted to build a set of Python tools to transform, clean, and reformat public domain books using AI, so I could create modernized, cleanly structured ebooks with properly handled footnotes, headings, and metadata.\n---\nI wanted to build a mostly automated system that could find, clean, rewrite, and publish public domain books and documents using AI, and then package those works for sale as ebooks, audiobooks, and print books while testing different web and marketing tools along the way.\n---\nI wanted to build a fully automated pipeline that could transform, clean, and publish modern-language editions of classic public domain texts as ebooks, print books, and audiobooks by combining Python scripting, AI rewriting, batch processing, and publishing tools.\n---\nI wanted to build a scalable, professional system for producing, packaging, and selling modernized, AI-narrated public domain audiobooks, with clean branding, automated pipelines, and support for smooth digital delivery to customers.\n---\nI wanted to build tools and workflows for modernizing classic books, automating metadata generation, ebook formatting, audiobook production, and handling domain and email transitions for my publishing projects.\n---\nI wanted to build a reliable, automated pipeline to clean, enhance, and publish classic books as ebooks and marketing-ready content, making sure the process could handle tricky markdown files, metadata, covers, and marketing assets with minimal manual fixes.",
+  "summary": "I started by realizing I could use AI to transform public domain books in creative ways and decided to build a Python pipeline using the OpenAI API to preprocess and rewrite texts from Project Gutenberg. I set up a modular project, wrote initial scripts for cleaning and transforming text, and resolved issues with file handling and API key management in Windows. As I refined the cleaning process, I dealt with tricky details like paragraph breaks and modernizing language while keeping the original narrative voice. I experimented with prompt engineering to move from summarizing text to maintaining style and specific instructions, especially for novels.\n\nI introduced a multi-pass pipeline to handle language modernization, perspective shifts, and enrichment step by step, and learned how changing temperature parameters could give me more control over creativity in each stage. I researched the legal and practical aspects of working with public domain sources and figured out how to credit original sources properly. When I ran the full Critique of Pure Reason through my pipeline, I confirmed my API cost estimates, observed issues like missing headings, and started improving my scripts to fix them.\n\nI noticed that AI was better at non-fiction and started to research the limits of model pre-training versus fine-tuning for style and consistency, considering the requirements for collecting good example datasets. I found and explored several online communities and tools devoted to AI-assisted fiction writing, evaluating their techniques and workflows. Drawing from Sudowrite’s chunk-based approach, I improved my own chunking and metadata strategies, and calculated data usage for large-scale API calls.\n\nI wrote scripts to unwrap hard-wrapped lines and remove or extract footnotes from Gutenberg files, making sure these could be preserved for ebook footers or appendices. After seeing issues with detecting headings in classic texts, I spent several iterations refining Python scripts using regular expressions and pattern matching to robustly identify and wrap single or multi-line headings, planning for proper markdown formatting. I set up workflows to turn cleaned markdown files into well-structured EPUBs with Pandoc, learned how to add covers, metadata, and tables of contents, and refined scripts to convert various heading formats for compatibility.\n\nI ran into challenges with exported Google Docs files containing hidden HTML, so I wrote additional scripts to clean these out before running my heading detection. I further improved my footnote removal scripts to handle malformed and multi-line notes, ensuring clean outputs for both non-fiction and fiction pipelines. As I explored processing fiction, I developed new pipelines using multi-stage summarization and narrative reconstruction, adapting and renaming my scripts to support this two-step workflow.\n\nBy the end, I had a modular, repeatable workflow to transform and summarize public domain texts (both fiction and non-fiction), split and clean them, handle artifacts like HTML or footnotes, convert them to ebook formats with proper metadata and structure, and experiment with both straight AI rewriting and staged summarization techniques, all while learning a lot about the quirks of classic texts and AI capabilities.\n---\nI started by figuring out what parts of my Project Gutenberg rewriting business I liked and wanted to automate, especially the technical side. I built a local Python agent that could find, download, and clean public domain history and philosophy books from Project Gutenberg using GPT-4 lists and web scraping. After hitting limitations with some packages, I switched to using requests and BeautifulSoup for direct scraping, and cleaned up my API key handling. I updated my scripts to use the new OpenAI SDK and generated book excerpts, batch rewrote them with my pipeline, and automated side-by-side comparison files for easier review. Along the way, I refactored everything into functional modules so I could automate the whole workflow hands-free.\n\nI realized there was a lot more to do beyond just rewriting the books. I started building scripts to generate marketing assets using GPT-4o. I learned to send only the first 3,000 words to save costs and confirmed GPT-4o handled markdown nicely. I also tweaked my comparison scripts to group and display paragraphs properly, making it easier to compare the original and rewritten versions. I put together a pipeline that handled everything from discovery and download all the way through rewriting and creating marketing materials.\n\nI decided to add audiobooks to my offerings and researched ElevenLabs, OpenAI TTS, and Google TTS for this. I found ElevenLabs worked best for long narration with SSML, and started planning an automated workflow that added SSML markup with ChatGPT before sending it to the TTS API. When I ran into anti-bot walls scraping the Congressional Record, I switched to using Playwright to automate browser scraping, which worked after some setup headaches. Once I got clean Congressional Record TXT files from Congress.gov, I wrote scripts to combine and clean them, sometimes falling back to PDF extraction with tools like pdfplumber and regex to deal with garbled text.\n\nOn the content side, I explored rewriting not just books but also open access scientific articles, using ChatGPT to create plain-language summaries and adapting content for websites and social media. I experimented with tools like Canva and CapCut for making Instagram carousels and Reels and got a handle on what different platforms needed in terms of content styles. I realized Reels boosted my Instagram growth most, but also faced headaches with Wix's poor responsive design, so I started building my site on Shopify for more flexibility.\n\nAs I worked through options for selling digital books, I learned about Shopify apps for digital downloads, DRM, and watermarking, then realized I could launch with just basic protection and switch to DRM later. Converting markdown files for print and digital was a technical hurdle—I worked through MiKTeX and xelatex installation issues, eventually decided to use Overleaf and Pandoc for LaTeX, but then found Word simpler for basic book layout. I built Pandoc and CSS-based pipelines for generating EPUBs with styled tables of contents, had to tweak for e-reader differences, and learned that Kindle sometimes overrides my CSS choices.\n\nLooking back, I pieced together a nearly end-to-end system that finds, cleans, rewrites, and packages old books for modern readers, with automation for most steps and lots of technical dead ends and workarounds along the way. I learned a ton about text extraction, book formatting, web scraping, marketing content, and the practical gotchas of building a digital book business.\n---\nI started by merging several small scripts into a unified, flexible Python tool for rewriting old texts, moving all prompts into an external JSON for easier updates. I set up batch processing to handle large numbers of Project Gutenberg books, designing the workflow to clean, format, and excerpt the original files. Early on, I debugged many formatting issues caused by inconsistent line endings, and I wrote custom scripts to reliably handle paragraph breaks and remove unwanted whitespace, footnotes, and other junk text. I carefully separated each processing stage—scraping, cleaning, and chunking for test runs—so I could fine-tune scripts with batch runners and overlays.\n\nAs the workflow matured, I developed and modularized batch apply scripts to automate running Python utilities across all files in a directory. I created overlay JSON formats and wrote scripts to apply these overlays for custom cleaning on a per-book basis, and even used LLMs with lit_operator to help classify and filter out irrelevant or structural text like chapter headings and footnotes. Template prompts went through several refinements as I learned exactly how much guidance the models needed for high-fidelity rewriting of philosophy books. I tested dozens of approaches for paragraph splitting, normalization, and junk removal, always checking formatting outputs in Notepad++ and VS Code.\n\nI set up a publishing workflow using Markdown files with YAML metadata blocks, batch scripts for ebook and PDF production with Pandoc, and custom front-matter automation. I had to debug problems related to system binaries, environment paths, and Windows Smart App Control interfering with Pandoc and ffmpeg, switching to file renaming or command-line flags to get around platform issues. For better publishing results, I developed HTML/JS tools for visual editing and normalization of Markdown headings, letting me quickly apply batch fixes, label chapters, and prepare files for both ebook and audiobook production.\n\nAs the pipeline expanded, I planned and automated batch cover generation in InDesign by mapping book metadata to CSV files and standardizing filenames. On the audio side, I built an end-to-end script chain: normalizing text for TTS (so the output sounded natural), splitting books into per-chapter or per-section text chunks, running ElevenLabs TTS to generate mp3 or wav audio files from those chunks, and then scripting the final stitch into MP3 and M4B audiobooks with embedded metadata and chapter markers using ffmpeg. I learned first-hand how audiobook audio could be improved by merging short chunks, properly handling pauses between sections, and fixing filename length errors on Windows. Embedding cover art in the audio files led me to adjust codecs and ffmpeg flags, as I discovered limitations of different container formats.\n\nThroughout, I created and maintained a single book metadata file in JSON that powered cover generation, ebook/PDF front-matter, and audiobook manifests. Cost and API usage estimates led me to prioritize which books to modernize and release first. I finished by generating a high-quality supporting set of metadata and CSVs, with everything named and structured for industrial-scale automation. By the end, I had built a robust pipeline that could clean, rewrite, typeset, generate covers for, and publish classic works as modern ebooks, print books, and audiobooks—controlling every step from raw text to retail-ready product.\n---\nI started by rethinking my cover design process, choosing templates and automation tools like Canva and Figma instead of custom illustrations to focus on consistency and genre branding. I cleaned and reformatted my book metadata in CSV files and organized filenames to match asset and text files for seamless automation, which set up a solid foundation for bulk processing later on. Early in the process, I discovered that exporting files with custom names in Canva was not possible, so I wrote a Python script to automate cover image renaming and align all media with my publishing manifest.\n\nOnce my asset pipeline was reliable, I turned to selling and distributing audiobooks. I concluded that Shopify, not Audible, was best for direct sales, bundles, pricing control, and customer relationships. I picked Sky Pilot as my delivery app for secure digital fulfillment and bundles. I did pricing research and structured my catalog around two main price tiers, using bundles and multi-format delivery to drive value and fight piracy with customer goodwill instead of heavy DRM. Alongside, I honed my cover and branding strategy with SVG logos, custom fonts, and clear branding, experimenting in Canva, Figma, and Illustrator.\n\nOn the production side, I spent a lot of time experimenting with AI text-to-speech voices and pipelines. I built, tested, and refined Python scripts to process texts, wrap paragraphs in SSML prosody tags, chunk content, and send batches to ElevenLabs, OpenAI, and Azure TTS APIs. I compared costs and audio quality, discovering significant price differences and subtle model quirks—like Azure's distinct voice naming and OpenAI's expressiveness limits. For narration, I analyzed how pause tags, prosody, and chunking rhythm affected the actual listening experience, tuning my scripts and prompts for a more natural, philosophical pace.\n\nBuilding the audiobook files was another technical challenge. I stitched audio chunks into MP3 and M4B files using Python and ffmpeg, iterating repeatedly to fix issues with chapters, metadata, bitrate, normalization, and file size. I learned how to use loudnorm, compressor filters, and even forced the RF64 format in ffmpeg to process long books without breaking the WAV file limit. When I hit bugs—like missing chapters or bad XML in SSML—I updated my chunking, manifest, and stitching scripts for robustness. I realized how important it was to produce clean chapters from Markdown headings, so I rewrote my chunker to extract and preserve real section titles and mapped these reliably throughout the manifest and the audio pipeline.\n\nThrough trial and error, I set up automation scripts for inserting SSML breaks, handling code blocks in Markdown, and customizing pauses for a deliberate narration style. I patched and improved my cover processing by baking in cover attachment to the final audio output, again using ffmpeg and adjusting to workflows that required as little manual intervention as possible. Along the way, I documented command-line usage examples, troubleshoot environment variable setup with PowerShell for cloud APIs, and made everything modular so I could build, test, and repeat the process for new books easily.\n\nToward the end, I expanded beyond audiobooks to explore making philosophical video essays—with animation overlays instead of plain talking heads—using new AI avatar tools. I reviewed feasibility based on computing limitations, but ultimately focused on refining my main pipeline, especially the audio post-processing and chapter metadata. By the close of the conversation, I had a nearly end-to-end automated system: manuscript to chunked, SSML-enhanced text, to batch TTS generation with expressive and brand-coherent narration, to professionally normalized and chaptered audio files with covers, ready for upload and digital delivery. I felt good about the mix of automation and handcrafted creative decisions, and clear about next steps for expanding the catalog or adding video features.\n---\nI started by organizing public domain works into themed reading bundles, planning essay series and courses, and refining reading lists using Project Gutenberg. I wrote code and built web tools, like a Roman Numeral Normalizer, and continually improved my Markdown and audio processing scripts to handle automation, chunking, and batch processing for both text and audio. I tweaked my workflow to ensure accurate book metadata and experimented with batch-injecting YAML front matter and modern title pages into markdown files, sometimes having to troubleshoot file format, duplications, and cleaning up artifacts.\n\nFor audiobooks, I designed and documented complete pipelines for splitting, chunking, text-to-speech, loudness normalization, and batch stitching using Python, FFmpeg, and Azure TTS. I dealt with tricky metadata, cover images, chapter info, and streamlined the scripts into robust batch processes. Along the way, I hit obstacles like large file problems in git, which led to deep cleaning my repo with git-filter-repo, and learned to manage product listings in Shopify by scripting CSV edits, setting up collections and smart tags, and refining my store design for easy navigation.\n\nAs my project grew, I expanded my audio pipelines to allow more advanced narration using AI voice tools, and tackled technical migrations by moving domains and email from Wix to Namecheap, keeping Google Workspace working mid-transfer and ensuring my email and DNS records stayed safe. I documented the step-by-step context and continually updated configurations, pushing new files to my repos and working through challenges with push and branch settings.\n---\nI started by realizing that cleaning up markdown files before ebook conversion required a robust, multi-layer approach, so I built a local HTML/JS markdown cleanup editor combining detection, editing, and keyboard-controlled fixes, refactoring my older Python logic into JavaScript. Along the way, I tackled edge cases like bilingual books and YAML front matter bugs, refining scripts and adding preprocessing filters for special cases, while learning to validate YAML and debug errors with Pandoc.\n\nFor images, I wrote and iterated on several Python scripts to fetch author images from Wikimedia Commons, making them more resilient to name mismatches and adding overrides and better fallback logic. I built functions to select and filter images, exclude unwanted ones, and keep a manifest for easy retrieval later. When Shopify imports failed due to small errors, I fixed the output logic and streamlined the CSV generator before moving on to organizing the history and architecture of my Anti-Prince idea transformation pipeline, realizing I could standardize the flow with manifest-driven automation for both main and derivative pipelines.\n\nI evolved my process to extract and expand principles from classic texts, creating specialized scripts to batch-clean and split texts into semantic blocks, wire up YAML-based automation, and set up batch wrappers for scalable principle extraction. To handle the flood of extracted principles, I built attentive scoring and filtering scripts, combining deterministic logic with LLM-based ranking and reasoning, then used local HTML/JS viewers and automated selectors to winnow down hundreds of entries to the most interesting and marketable. Getting the AI prompts right was a challenge—I rewrote instructions multiple times to push for sharper, less generic outputs and improved scoring for creativity, originality, and audience appeal.\n\nOnce I had robust JSON outputs, I wrote Python scripts to merge, flatten, and render these as clean Markdown and later as attractive PDFs. I designed and iterated new prompt and pipeline structures so that expanded principles had richer explanations, real-world examples, and marketing hooks. For marketing, I turned the whole principle pipeline into a multi-product engine, generating CSVs for Canva Bulk Create, Buffer scheduling, and Substack drafts, streamlining tags and calendar formats for easier automation and initial manual QA.\n\nAs the book and marketing lines grew, I adapted the ebook pipeline to companion books, reusing and duplicating cover images, metadata, and selection files. I modified scripts to handle new directory layouts, patched cover and metadata injectors, and set up a YAML-driven workflow to produce PDFs, EPUBs, covers, and all the marketing collateral from the same sources. At every stage I fixed path and formatting bugs—like YAML indentation and heading wrapper issues—while repeatedly updating scripts to ensure correct author display, clean TOC levels, and stable file structures.\n\nToward the end, I integrated ReportLab for more attractive PDF handouts, fixed layout and spacing, and wrote marketing copy directly into the asset pipeline. I learned to patch pipelines manually when JSON cover selection files got stale and automated only after thorough manual checks ensured nothing would silently break. By the end, I had a repeatable, modular pipeline that could take cleaned markdown through expansion, scoring, rendering, and asset creation, all the way to ready-to-publish ebooks, companion books, marketing images, and CSVs for Shopify and social media publishing.",
+  "tags": [
+    "ai",
+    "python",
+    "publishing",
+    "text-cleaning",
+    "ebook",
+    "openai",
+    "pipeline",
+    "pandoc",
+    "markdown",
+    "automation",
+    "summarization",
+    "gutenberg",
+    "books",
+    "prompt-engineering",
+    "scripting",
+    "gpt-4",
+    "marketing",
+    "web scraping",
+    "batch-processing",
+    "ebooks",
+    "tts",
+    "audiobooks",
+    "ssml",
+    "workflow",
+    "public domain",
+    "pdf",
+    "text extraction",
+    "congress",
+    "modernization",
+    "ocr",
+    "data-extraction",
+    "scraping",
+    "congressional record",
+    "text cleaning",
+    "web-scraping",
+    "script",
+    "playwright",
+    "debugging",
+    "open access",
+    "scientific publishing",
+    "cc by",
+    "plos",
+    "content",
+    "social media",
+    "formats",
+    "planning",
+    "writing",
+    "scicomm",
+    "psychology",
+    "climate",
+    "text-processing",
+    "refactoring",
+    "blogging",
+    "email",
+    "social",
+    "canva",
+    "image-generation",
+    "content-creation",
+    "video",
+    "wix",
+    "design",
+    "web",
+    "shopify",
+    "responsive design",
+    "mvp",
+    "digital downloads",
+    "drm",
+    "fonts",
+    "branding",
+    "print",
+    "terminal",
+    "latex",
+    "configuration",
+    "windows",
+    "setup",
+    "overleaf",
+    "book-layout",
+    "css",
+    "epub",
+    "ffmpeg",
+    "metadata",
+    "indesign",
+    "json",
+    "csv",
+    "file-formatting",
+    "ui",
+    "tools",
+    "book-processing",
+    "cli",
+    "frontend",
+    "html",
+    "javascript",
+    "covers",
+    "manifest",
+    "illustrator",
+    "svg",
+    "logos",
+    "vector",
+    "artwork",
+    "image-editing",
+    "distribution",
+    "digital-delivery",
+    "pricing",
+    "strategy",
+    "product",
+    "audio",
+    "voice",
+    "audio-processing",
+    "api",
+    "azure",
+    "normalization",
+    "powershell",
+    "bitrate",
+    "epublishing",
+    "chunking",
+    "portfolio",
+    "product strategy",
+    "case study",
+    "yaml",
+    "regex",
+    "literature",
+    "public-domain",
+    "philosophy",
+    "curation",
+    "course-design",
+    "utopian",
+    "reading",
+    "editor",
+    "ux",
+    "text-editing",
+    "text",
+    "headings",
+    "roman numerals",
+    "text processing",
+    "js",
+    "parsing",
+    "file-processing",
+    "book-design",
+    "batch",
+    "audiobook",
+    "data-cleanup",
+    "repo-management",
+    "github",
+    "virtualenv",
+    "digital products",
+    "store design",
+    "collections",
+    "site-structure",
+    "bookstore",
+    "speech-to-speech",
+    "domains",
+    "migration",
+    "dns",
+    "namecheap",
+    "google workspace",
+    "admin",
+    "domain-transfer",
+    "vercel",
+    "backups",
+    "authentication",
+    "repository",
+    "projects",
+    "patching",
+    "file-management",
+    "nodejs",
+    "nlp",
+    "images",
+    "wikimedia",
+    "wikipedia",
+    "project-design",
+    "experiments",
+    "data-transformation",
+    "data-cleaning",
+    "classic books",
+    "llm",
+    "tooling",
+    "originality",
+    "editorial",
+    "prompting",
+    "history",
+    "speculation",
+    "reflection",
+    "prosperity",
+    "self-management",
+    "data-pipeline",
+    "jsonl",
+    "project-pipeline",
+    "evaluation",
+    "web-tools",
+    "rendering",
+    "content-pipeline",
+    "content strategy",
+    "scheduling",
+    "tagging",
+    "newsletter",
+    "substack",
+    "book-modernizer",
+    "data-processing",
+    "project-management",
+    "book-covers",
+    "judgment",
+    "skills",
+    "management",
+    "music",
+    "troubleshooting",
+    "validation"
+  ],
+  "skills_demonstrated": [
+    "python scripting",
+    "prompt engineering",
+    "text cleaning",
+    "regular expressions",
+    "ai pipeline design",
+    "markdown and ebook formatting",
+    "automation",
+    "troubleshooting",
+    "api integration",
+    "data preprocessing",
+    "iterative debugging",
+    "workflow documentation",
+    "web scraping",
+    "natural language processing",
+    "file conversion",
+    "ebook formatting",
+    "website setup",
+    "marketing content creation",
+    "audiobook pipeline development",
+    "problem solving",
+    "batch processing",
+    "text cleaning and normalization",
+    "workflow automation",
+    "file format troubleshooting",
+    "publishing automation",
+    "html/css/javascript tool development",
+    "metadata management",
+    "audiobook production",
+    "process automation",
+    "audio engineering",
+    "text-to-speech integration",
+    "metadata handling",
+    "markdown parsing",
+    "ffmpeg command-line usage",
+    "normalization and compression",
+    "digital publishing",
+    "cover design",
+    "troubleshooting and debugging",
+    "markdown processing",
+    "batch automation",
+    "audio processing",
+    "ffmpeg usage",
+    "git repository management",
+    "shopify store and CSV editing",
+    "metadata organization",
+    "dns and email migration",
+    "debugging",
+    "web tool development",
+    "pipeline design",
+    "data cleaning",
+    "automated publishing",
+    "nlp and ai integration",
+    "file management",
+    "csv automation",
+    "pdf generation"
+  ],
+  "entities": [
+    {
+      "name": "Project Gutenberg",
+      "note": "I used text from Project Gutenberg as input for my pipeline, worked with its formatting quirks, and cleaned its footnotes and headings for further processing."
+    },
+    {
+      "name": "OpenAI API",
+      "note": "I integrated and used the OpenAI API for multi-pass AI rewriting, modernizing, and summarizing public domain texts, using prompt templates and chunked text."
+    },
+    {
+      "name": "Python",
+      "note": "I used Python to write, refine, and run scripts for cleaning, processing, extracting, chunking, and formatting text files for ebook production."
+    },
+    {
+      "name": "cleaner.py",
+      "note": "I created and repeatedly refined cleaner.py to strip headers, preserve paragraphs, remove footnotes, and prepare text chunks for AI processing."
+    },
+    {
+      "name": "transformer.py",
+      "note": "I built transformer.py to handle the API-side rewriting or summarization of text chunks with custom prompts."
+    },
+    {
+      "name": "config.py",
+      "note": "I used config.py to organize, update, and experiment with prompt instructions and temperature settings for each processing pass."
+    },
+    {
+      "name": "main.py",
+      "note": "I updated and rewrote main.py to orchestrate multi-stage processing passes and manage per-pass settings."
+    },
+    {
+      "name": "OpenAI Python library",
+      "note": "I installed and set up the OpenAI Python library to enable API requests and processed text in my scripts."
+    },
+    {
+      "name": "VS Code",
+      "note": "I used VS Code to write, edit, inspect, and debug my Python scripts and markdown files, and to find and remove leftover HTML tags."
+    },
+    {
+      "name": "Gutenberg Rewriter",
+      "note": "I developed and evolved my Gutenberg Rewriter project into a modular pipeline to process public domain books."
+    },
+    {
+      "name": "PowerShell",
+      "note": "I used PowerShell to set environment variables for the OpenAI API key and to run Pandoc commands."
+    },
+    {
+      "name": "system message",
+      "note": "I rewrote and tuned the system message driving the AI's output style and tone during rewriting."
+    },
+    {
+      "name": "prompt template",
+      "note": "I created and revised reusable prompt templates to shape the AI's transformations, especially for stylistic fidelity."
+    },
+    {
+      "name": "Claude (Anthropic)",
+      "note": "I considered experimenting with Claude as an alternative AI for more controlled rewriting."
+    },
+    {
+      "name": "AI rewriting pipeline",
+      "note": "I designed and rebuilt a pipeline using multiple scheduled passes for more control and consistency in output."
+    },
+    {
+      "name": "Critique of Pure Reason",
+      "note": "I used the full text as a test case and successfully ran it through my entire pipeline (with cost tracking and analysis)."
+    },
+    {
+      "name": "Internet Archive",
+      "note": "I considered the Internet Archive as an alternate source for public domain book scans."
+    },
+    {
+      "name": "HathiTrust Digital Library",
+      "note": "I evaluated HathiTrust as another source for high-quality public domain book scans."
+    },
+    {
+      "name": "Pandoc",
+      "note": "I used Pandoc to convert markdown output to EPUB, add covers, TOCs, and manage chapter splitting and metadata."
+    },
+    {
+      "name": "Calibre",
+      "note": "I used Calibre to preview the generated EPUB files for layout and conversion issues."
+    },
+    {
+      "name": "markdown",
+      "note": "I used markdown as my working and transition format for structuring headings, paragraphs, and metadata in ebooks."
+    },
+    {
+      "name": "Google Docs",
+      "note": "I exported source materials and drafts from Google Docs, uncovered hidden HTML tags, and wrote scripts to clean up exported markdown."
+    },
+    {
+      "name": "Project Gutenberg rewriting business",
+      "note": "I continued developing a business that rewrites public domain books using AI."
+    },
+    {
+      "name": "Wix",
+      "note": "I experimented with Wix for my website before switching due to poor responsiveness."
+    },
+    {
+      "name": "nltk",
+      "note": "I used nltk for text preprocessing tasks like sentence tokenization."
+    },
+    {
+      "name": "agent mode",
+      "note": "I explored how agent or automation features could handle marketing and workflow tasks in my business."
+    },
+    {
+      "name": "Zapier",
+      "note": "I considered Zapier for simple workflow automation but did not fully implement it."
+    },
+    {
+      "name": "gutenberg-dammit",
+      "note": "I evaluated gutenberg-dammit for text discovery but eventually worked without it."
+    },
+    {
+      "name": "beautifulsoup4",
+      "note": "I used beautifulsoup4 to scrape and parse HTML for text discovery on Project Gutenberg and Congress.gov."
+    },
+    {
+      "name": "requests",
+      "note": "I used requests for web scraping tasks like downloading books and government records."
+    },
+    {
+      "name": "openai",
+      "note": "I used openai for GPT-powered book discovery and rewriting steps."
+    },
+    {
+      "name": "cleaned_books",
+      "note": "I used and populated this folder with processed and cleaned book text files."
+    },
+    {
+      "name": "excerpted_books",
+      "note": "I created a folder to store 1000-word excerpts from my cleaned book files."
+    },
+    {
+      "name": "rewriter pipeline",
+      "note": "I built a pipeline to automate rewriting book excerpts with GPT and integrate it with my automation scripts."
+    },
+    {
+      "name": "batch_rewriter.py",
+      "note": "I wrote batch_rewriter.py to automate rewriting all files in a folder."
+    },
+    {
+      "name": "KantCleaner",
+      "note": "I used my custom KantCleaner module as part of the text cleaning process in the rewriter pipeline."
+    },
+    {
+      "name": "KantTransformer",
+      "note": "I used KantTransformer for the text transformation step in my workflow."
+    },
+    {
+      "name": "GPT-4o",
+      "note": "I used GPT-4o for creating marketing assets from book content."
+    },
+    {
+      "name": "marketing_agent.py",
+      "note": "I built marketing_agent.py to automate marketing asset generation."
+    },
+    {
+      "name": "book comparison script",
+      "note": "I developed scripts to generate side-by-side comparison files of original and rewritten texts, both in HTML and plain text."
+    },
+    {
+      "name": "HTML",
+      "note": "I created HTML files to show side-by-side comparisons of book excerpts."
+    },
+    {
+      "name": "rewritten_books",
+      "note": "I processed rewritten book files in multiple formats for comparison and publishing."
+    },
+    {
+      "name": "book_comparator.py",
+      "note": "I created and updated book_comparator.py for sentence and paragraph-level comparisons."
+    },
+    {
+      "name": "AI audiobook tools",
+      "note": "I researched options and began building a pipeline for automated AI audiobook creation using TTS APIs."
+    },
+    {
+      "name": "ElevenLabs",
+      "note": "I evaluated and planned to use ElevenLabs TTS for audiobook narration because it supports SSML and long-form content."
+    },
+    {
+      "name": "OpenAI TTS",
+      "note": "I evaluated OpenAI TTS but found it was limited for long audiobooks due to character limits and SSML support."
+    },
+    {
+      "name": "Google Cloud TTS",
+      "note": "I researched Google Cloud TTS as a cost-effective alternative for text-to-speech."
+    },
+    {
+      "name": "ChatGPT",
+      "note": "I used ChatGPT for SSML tagging and for generating summaries and content, including social media posts."
+    },
+    {
+      "name": "SSML",
+      "note": "I used and learned about SSML for controlling speech in generated audiobooks."
+    },
+    {
+      "name": "Markdown (.md) files",
+      "note": "I used markdown files throughout as the main source format for manuscripts and for editing content."
+    },
+    {
+      "name": "Congressional Record",
+      "note": "I scraped and processed the Congressional Record for plain text documents to adapt and rewrite."
+    },
+    {
+      "name": "pdfplumber",
+      "note": "I used pdfplumber to extract text from multi-column PDFs with custom cropping to get the correct reading order."
+    },
+    {
+      "name": "NASA Technical Reports",
+      "note": "I discovered NASA Technical Reports as a modern public domain source I could adapt."
+    },
+    {
+      "name": "Supreme Court decisions",
+      "note": "I identified Supreme Court decisions as public domain legal texts with adaptation potential."
+    },
+    {
+      "name": "Congress.gov",
+      "note": "I used Congress.gov as the source for Congressional Record TXT files, scraping them via browser and script-based automation."
+    },
+    {
+      "name": "BeautifulSoup",
+      "note": "I consistently used BeautifulSoup for HTML parsing during web scraping projects."
+    },
+    {
+      "name": "Playwright",
+      "note": "I set up and used Playwright to automate browser scraping, bypassing anti-bot protections on Congress.gov."
+    },
+    {
+      "name": "Selenium",
+      "note": "I briefly considered Selenium for browser automation but chose Playwright instead."
+    },
+    {
+      "name": "Chromium",
+      "note": "I installed and used Chromium alongside Playwright to enable headless browsing."
+    },
+    {
+      "name": "CongressScraper.py",
+      "note": "I wrote, debugged, and updated CongressScraper.py to extract Congressional Record content with a browser automation approach."
+    },
+    {
+      "name": "Adobe Acrobat Pro DC",
+      "note": "I considered using Adobe Acrobat Pro DC for high quality OCR of Congressional Record PDFs."
+    },
+    {
+      "name": "ABBYY FineReader",
+      "note": "I considered ABBYY FineReader as a desktop OCR tool for complex PDFs."
+    },
+    {
+      "name": "pdf2docx",
+      "note": "I looked at pdf2docx for converting PDFs to editable documents as an extraction fallback."
+    },
+    {
+      "name": "pytesseract",
+      "note": "I considered using pytesseract for OCR with PDF images."
+    },
+    {
+      "name": "PDF Plumber",
+      "note": "I used PDF Plumber for fine-grained PDF text extraction and layout handling."
+    },
+    {
+      "name": "regex",
+      "note": "I wrote regex functions to clean headers, footers, and broken line wraps in extracted text."
+    },
+    {
+      "name": "CREC-2025-07-21.pdf",
+      "note": "I used this Congressional Record PDF as a test case for my multi-column extraction experiments."
+    },
+    {
+      "name": "column specifications",
+      "note": "I defined region boundaries to extract just the main column text from multi-column documents."
+    },
+    {
+      "name": "PLOS",
+      "note": "I picked scientific articles from PLOS due to their open license and summarized them with AI."
+    },
+    {
+      "name": "arXiv",
+      "note": "I checked arXiv as another potential source for reusable scientific articles."
+    },
+    {
+      "name": "public domain / Creative Commons licenses",
+      "note": "I targeted articles with public domain or open Creative Commons licensing so I could adapt them for my business."
+    },
+    {
+      "name": "Website",
+      "note": "I planned to publish adapted content including full-length articles and visuals on my site, focusing on SEO."
+    },
+    {
+      "name": "Facebook",
+      "note": "I formatted and posted medium-length summaries and discussions on Facebook as part of my marketing."
+    },
+    {
+      "name": "Instagram",
+      "note": "I learned and practiced content techniques for Instagram, focusing especially on carousels and Reels for growth."
+    },
+    {
+      "name": "Canva",
+      "note": "I used Canva for quick design of graphics, quote cards, and carousel slides for social media content."
+    },
+    {
+      "name": "CapCut",
+      "note": "I evaluated CapCut for making Instagram Reels and adding music to social videos."
+    },
+    {
+      "name": "Instagram carousel script",
+      "note": "I created sample carousel scripts to test Instagram content workflows."
+    },
+    {
+      "name": "Facebook Reel caption",
+      "note": "I experimented with short-form copywriting for Facebook and Instagram Reels."
+    },
+    {
+      "name": "blog post",
+      "note": "I drafted and tested blogging workflows for long-form content adaptation."
+    },
+    {
+      "name": "PLOS Complex Systems",
+      "note": "I referenced and summarized an article from this journal about climate chaos and human cooperation."
+    },
+    {
+      "name": "classical paintings",
+      "note": "I explored using classical paintings as visuals for science communication posts to boost engagement."
+    },
+    {
+      "name": "headings-wrapper script",
+      "note": "I refined my script for better heading detection and formatting during manuscript processing."
+    },
+    {
+      "name": "text file",
+      "note": "I used sample text files to test heading detection and other text-processing scripts."
+    },
+    {
+      "name": "Mailchimp",
+      "note": "I considered Mailchimp for scalable email marketing and automation."
+    },
+    {
+      "name": "Blog",
+      "note": "I set up my blog as part of my web presence and focused initial content on SEO."
+    },
+    {
+      "name": "Email list",
+      "note": "I worked on building an early-stage email list and adding a lead magnet."
+    },
+    {
+      "name": "AI image generation",
+      "note": "I used AI tools to generate playful variations of images for content marketing."
+    },
+    {
+      "name": "Pinetools",
+      "note": "I used Pinetools to split images into slides for Instagram carousels."
+    },
+    {
+      "name": "Instagram Reels",
+      "note": "I realized and acted on the importance of Reels for Instagram growth."
+    },
+    {
+      "name": "Meta Business Suite",
+      "note": "I considered Meta Business Suite for scheduled posting and multi-platform coordination."
+    },
+    {
+      "name": "Shopify",
+      "note": "I migrated my website to Shopify for ecommerce, digital download sales, and better design."
+    },
+    {
+      "name": "Wix Studio",
+      "note": "I evaluated Wix Studio as an option before moving to Shopify."
+    },
+    {
+      "name": "Shopify Domains",
+      "note": "I learned how to connect and transfer domains for my new Shopify site."
+    },
+    {
+      "name": "FlickRocket (Digital Content Sales with DRM)",
+      "note": "I learned about FlickRocket as a DRM delivery option for digital books on Shopify."
+    },
+    {
+      "name": "Sky Pilot",
+      "note": "I considered Sky Pilot for digital downloads with watermarking, branding, and light DRM-like features."
+    },
+    {
+      "name": "Filemonk",
+      "note": "I considered Filemonk as a simple Shopify app for digital downloads with watermarking."
+    },
+    {
+      "name": "Uplinkly Digital Downloads",
+      "note": "I reviewed Uplinkly as a basic non-DRM download tool."
+    },
+    {
+      "name": "Lulu",
+      "note": "I prepared print-ready PDFs to upload to Lulu for print-on-demand book sales."
+    },
+    {
+      "name": "Markdown",
+      "note": "I used Markdown for nearly all manuscript and content writing and conversion steps."
+    },
+    {
+      "name": "Digital Content Sales with DRM",
+      "note": "I evaluated this for stronger DRM if digital book piracy became an issue."
+    },
+    {
+      "name": "Shopify Digital Downloads",
+      "note": "I used and evaluated Shopify's own basic digital downloads app."
+    },
+    {
+      "name": "MiKTeX",
+      "note": "I installed, uninstalled, and reinstalled MiKTeX several times to get PDF generation working for my book formatting needs."
+    },
+    {
+      "name": "xelatex",
+      "note": "I troubleshot xelatex's availability for PDF generation in my Pandoc workflow."
+    },
+    {
+      "name": "MiKTeX Console",
+      "note": "I used MiKTeX Console to try package installs and system settings."
+    },
+    {
+      "name": "TeX Live",
+      "note": "I considered switching to TeX Live after failing to get MiKTeX working."
+    },
+    {
+      "name": "Overleaf",
+      "note": "I switched to Overleaf for LaTeX-based book production when local installations failed."
+    },
+    {
+      "name": "LaTeX",
+      "note": "I wrote, structured, and edited LaTeX files for book layout before choosing Word for simpler needs."
+    },
+    {
+      "name": "Microsoft Word",
+      "note": "I formatted my book in Microsoft Word for A5 layout for Lulu printing."
+    },
+    {
+      "name": "CSS",
+      "note": "I wrote custom CSS to style the EPUB table of contents and tweak layout for ebook readers."
+    },
+    {
+      "name": "EPUB",
+      "note": "I generated and tweaked EPUB files for publishing and for tests on multiple reader devices."
+    },
+    {
+      "name": "Word",
+      "note": "I used Word to layout my print book after deciding LaTeX-based workflows were too complex."
+    },
+    {
+      "name": "Kindle",
+      "note": "I tested my EPUB on Kindle and discovered it sometimes overrides custom CSS."
+    },
+    {
+      "name": "Apple Books",
+      "note": "I tested EPUB compatibility with Apple Books and confirmed support for my custom CSS."
+    },
+    {
+      "name": "Google Play Books",
+      "note": "I tested EPUB CSS on Google Play Books with positive results."
+    },
+    {
+      "name": "Kobo",
+      "note": "I checked the EPUB on Kobo and found it respected my CSS tweaks."
+    },
+    {
+      "name": "pandoc",
+      "note": "I continued using pandoc to convert markdown to EPUB for publishing with custom CSS styling."
+    },
+    {
+      "name": "prompts.json",
+      "note": "I centralized all rewrite/classification prompts in this JSON file and referenced it across scripts."
+    },
+    {
+      "name": "truncate.py",
+      "note": "I wrote and refined this script for creating clean test excerpts and managing text chunking."
+    },
+    {
+      "name": "batch_apply.py",
+      "note": "I created this as a reusable Python utility to run other scripts over large folders of files for cleaning and processing."
+    },
+    {
+      "name": "remove_footnotes.py",
+      "note": "I built this script, tuned it with real data, and integrated it in the batch cleaning stage to remove footnotes."
+    },
+    {
+      "name": "number_paragraphs.py",
+      "note": "I updated this script to flexibly number paragraphs and create JSONL exports for further use."
+    },
+    {
+      "name": "filter_paragraphs.py",
+      "note": "I designed, refactored, and ran this tool to split main text from headings, captions, and junk content."
+    },
+    {
+      "name": "lit_operator.py",
+      "note": "I built prompts and outputs for this batch LLM classifier, integrating it into my junk filtering system."
+    },
+    {
+      "name": "apply_overlay.py",
+      "note": "I wrote this script to apply book-specific cleaning instructions from JSON overlays to raw files."
+    },
+    {
+      "name": "jsonl_to_txt.py",
+      "note": "I used this script to convert cleaned and structured JSONL files back into text format for further publishing steps."
+    },
+    {
+      "name": "HTML/JS viewer",
+      "note": "I built interactive browser tools for editing and visualizing heading structure and comparing original vs. rewritten texts."
+    },
+    {
+      "name": "InDesign",
+      "note": "I set up automated, template-driven cover generation using CSV and InDesign's Data Merge and scripting features."
+    },
+    {
+      "name": "book_metadata.json",
+      "note": "I kept all book-level metadata here for use in front-matter, covers, and audio manifests."
+    },
+    {
+      "name": "normalize_for_tts.py",
+      "note": "I designed and refined this script for readying text for TTS: fixing italics, punctuation, spacing, and headings."
+    },
+    {
+      "name": "ffmpeg",
+      "note": "I used ffmpeg for audio concatenation, metadata embedding, chapter marker addition, and cover image embedding for M4B/MP3 audiobooks."
+    },
+    {
+      "name": "build_m4b.py",
+      "note": "I wrote this Python script to automate creation of chaptered M4B audiobooks from audio chunks, covers, and manifest metadata."
+    },
+    {
+      "name": "CSV",
+      "note": "I created, populated, and validated CSV files for cover and metadata batch processing."
+    },
+    {
+      "name": "Gutenberg project",
+      "note": "I focused on the publishing and distribution aspects, including covers, branding, Shopify setup, and marketing systems."
+    },
+    {
+      "name": "Figma",
+      "note": "I considered Figma for scalable cover and visual identity system work, and for clean SVG logo export."
+    },
+    {
+      "name": "Gutenberg",
+      "note": "I matched file naming conventions and processed content from Project Gutenberg to integrate into my audiobook workflow."
+    },
+    {
+      "name": "Publisher theme",
+      "note": "I explored Shopify’s Publisher theme and learned about its header font limitations for my branding."
+    },
+    {
+      "name": "Adobe Illustrator",
+      "note": "I modified logos, recolored artwork, and exported assets in vector formats for covers and site headers."
+    },
+    {
+      "name": "SVG",
+      "note": "I experimented with SVG exports for logos and considered vectorization approaches for consistent branding."
+    },
+    {
+      "name": "Image Trace",
+      "note": "I used Illustrator’s Image Trace to help vectorize raster art into SVG for logos."
+    },
+    {
+      "name": "Audible",
+      "note": "I evaluated Audible as a sales channel but ultimately chose Shopify due to royalty and brand control limits."
+    },
+    {
+      "name": "Spotify",
+      "note": "I considered Spotify as another secondary distribution channel for audiobooks."
+    },
+    {
+      "name": "AWS S3",
+      "note": "I considered using AWS S3 for delivering digital audiobook files securely."
+    },
+    {
+      "name": "Bunny.net",
+      "note": "I evaluated Bunny.net for secure and efficient audiobook delivery."
+    },
+    {
+      "name": "Cloudflare R2",
+      "note": "I considered Cloudflare R2 for secure audiobook file hosting and delivery."
+    },
+    {
+      "name": "digital delivery app",
+      "note": "I chose Sky Pilot as my digital delivery app in Shopify, after reviewing several options."
+    },
+    {
+      "name": "Audible/ACX",
+      "note": "I learned Audible did not accept AI-narrated audiobooks, influencing my choice to focus on Shopify."
+    },
+    {
+      "name": "YouTube",
+      "note": "I identified YouTube as a piracy risk and planned to monitor and issue DMCA takedowns if necessary."
+    },
+    {
+      "name": "DMCA takedowns",
+      "note": "I planned to use DMCA requests to remove pirated content from public platforms."
+    },
+    {
+      "name": "bundles",
+      "note": "I planned, structured, and bundled multiple audiobooks for value and customer retention."
+    },
+    {
+      "name": "MusicBrainz Picard",
+      "note": "I considered it as a manual tool for embedding covers in a small set of audio files."
+    },
+    {
+      "name": "MP3",
+      "note": "I encoded audiobook outputs as MP3, attaching covers and metadata after stitching and normalization."
+    },
+    {
+      "name": "M4B",
+      "note": "I produced and refined M4B audiobooks with embedded chapters and artwork, optimized for delivery."
+    },
+    {
+      "name": "FetchApp",
+      "note": "I reviewed and rejected FetchApp due to inflexibility and outdated UI."
+    },
+    {
+      "name": "tiered pricing",
+      "note": "I applied tiered pricing to my short works versus full-length books for clarity and perceived value."
+    },
+    {
+      "name": "micro-market strategy",
+      "note": "I explored and defined micro-market strategies to target niche audiences by style, format, and persona."
+    },
+    {
+      "name": "rewrite styles",
+      "note": "I designed distinct system prompts for tactical and literary journalism rewrites, aiming for clarity and market fit."
+    },
+    {
+      "name": "narrative voice personas",
+      "note": "I crafted personas (like 'elder authority' and 'world-weary insider') to guide and brand narration choices."
+    },
+    {
+      "name": "tactical rewrite prompt",
+      "note": "I wrote system prompts specifically to generate applied, actionable versions of philosophical texts."
+    },
+    {
+      "name": "literary journalism rewrite prompt",
+      "note": "I developed prompt templates for rich narrative audio based on classic journalism styles."
+    },
+    {
+      "name": "micro-markets",
+      "note": "I analyzed and targeted promising sub-audiences for audiobook rewrites."
+    },
+    {
+      "name": "TTS voice settings",
+      "note": "I experimented with TTS parameter tuning to fine-tune voice appeal and stability."
+    },
+    {
+      "name": "broad-appeal audiobook voice profile",
+      "note": "I defined voice settings with maximum acceptance and sales potential for the general public."
+    },
+    {
+      "name": "TTS narration",
+      "note": "I tested and studied the effect of text structure and chunking on synthetic voice quality."
+    },
+    {
+      "name": "semantic prosody drift",
+      "note": "I explored how semantic and rhetorical cues push TTS systems into different speech patterns."
+    },
+    {
+      "name": "TTS (Text-to-Speech)",
+      "note": "I integrated, tuned, and automated text-to-audio output using different TTS engines."
+    },
+    {
+      "name": "prosody tags",
+      "note": "I scripted and selectively applied prosody tags to control synthetic speech pacing."
+    },
+    {
+      "name": "chunking",
+      "note": "I designed scripts to break and process long works into TTS-manageable pieces."
+    },
+    {
+      "name": "temperature (TTS parameter)",
+      "note": "I tuned temperature for prosody consistency and pacing normalization in TTS."
+    },
+    {
+      "name": "rhetorical analysis",
+      "note": "I leveraged rhetorical and structural analysis to improve TTS output segmentation and prosody."
+    },
+    {
+      "name": "SSML prosody tags",
+      "note": "I batch-processed and embedded prosody tags in text to control TTS pacing in audiobooks."
+    },
+    {
+      "name": "TTS",
+      "note": "I iteratively tested and optimized TTS voice, pace, and output quality across several platforms."
+    },
+    {
+      "name": "Eleven Labs",
+      "note": "I switched between their web UI and API for batch TTS, troubleshooting input and output consistency."
+    },
+    {
+      "name": "Democracy in America",
+      "note": "I estimated TTS costs for a long audiobook project as part of workflow and pricing experiments."
+    },
+    {
+      "name": "OpenAI Text-to-Speech",
+      "note": "I built batch scripts and ran large-scale audio generation using OpenAI TTS, including evaluation of models and pricing."
+    },
+    {
+      "name": "python",
+      "note": "I used Python as the main automation and glue language for my pipeline."
+    },
+    {
+      "name": "manifest.json",
+      "note": "I used and updated manifest.json files to track chunks, metadata, and output files across all steps."
+    },
+    {
+      "name": "audio_manifest.json",
+      "note": "I produced and checked audio_manifest.json to track chunked audio results."
+    },
+    {
+      "name": "tts-1-hd",
+      "note": "I tested and set up default processing with the tts-1-hd OpenAI voice model for audiobook generation."
+    },
+    {
+      "name": "gpt-4o-mini-tts",
+      "note": "I leveraged this OpenAI voice model for instruction-tuned narration and high expressiveness in batch scripts."
+    },
+    {
+      "name": "projects/gutenberg_v3",
+      "note": "I kept and organized major code in my books project structure for reusability."
+    },
+    {
+      "name": "openai Python library",
+      "note": "I used it for API calls to OpenAI TTS services."
+    },
+    {
+      "name": "Azure Neural TTS",
+      "note": "I set up and automated batch audio synthesis, choosing stable voices and managing API resources across regions."
+    },
+    {
+      "name": "Microsoft Azure",
+      "note": "I set up a Speech resource and handled credentials for TTS testing."
+    },
+    {
+      "name": "API credentials",
+      "note": "I managed API keys as environment variables for safe and persistent cloud access."
+    },
+    {
+      "name": "Azure Speech",
+      "note": "I tested, debugged region and audio format issues, and compared naming conventions to select stable voices."
+    },
+    {
+      "name": "md_to_azure_tts_v1.py",
+      "note": "I ran and refined this script for batch TTS synthesis and SSML handling."
+    },
+    {
+      "name": "Azure Speech SDK",
+      "note": "I used it for programmable TTS and troubleshooting SSML pipeline bugs."
+    },
+    {
+      "name": "en-US-GuyNeural",
+      "note": "I selected this as the primary Azure TTS voice for narration, due to its reliability."
+    },
+    {
+      "name": "en-US-AriaNeural",
+      "note": "I considered this as a female-voiced alternate for narration."
+    },
+    {
+      "name": "en-GB-RyanNeural",
+      "note": "I shortlisted this as a best option for British-accented narration."
+    },
+    {
+      "name": "en-GB-Ollie:DragonHDLatestNeural",
+      "note": "I learned about naming mismatches between the web UI and API and why this display name led to silent failures."
+    },
+    {
+      "name": "Azure Speech Studio",
+      "note": "I previewed neural voices and tested settings within Azure's web UI."
+    },
+    {
+      "name": "DragonHDLatestNeural",
+      "note": "I discovered this voice was region-restricted and fragile in batch synthesis."
+    },
+    {
+      "name": "en-GB-OllieNeural",
+      "note": "I picked this as a stable, predictable British English TTS voice for batch production."
+    },
+    {
+      "name": "Azure SSML",
+      "note": "I studied and tailored SSML applications specifically for Azure voices and features."
+    },
+    {
+      "name": "OpenAI",
+      "note": "I used its API and models for TTS, prompt engineering, and automated SSML markup via lit_operator."
+    },
+    {
+      "name": "lit_operator",
+      "note": "I ran audiobook text through this OpenAI-driven process to add expressive SSML markup."
+    },
+    {
+      "name": "Azure Neural Text-to-Speech",
+      "note": "I embedded and tested SSML tag use and audio pacing for professional batch narration."
+    },
+    {
+      "name": "audiobook production",
+      "note": "I implemented hands-on quality and consistency workflows in all steps from text to audio and delivery."
+    },
+    {
+      "name": "pydub",
+      "note": "I analyzed using pydub for applying fade effects and smoothing transitions between TTS clips."
+    },
+    {
+      "name": "Azure WAV",
+      "note": "I clarified the structure of raw WAV files produced from batch Azure synthesis."
+    },
+    {
+      "name": "audiobook pipeline",
+      "note": "I built, tested, and refined a complete process from input text chunking to final, normalized, cover-enhanced audio output."
+    },
+    {
+      "name": "ffprobe",
+      "note": "I used ffprobe for measuring durations, checking channels, and validating file outputs throughout the pipeline."
+    },
+    {
+      "name": "argparse",
+      "note": "I made my Python scripts flexible and robust by handling CLI arguments with argparse."
+    },
+    {
+      "name": "loudnorm",
+      "note": "I used the loudnorm filter in ffmpeg for two-pass EBU R128 loudness normalization, tracking stats to verify results."
+    },
+    {
+      "name": "Azure",
+      "note": "I processed Azure TTS backups for large audiobook workflows and managed complex audio chunking and restoration."
+    },
+    {
+      "name": "Kant audiobook project",
+      "note": "I stitched, normalized, and verified long-form audio output for my Kant project."
+    },
+    {
+      "name": "Lenovo Slim3 15",
+      "note": "I used this hardware for local, extended loudness normalization and large audio rendering tasks."
+    },
+    {
+      "name": "HeyGen",
+      "note": "I considered this AI talking head generator for making philosophical book videos, weighing local and cloud render cost and speed."
+    },
+    {
+      "name": "Wav2Lip",
+      "note": "I studied and calculated the practical speed of lip-sync video rendering with this model on my hardware."
+    },
+    {
+      "name": "SadTalker",
+      "note": "I evaluated SadTalker for AI-driven talking head animation and video essay prototyping."
+    },
+    {
+      "name": "D-ID",
+      "note": "I reviewed D-ID as a commercial API for animated head video assets for book essays."
+    },
+    {
+      "name": "cinematic audiobook",
+      "note": "I planned to develop video essays with subtle motion overlays for my branded audio content."
+    },
+    {
+      "name": "Python script (stitch_tts_chunks_v2_normalize.py)",
+      "note": "I used and patched this core script for audio stitching, normalization, and bugfixes."
+    },
+    {
+      "name": "Project Gutenberg modernization",
+      "note": "I worked on updating classics—like Kant—with new text chunking, expressive audio, and video production pipelines."
+    },
+    {
+      "name": "VLC Media Player",
+      "note": "I used it to spot-check M4B chapter appearance and seek issues."
+    },
+    {
+      "name": "Smart Audiobook Player",
+      "note": "I tested chapter and metadata compatibility for output M4B files."
+    },
+    {
+      "name": "MD chunker",
+      "note": "I refactored my Markdown chunker to pull out and store real chapter titles from markdown headings."
+    },
+    {
+      "name": "audiobook stitcher",
+      "note": "I overhauled chapter break handling to use manifest-derived section boundaries for smarter chaptering."
+    },
+    {
+      "name": "Azure DragonHD",
+      "note": "I monitored and worked around its dynamic loudness quirks for more stable narration outputs."
+    },
+    {
+      "name": "acompressor",
+      "note": "I added ffmpeg's acompressor as a gentle pre-normalization filter to level up local loudness differences in TTS segments."
+    },
+    {
+      "name": "chunker script",
+      "note": "I refactored it for more stable and accurate extraction of chapter titles for manifest use."
+    },
+    {
+      "name": "manifest",
+      "note": "I iterated on the manifest schema to clearly track file order, chapter starts, and titles for the full audiobook path."
+    },
+    {
+      "name": "audio chunking pipeline",
+      "note": "I incrementally improved the logic and metadata extraction for accurate chapter boundaries and simplified workflow."
+    },
+    {
+      "name": "MP3 ZIPs",
+      "note": "I compared MP3 ZIPs to M4B for delivery and efficiency, deciding to favor M4B for better customer experience and cost."
+    },
+    {
+      "name": "build_manifest.json",
+      "note": "I updated this manifest to carry clean chapter titles derived from Markdown headings for reliable audiobook chapter markers."
+    },
+    {
+      "name": "text chunk manifest",
+      "note": "I generated and used manifests from chunking to drive chapter generation in the audio pipeline."
+    },
+    {
+      "name": "chapter metadata",
+      "note": "I enabled and debugged chapter marker support in my pipeline for M4B export."
+    },
+    {
+      "name": "chapters.ffmetadata",
+      "note": "I generated and passed this file to ffmpeg for embedding chapters in my audiobooks."
+    },
+    {
+      "name": "real estate case study pipeline",
+      "note": "I briefly brainstormed modular approaches for case studies and phased tool expansion."
+    },
+    {
+      "name": "zoning feasibility analyzer",
+      "note": "I listed this as a candidate for case study tools in later portfolio phases."
+    },
+    {
+      "name": "code-aware maintenance triage engine",
+      "note": "I earmarked this as a second-phase high-value module for property automation."
+    },
+    {
+      "name": "permit delay risk predictor",
+      "note": "I flagged this as a future integration target for my real estate automation suite."
+    },
+    {
+      "name": "RF64",
+      "note": "I enabled this format in ffmpeg to support large, normalized WAV files for long audiobooks."
+    },
+    {
+      "name": "loudnorm (ffmpeg filter)",
+      "note": "I used loudnorm throughout for robust loudness normalization in audio production."
+    },
+    {
+      "name": "Python stitching script",
+      "note": "I revised the script to batch-attach covers, clean up chapters, and handle CLI arguments for flexible use."
+    },
+    {
+      "name": "JPG cover images",
+      "note": "I standardized on JPG for broad compatibility with batch cover embedding workflows."
+    },
+    {
+      "name": "The Book Modernizer",
+      "note": "I used this identity for my publishing project, organizing modern editions, generating metadata, and structuring ebook production."
+    },
+    {
+      "name": "YAML metadata",
+      "note": "I structured and requested YAML metadata for public domain and modernized books, integrating it into my automation scripts."
+    },
+    {
+      "name": "Gutenberg rewriter",
+      "note": "I referred to ongoing work for modernizing and republishing Project Gutenberg texts."
+    },
+    {
+      "name": "public domain works",
+      "note": "I curated, selected, and organized public domain texts into bundles and courses for modern readers."
+    },
+    {
+      "name": "essay series bundles",
+      "note": "I curated and grouped themed books for marketing, audience targeting, and product development."
+    },
+    {
+      "name": "marketing funnel",
+      "note": "I mapped book bundles to specific audience identities and planned conversion strategies."
+    },
+    {
+      "name": "Hippies of the 19th Century",
+      "note": "I grouped works centered on spiritual, individualist, and pluralist thinkers for one essay series."
+    },
+    {
+      "name": "Explorers of Reality",
+      "note": "I made a list of classic metaphysics and epistemology works for a reading bundle."
+    },
+    {
+      "name": "The Unconscious & Modern Storytelling",
+      "note": "I selected psychoanalytic and narrative theory texts for modern storytelling-themed bundles."
+    },
+    {
+      "name": "early self-help",
+      "note": "I curated works fitting the early self-help and self-improvement tradition for my book project."
+    },
+    {
+      "name": "hippies (19th-century progressive thought)",
+      "note": "I selected and organized works that captured progressive ideas for a themed course."
+    },
+    {
+      "name": "Brook Farm",
+      "note": "I researched and included books on this American utopian commune in my list."
+    },
+    {
+      "name": "editable paragraph text boxes",
+      "note": "I made paragraphs editable for correction and markup in my web tools."
+    },
+    {
+      "name": "space bar shortcut",
+      "note": "I implemented keyboard shortcuts to navigate sections in my custom viewer."
+    },
+    {
+      "name": "UX",
+      "note": "I evaluated and tweaked UX bugs around editing and headings in my tools."
+    },
+    {
+      "name": "Heading Wrapper / Normalizer",
+      "note": "I extended this tool with batch navigation, editable text, and visual highlights for headings."
+    },
+    {
+      "name": "paragraph viewer tool",
+      "note": "I modified its heading management and editing interactions for safer workflow."
+    },
+    {
+      "name": "Roman numeral viewer tool",
+      "note": "I created logic and plans for a specialized text tool detecting and replacing Roman numerals."
+    },
+    {
+      "name": "Roman Numeral Normalizer",
+      "note": "I built a web tool to find, edit, and normalize Roman numeral headings in text documents, allowing both direct and batch corrections, with download output."
+    },
+    {
+      "name": "HTML/CSS/JavaScript",
+      "note": "I coded interactive frontends for my parsing and normalization tools."
+    },
+    {
+      "name": "Roman numeral detector script",
+      "note": "I wrote and debugged code for finding Roman numerals in lines or markdown headings."
+    },
+    {
+      "name": "detectRomanPattern",
+      "note": "I improved this function to handle complex heading formats and fix detection bugs."
+    },
+    {
+      "name": "JavaScript",
+      "note": "I wrote and refined text processing, regex matching, and UI code for my web tools."
+    },
+    {
+      "name": "Book Modernizer",
+      "note": "I used this brand in audio intros and referenced it in my processing scripts for my modern editions."
+    },
+    {
+      "name": "Azure TTS",
+      "note": "I integrated Azure text-to-speech into my pipeline by preparing chunks and batch-uploading to generate neural voices."
+    },
+    {
+      "name": "Markdown-to-TTS chunking script",
+      "note": "I refactored it to process either single markdown files or entire directories for chunking and audio conversion."
+    },
+    {
+      "name": "Azure Cognitive Services Speech",
+      "note": "I generated audio through this service as a backend for my TTS batch tools."
+    },
+    {
+      "name": "txt_to_azure_tts_v3.py",
+      "note": "I rewrote this Python batch script to accept and process multiple directories for audio generation."
+    },
+    {
+      "name": "speechsdk",
+      "note": "I used this Python library to interact with Azure's TTS programmatically."
+    },
+    {
+      "name": "stitcher script",
+      "note": "I expanded and automated my audio stitcher to read book manifests, build final files, and embed metadata and covers in batch."
+    },
+    {
+      "name": "audio manifest / metadata",
+      "note": "I designed manifest-driven metadata and cover handling for my audio pipelines."
+    },
+    {
+      "name": "metadata JSON",
+      "note": "I structured a manifest file for holding per-book metadata and controlling batch audio rendering."
+    },
+    {
+      "name": "EBU R128 normalization",
+      "note": "I implemented EBU R128 normalization methods via ffmpeg for consistent output levels in audiobooks."
+    },
+    {
+      "name": "metadata handling",
+      "note": "I programmed flexible reading and merging of metadata for audiobooks, supporting user options and default behaviors."
+    },
+    {
+      "name": "Gutenberg v3",
+      "note": "I advanced my Gutenberg v3 tools for audio pipelines and handled new files and test prompts inside the project."
+    },
+    {
+      "name": "gutenberg_v3",
+      "note": "I worked within this directory, creating new essay files, configs, and outputs."
+    },
+    {
+      "name": "JPEG",
+      "note": "I standardized on the JPEG image format for covers attached to both my MP3 and M4B audiobooks."
+    },
+    {
+      "name": "audio file patching",
+      "note": "I automated workflows for batch replacing or cleaning up broken audio files from mirrored directories."
+    },
+    {
+      "name": "Microsoft Edge",
+      "note": "I tried to use it to play .wav files and debugged audio playback issues on my system."
+    },
+    {
+      "name": "Windows Media Player",
+      "note": "I used it as a second test to check if .wav playback was failing due to system settings."
+    },
+    {
+      "name": "WAV files",
+      "note": "I checked my audio .wav files' compatibility and traced playback failures not to file corruption, but system output."
+    },
+    {
+      "name": "Windows Audio Output Device",
+      "note": "I checked and changed output settings while troubleshooting playback bugs."
+    },
+    {
+      "name": "Audio enhancements",
+      "note": "I reviewed and disabled enhancements where needed in my OS audio device configs."
+    },
+    {
+      "name": "Windows audio services",
+      "note": "I considered restarting services to address possible audio subsystem bugs."
+    },
+    {
+      "name": "git",
+      "note": "I managed version control on my repositories, fixed errors from large files, rewrote history, and corrected branch and remote issues."
+    },
+    {
+      "name": ".gitignore",
+      "note": "I edited it to keep large, generated audio files out of my repository and avoid future problems."
+    },
+    {
+      "name": "git-filter-repo",
+      "note": "I installed, configured, and ran it (sometimes inside Python virtualenvs) to clean old audio files from all history in my repo."
+    },
+    {
+      "name": "audio files (.m4b, .wav, .mp3)",
+      "note": "I pruned, managed, and replaced these in my repo, pipelines, and store products."
+    },
+    {
+      "name": "GitHub",
+      "note": "I force-pushed cleaned history and kept my project updated with file and branch configurations."
+    },
+    {
+      "name": "digital product pricing",
+      "note": "I set and refined prices on my ebook store by considering perceived value and market relevance."
+    },
+    {
+      "name": "Shopify Search & Discovery app",
+      "note": "I planned and configured filters for collections and search results so customers could browse by theme and author."
+    },
+    {
+      "name": "Shopify smart collections",
+      "note": "I created and edited these to auto-populate categories by tags for books on my store."
+    },
+    {
+      "name": "CSV import",
+      "note": "I structured my product updates and metadata via CSV for efficient Shopify batch uploading."
+    },
+    {
+      "name": "pandas",
+      "note": "I ran and shared pandas-based code to automate and debug CSV editing for Shopify imports."
+    },
+    {
+      "name": "clawbox/claudebox agent system",
+      "note": "I discussed designing an agent system that could chain APIs and automations for my workflows."
+    },
+    {
+      "name": "audio essay pipeline",
+      "note": "I mapped out a step-by-step process to write, record, and voice-convert narrated essays for more engaging audio products."
+    },
+    {
+      "name": "Respeecher",
+      "note": "I considered it as a more commercial voice conversion service option for narration."
+    },
+    {
+      "name": "Namecheap",
+      "note": "I transferred my domains here, switched DNS for continuity, and set up Private Email after the migration."
+    },
+    {
+      "name": "Google Workspace",
+      "note": "I managed, migrated, and prepared DNS for my custom mailboxes, ensuring records and authentication settings were proper during migration."
+    },
+    {
+      "name": "Google Admin Console",
+      "note": "I accessed admin settings for user and password management and got ready for transfer."
+    },
+    {
+      "name": "DNS records (MX, SPF, DKIM, TXT, CNAME)",
+      "note": "I compiled these from Wix, then recreated the necessary records at Namecheap to keep email working and secure."
+    },
+    {
+      "name": "Gmail",
+      "note": "I planned to keep Gmail services live through the migration and considered data backups."
+    },
+    {
+      "name": "Google Admin",
+      "note": "I checked authentication settings, noted the lack of DKIM, and used it to prepare the email transition."
+    },
+    {
+      "name": "DKIM authentication",
+      "note": "I discovered this was not enabled for my domain before transfer and planned to activate it afterwards for better email security."
+    },
+    {
+      "name": "Vercel",
+      "note": "I planned to use this for future website deployment as a replacement for my old Wix site."
+    },
+    {
+      "name": "DNS",
+      "note": "I migrated, claimed, and edited critical DNS records for all my web and email services."
+    },
+    {
+      "name": "danielsilbaugh.com",
+      "note": "I focused on cleaning up and rerouting email DNS records for this main domain in the migration."
+    },
+    {
+      "name": "bookmodernizer.com",
+      "note": "I confirmed that this domain was already correctly set up with Namecheap Private Email."
+    },
+    {
+      "name": "Namecheap Private Email",
+      "note": "I set up mailboxes, tested migrations, imported data, and worked through mailbox creation conflicts during cutover."
+    },
+    {
+      "name": "Google App Password",
+      "note": "I created these for secure IMAP access while migrating my mailbox from Google to Namecheap."
+    },
+    {
+      "name": "IMAP",
+      "note": "I enabled and configured IMAP on Google Workspace to allow mailbox imports to Namecheap."
+    },
+    {
+      "name": "Google Takeout",
+      "note": "I used it to archive and back up my Gmail messages before the mail cutover to Namecheap Private Email."
+    },
+    {
+      "name": "The Book Modernizer Series",
+      "note": "I used this as a branding element when generating front matter with my automation script."
+    },
+    {
+      "name": "gutenberg-md-cleanup-editor",
+      "note": "I built and refined this tool as an in-browser markdown editor to clean Gutenberg files before further processing."
+    },
+    {
+      "name": "Node.js",
+      "note": "I used Node.js for the backend file operations in my markdown cleanup editor."
+    },
+    {
+      "name": "Python cleanup script",
+      "note": "I adapted my old Python cleanup code to serve as the foundation for new cleaning features in my editor and pipeline."
+    },
+    {
+      "name": "cleanup_markdown script",
+      "note": "I improved and used this as the core for my deterministic markdown cleanups."
+    },
+    {
+      "name": "Python chunking script",
+      "note": "I debugged and analyzed this to fix chunk-duplication bugs in book files."
+    },
+    {
+      "name": "Wikimedia Commons",
+      "note": "I fetched and managed author/source images for ebook covers from Wikimedia."
+    },
+    {
+      "name": "fetch_wikimedia_author_images.py",
+      "note": "I patched and improved this script to get images and handle failures gracefully."
+    },
+    {
+      "name": "Wikipedia API",
+      "note": "I used this to resolve author titles and get reliable lead images."
+    },
+    {
+      "name": "build_shopify_products_csv.py",
+      "note": "I scripted this to generate upload-ready CSVs from my book data, handling errors and new field requirements."
+    },
+    {
+      "name": "Anti-Prince pipeline",
+      "note": "I reconstructed and standardized the logic and workflow behind my idea transformation pipeline."
+    },
+    {
+      "name": "JSON/JSONL",
+      "note": "I used JSON and JSONL for structured data flow through every pipeline and automated step."
+    },
+    {
+      "name": "prompts",
+      "note": "I crafted and tested various prompt templates to direct AI processing in principle extraction and expansion."
+    },
+    {
+      "name": "DEFAULT_SHOPIFY_COLUMNS",
+      "note": "I edited this field list to stabilize CSV generation and solve metafield issues."
+    },
+    {
+      "name": "Book Modernizer core pipeline",
+      "note": "I defined this as the main, stable branch outputting ebooks and metadata, from which derivatives flow."
+    },
+    {
+      "name": "Principle Extraction Pipeline",
+      "note": "I designed this as a modular pipeline to pull practical advice and expand it from cleaned books."
+    },
+    {
+      "name": "prepare_analysis_sources.py",
+      "note": "I created this to automate removal of non-analytical text and unclutter markdowns before AI passes."
+    },
+    {
+      "name": "book_modernizer_auto",
+      "note": "I built and used this as my main project directory, integrating pipeline scripts and managing all book, cover, and marketing files."
+    },
+    {
+      "name": "YAML pipeline",
+      "note": "I extensively used YAML to configure, structure, and automate batch script sequences."
+    },
+    {
+      "name": "analysis_block_builder.py",
+      "note": "I wrote this to split texts into semantically clean blocks for citation and extraction."
+    },
+    {
+      "name": "batch_lit_operator.py",
+      "note": "I prepared and wired this LLM batch script into my extraction workflows."
+    },
+    {
+      "name": "prompts/principle_passes.json",
+      "note": "I updated this as my template for principle extraction and citation in downstream AI stages."
+    },
+    {
+      "name": "batch_principle_extractor.py",
+      "note": "I set up and improved this batch script for extracting, scoring, and expanding principles via LLM passes."
+    },
+    {
+      "name": "principle_selection_viewer.html",
+      "note": "I built this local JS viewer to select, filter, and export principle candidates from JSONL for further review."
+    },
+    {
+      "name": "principle_selection_viewer_v3.html",
+      "note": "I patched and used this viewer to display principles with rationale and ensure clean exports."
+    },
+    {
+      "name": "select_principles.py",
+      "note": "I drafted and then built logic for this automated principle selection script."
+    },
+    {
+      "name": "select_principles_auto.py",
+      "note": "I wrote this to provide deterministic selection, scoring, and deduplication of principle entries."
+    },
+    {
+      "name": "gpt-4.1-mini",
+      "note": "I tried this LLM for attention and originality scoring but later switched to better models due to output quality."
+    },
+    {
+      "name": "gpt-4.1",
+      "note": "I selected this OpenAI model for its stronger editorial and scoring ability in principle assessment."
+    },
+    {
+      "name": "flatten_principles_raw.py",
+      "note": "I built this to flatten principles into a batchable JSONL structure for further filtering."
+    },
+    {
+      "name": "filter_attention_scores.py",
+      "note": "I scripted this to filter and keep only principles above a minimum interest threshold."
+    },
+    {
+      "name": "flatten_scored_principles.py",
+      "note": "I used this to parse, extract, and reformat scored data for AI expansion steps."
+    },
+    {
+      "name": "LLM (GPT-4.1)",
+      "note": "I used this model in iterative, structured expansion steps on extracted principles."
+    },
+    {
+      "name": "PRINCIPLE_EXPAND_V2",
+      "note": "I designed and evolved this JSON schema and prompt for richer principle expansion."
+    },
+    {
+      "name": "GPT-4.1",
+      "note": "I used this for advanced prompt engineering, including creativity and editorial scoring steps."
+    },
+    {
+      "name": "principle quick selector",
+      "note": "I updated this HTML viewer to show all important info for manual principle triage."
+    },
+    {
+      "name": "JSON principle entry schema",
+      "note": "I revised this structure repeatedly to make the data more publishable and useful downstream."
+    },
+    {
+      "name": "render_markdown_book.py",
+      "note": "I planned, wrote, and improved this script to output publication-ready Markdown books from expanded principles."
+    },
+    {
+      "name": "Wealth Requires Useful Skill",
+      "note": "I explored and wrote about this classical principle, linking it to skills, history, and philosophy."
+    },
+    {
+      "name": "The Economist",
+      "note": "I referenced and used it to ground philosophical reflections on wealth and skill."
+    },
+    {
+      "name": "stewardship",
+      "note": "I reflected on and coded for this principle, both in prompts and explanatory fields."
+    },
+    {
+      "name": "historical examples",
+      "note": "I used these in prompts and rendering to anchor principles in real world and history."
+    },
+    {
+      "name": "education in judgment",
+      "note": "I worked this concept into expansion prompts and explanations."
+    },
+    {
+      "name": "render_principle_entries_md.py",
+      "note": "I created and refined this to generate clean Markdown with embedded quotes and metadata."
+    },
+    {
+      "name": "merge_expanded_with_flat_principles.py",
+      "note": "I coded this to merge new expanded principle fields with original descriptions and quotes."
+    },
+    {
+      "name": "Gutenberg rewrite script",
+      "note": "I chose not to use this for certain steps to avoid disrupting the Markdown structure in condensation tasks."
+    },
+    {
+      "name": "condense_principle_markdown.py",
+      "note": "I built and integrated this Markdown-aware script to batch-condense prose while keeping headings and quotes."
+    },
+    {
+      "name": "principle expansion pipeline",
+      "note": "I enhanced and wired this with new fields and batch logic in my project."
+    },
+    {
+      "name": "VSCode",
+      "note": "I used VSCode to inspect file formatting, debug JSON/YAML issues, and keep code organized."
+    },
+    {
+      "name": "JSON",
+      "note": "I produced, validated, and debugged JSON in nearly every step: principle extraction, covers, metadata, etc."
+    },
+    {
+      "name": "python -m json.tool",
+      "note": "I used this command line tool to validate JSON outputs while working with data and scripts."
+    },
+    {
+      "name": "powershell",
+      "note": "I occasionally ran commands and checks in this shell environment."
+    },
+    {
+      "name": "principle extraction pipeline",
+      "note": "I designed and validated outputs, then upgraded scripts for new output fields."
+    },
+    {
+      "name": "YAML pipeline configuration",
+      "note": "I managed and updated batch workflow definitions in my YAML configs."
+    },
+    {
+      "name": "split_principle_md_to_jsonl.py",
+      "note": "I built and updated this script to convert Markdown principle books into JSONL for marketing and downstream processing."
+    },
+    {
+      "name": "Buffer",
+      "note": "I considered and prepared to use Buffer for scheduling automated social posts from generated assets."
+    },
+    {
+      "name": "Meta",
+      "note": "I looked into Meta's Instagram API and Business Suite as options for marketing asset publication."
+    },
+    {
+      "name": "LinkedIn Marketing APIs",
+      "note": "I checked requirements for LinkedIn API posting."
+    },
+    {
+      "name": "Shopify CSV pipeline",
+      "note": "I structured and scripted the pipeline to export products for Shopify storefront publishing."
+    },
+    {
+      "name": "Canva Bulk Create",
+      "note": "I formatted and tested CSVs for creating images and carousels in Canva, integrating with my marketing workflow."
+    },
+    {
+      "name": "Substack",
+      "note": "I set up to use Substack for essay and newsletter publication generated from pipeline outputs."
+    },
+    {
+      "name": "Airtable",
+      "note": "I considered Airtable as a future drag-and-drop marketing content management option."
+    },
+    {
+      "name": "ebook pipeline",
+      "note": "I modularized the ebook build and companion book updates as separate flows in the project."
+    },
+    {
+      "name": "Python scripts",
+      "note": "I coded, refactored, and reused these throughout all pipeline automation: preparation, cover creation, metadata, PDFs, and more."
+    },
+    {
+      "name": "principle books",
+      "note": "I generated companion principle books in parallel with modernized originals, managing distinct files and assets for each."
+    },
+    {
+      "name": "batch_ebook_from_md.py",
+      "note": "I ran and updated this to build principle book EPUBs from Markdown files."
+    },
+    {
+      "name": "build_principle_book_metadata.py",
+      "note": "I built this to generate and match new principle book metadata from existing files for companion editions."
+    },
+    {
+      "name": "principle_book_metadata.json",
+      "note": "I created and used this for tracking metadata for the principle book line."
+    },
+    {
+      "name": "inject_principle_front_matter_from_meta.py",
+      "note": "I wrote this script to robustly match and inject YAML metadata into principle book Markdown files."
+    },
+    {
+      "name": "inject_yaml_to_top_principle_ebook.py",
+      "note": "I modified this for safe, idempotent injection of companion-specific title pages."
+    },
+    {
+      "name": "batch_replace_triple_dashes.py",
+      "note": "I repeatedly used this to clean Markdown and avoid YAML breakage after processing steps."
+    },
+    {
+      "name": "Markdown principle books data folders",
+      "note": "I organized and iterated over multiple folders for cleaning and production in each pipeline batch."
+    },
+    {
+      "name": "Gutenberg Modernizer",
+      "note": "I ran the main ebook and companion book production pipelines through this project."
+    },
+    {
+      "name": "cover_selection.json",
+      "note": "I managed this file to track chosen cover images for each book edition."
+    },
+    {
+      "name": "principle_cover_selection.json",
+      "note": "I built and updated this file to track selected images for companion book covers."
+    },
+    {
+      "name": "copy_selected_cover_sources.py",
+      "note": "I wrote this to copy and track cover images into new data folders for the companion pipeline."
+    },
+    {
+      "name": "gpt-image-1",
+      "note": "I used this to stylize AI book cover images during the automated pipeline."
+    },
+    {
+      "name": "render_marketing_assets_csv.py",
+      "note": "I wrote and refined this to turn JSONL into CSVs and markdown drafts for Canva, Buffer, and Substack."
+    },
+    {
+      "name": "ReportLab",
+      "note": "I used ReportLab in Python to create individual principle PDF handouts with custom layouts and marketing sections."
+    },
+    {
+      "name": "render_individual_principle_pdfs.py",
+      "note": "I scripted this to batch-generate and style each principle section as an individual PDF handout."
+    },
+    {
+      "name": "Suno",
+      "note": "I tried generating a music prompt for a companion marketing experiment in the publishing context."
+    },
+    {
+      "name": "select_cover_source.py",
+      "note": "I adjusted my process and files so this script would run correctly with hand-selected images."
+    },
+    {
+      "name": "cover_candidates.json",
+      "note": "I edited and patched this by hand to point to my updated book cover images."
+    },
+    {
+      "name": "book_modernizer pipeline",
+      "note": "I traced and updated the main pipeline steps to keep the build process consistent after source changes."
+    },
+    {
+      "name": "ebook_from_md_principles.py",
+      "note": "I reviewed and patched this script to control TOC depth and ensure precise EPUB structure."
+    }
+  ],
+  "actions": [
+    {
+      "text": "I built the starter version of a Python pipeline that processes Project Gutenberg books by stripping headers, chunking text, sending it to an AI API, and saving outputs.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote my main.py script to process text in three distinct passes: language modernization, perspective shift, and detail enrichment.",
+      "salience": 3
+    },
+    {
+      "text": "I ran Kant's Critique of Pure Reason through my OpenAI API-based processing pipeline and verified the cost and results.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and refined a Python script to wrap headings in text files by detecting both single and multi-line headings based on line patterns.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and tested a new Python script to more accurately remove and log multi-line and malformed footnotes from book text files.",
+      "salience": 3
+    },
+    {
+      "text": "I refactored my existing Python scripts to shift from text rewriting to fiction summarization, focusing on paragraph-based chunking.",
+      "salience": 3
+    },
+    {
+      "text": "I adapted my existing four-part Python script system to handle fiction summarization, not just nonfiction rewriting.",
+      "salience": 3
+    },
+    {
+      "text": "I updated my main.py script to support independent temperature settings for each transformation pass in my AI-driven rewriting pipeline.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script to unwrap hard-wrapped text from Project Gutenberg files and output clean paragraphs.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to remove inline footnotes from plain text files.",
+      "salience": 2
+    },
+    {
+      "text": "I ran a Python script that removed footnotes from my main text and saved them in a separate file.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my footnote extraction Python script to accurately remove both bracketed and unbracketed 'Note:' footnotes from Project Gutenberg texts.",
+      "salience": 2
+    },
+    {
+      "text": "I updated and refactored a Python script to robustly detect and wrap headings that begin with a Roman numeral and period or the § symbol, including when these are followed by text.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote my heading-wrapping Python script to properly detect and join multi-line headings surrounded by blank lines before processing.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a Python script to join and wrap multi-line headings in my text files.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refactored a Python script that combined pattern matching and block detection to robustly identify and wrap single and multi-line headings in text files.",
+      "salience": 2
+    },
+    {
+      "text": "I designed a Python script that detects headings, formats them as bold and centered in markdown, and creates a separate headings log file.",
+      "salience": 2
+    },
+    {
+      "text": "I generated an EPUB file for my ebook using a recommended tool, then prepared and added a cover image, metadata, and a table of contents to the EPUB through my markdown file and Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I prepared to write a Python script to convert bold text headings into markdown # headings in my document.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a Python script to convert HTML-style headings in my markdown file to proper markdown headings for better compatibility with Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and modified a Python script that detects headings in a text file and format them as Markdown headings for Pandoc compatibility.",
+      "salience": 2
+    },
+    {
+      "text": "I used a Python script to remove all HTML tags from my markdown file and produce a clean version for ebook conversion.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a script to automatically add blank lines between paragraphs in markdown files to improve Pandoc output.",
+      "salience": 2
+    },
+    {
+      "text": "I improved my process for removing and extracting irregular footnotes from my project files by analyzing leftover fragments.",
+      "salience": 2
+    },
+    {
+      "text": "I created and renamed configuration, main, transform, and cleaner scripts for the new summarization-first pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I adapted my config file to support paragraph-based chunking and set up distinct summarization prompt blocks.",
+      "salience": 2
+    },
+    {
+      "text": "I refactored my configuration script to support new summarization prompts and models.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined logic in my cleaning script to split fiction into clear paragraph-based chunks and remove lingering HTML, footnotes, and formatting artifacts.",
+      "salience": 2
+    },
+    {
+      "text": "I set up a repeatable pipeline for fiction: prepare input text, split and clean with a script, configure parameters, run main and transformer scripts, inspect outputs, and optionally convert to EPUB.",
+      "salience": 2
+    },
+    {
+      "text": "I initiated the creation of a Python script for a local agent that finds, downloads, and cleans philosophy or history texts from Project Gutenberg.",
+      "salience": 2
+    },
+    {
+      "text": "I created an AI-powered Python script that used GPT-4 to generate a list of top philosophy and history books, searched Project Gutenberg for each, downloaded the text files, and cleaned them.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script that scanned my cleaned_books folder and generated 1000-word excerpts for each file, saving them to a new excerpted_books folder.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to truncate text files from a custom marker and preserve structure.",
+      "salience": 3
+    },
+    {
+      "text": "I updated the script to let me specify a starting marker for excerpting.",
+      "salience": 2
+    },
+    {
+      "text": "I set up an automation script to run my rewriter pipeline hands-free for all excerpted book files.",
+      "salience": 3
+    },
+    {
+      "text": "I refactored my main book rewriting script into a function-based module with a reusable run_pipeline() function.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a batch_rewriter.py script to automate processing all books in a folder using my new pipeline function.",
+      "salience": 2
+    },
+    {
+      "text": "I built a Python script called marketing_agent.py to automate marketing content generation for my rewritten books using GPT-4o.",
+      "salience": 2
+    },
+    {
+      "text": "I built and updated a Python script to create side-by-side comparison files for original and rewritten books, first in HTML and then in plain text format.",
+      "salience": 3
+    },
+    {
+      "text": "I fixed a formatting error in the HTML template by escaping curly braces in the CSS block for Python's format method.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my marketing script to use the new OpenAI client call style.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refactored Python scripts for processing and comparing original and rewritten books at both sentence and paragraph levels.",
+      "salience": 3
+    },
+    {
+      "text": "I upgraded my marketing content generation script to handle multiple input formats and added features like a terminal preview and better error handling.",
+      "salience": 2
+    },
+    {
+      "text": "I wired up a pipeline that automated discovery, downloading, cleaning, truncation, and rewriting of classic texts.",
+      "salience": 3
+    },
+    {
+      "text": "I adjusted my comparison script to group three rewritten paragraphs with every one original paragraph based on my file structure.",
+      "salience": 2
+    },
+    {
+      "text": "I planned and designed a two-stage audiobook generation pipeline using SSML tagging with ChatGPT and TTS API integration.",
+      "salience": 3
+    },
+    {
+      "text": "I decided to repurpose my existing rewriter scripts to review finished manuscripts by sending them through the API for error checking and marking.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script using requests and BeautifulSoup to scrape and download individual Congressional Record section TXT files from Congress.gov.",
+      "salience": 2
+    },
+    {
+      "text": "I planned to automate compiling all the sections for a particular day into one .txt document and pass it through my text cleaner pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote and finalized a Python script that scraped all sections of the Congressional Record for a single day, added browser headers to bypass 403 errors, and compiled the results into a grouped text file.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote my Congress.gov scraper to use Playwright with Python, enabling it to fully load and extract text from the site despite anti-bot protections.",
+      "salience": 3
+    },
+    {
+      "text": "I fixed a PATH issue so Playwright would work in PowerShell by running the executable directly.",
+      "salience": 2
+    },
+    {
+      "text": "I ran my Congress Record scraper script and debugged why the output file was empty.",
+      "salience": 2
+    },
+    {
+      "text": "I decided to rewrite the CongressScraper.py script to extract the full main-content body from each section page directly.",
+      "salience": 2
+    },
+    {
+      "text": "I updated the CongressScraper.py script to wait for dynamically loaded main content and added debug logging.",
+      "salience": 2
+    },
+    {
+      "text": "I adjusted the code in my PDF Plumber script to use custom cropping coordinates for extracting text from a three-column layout.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote example Python functions to remove headers and footers with regex and to fix broken hyphenated words from line breaks in extracted text.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined scripts for cleaning up raw PDF text after extraction, including fixing hyphens and unwrapping lines.",
+      "salience": 2
+    },
+    {
+      "text": "I integrated successful column specifications and top/bottom cropping with pdfplumber for precise PDF text extraction.",
+      "salience": 2
+    },
+    {
+      "text": "I created a simplified pdfplumber script for extracting text from non-column, clean PDFs.",
+      "salience": 2
+    },
+    {
+      "text": "I refined my Python script for wrapping headings to make its block-level detection stricter and avoid wrapping whole paragraphs.",
+      "salience": 2
+    },
+    {
+      "text": "I tested and reviewed multiple Python scripts for automatically wrapping headings in my text file based on word count and line isolation.",
+      "salience": 2
+    },
+    {
+      "text": "I uninstalled and reinstalled MiKTeX with the correct Letter paper size configuration for North American print needs.",
+      "salience": 2
+    },
+    {
+      "text": "I investigated and attempted to resolve issues with MiKTeX and xelatex integration for generating PDFs with Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I converted my Markdown .md file to a .tex file using Pandoc for integration into Overleaf.",
+      "salience": 2
+    },
+    {
+      "text": "I reviewed and began restructuring my main LaTeX document to fit Overleaf's template and file structure.",
+      "salience": 1
+    },
+    {
+      "text": "I prepared a custom CSS file and Pandoc command to generate an EPUB with a clean, nested, numberless table of contents.",
+      "salience": 2
+    },
+    {
+      "text": "I updated the CSS for the EPUB table of contents to improve indentation and compatibility with various e-readers.",
+      "salience": 2
+    },
+    {
+      "text": "I merged and refactored multiple Python scripts into a unified, CLI-driven Gutenberg Rewriter script that loads prompts and parameters from external JSON files.",
+      "salience": 3
+    },
+    {
+      "text": "I built a modular batch processing framework in Python, enabling automated cleaning, chunking, and rewriting of hundreds of classic text files.",
+      "salience": 3
+    },
+    {
+      "text": "I iteratively developed text cleaning scripts (truncate.py, unwrap_paragraphs.py, remove_footnotes.py, etc.) to handle paragraph breaks, unwrapping, and junk filtering.",
+      "salience": 3
+    },
+    {
+      "text": "I designed and implemented a JSON overlay system and associated Python scripts for book-specific cleaning instructions.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and integrated LLM-based classification prompts and batch scripts (using lit_operator) for filtering and labeling junk content, chapter titles, and structural text.",
+      "salience": 3
+    },
+    {
+      "text": "I created a Markdown/YAML batch publishing pipeline using Pandoc and Python scripts to generate both EPUBs and print PDFs from cleaned book files.",
+      "salience": 3
+    },
+    {
+      "text": "I automated the addition of YAML metadata to markdown files via Python scripts, transitioning to external JSON metadata for scalability and maintainability.",
+      "salience": 3
+    },
+    {
+      "text": "I designed and implemented a batch cover generation workflow, mapping metadata to InDesign-ready CSVs and standardizing output file naming rules.",
+      "salience": 3
+    },
+    {
+      "text": "I built interactive HTML/JS tools to manually inspect and edit heading formatting and to compare rewritten texts side-by-side in-browser.",
+      "salience": 3
+    },
+    {
+      "text": "I designed and built a Python pipeline that split books into TTS-ready chapters, normalized text using a suite of transforms, and managed manifests for audio generation.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and refined a batch TTS generation script using the ElevenLabs API to produce audio chunks from book text, with CLI options for full parameter control.",
+      "salience": 3
+    },
+    {
+      "text": "I scripted the final audio assembly pipeline, using ffmpeg and Python to concatenate audio, embed metadata and cover images, and export MP3/M4B audiobooks with chapters.",
+      "salience": 3
+    },
+    {
+      "text": "I created and maintained master metadata files (JSON, CSV) to control batch covers, audiobook manifests, and publishing front-matter for all modernized texts.",
+      "salience": 3
+    },
+    {
+      "text": "I prepared a cleaned and formatted CSV with book titles and authors for Canva Bulk Create.",
+      "salience": 2
+    },
+    {
+      "text": "I regenerated my CSV manifest to use .jpg file endings instead of .txt, matching my planned file export workflow.",
+      "salience": 2
+    },
+    {
+      "text": "I set up the workflow to create consistent naming between text files, cover images, and metadata for automated publishing.",
+      "salience": 3
+    },
+    {
+      "text": "I prepared to use a Python script that renames Canva export files to match filenames from a CSV manifest.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to batch rename Canva-exported JPEG files to deterministic filenames based on a CSV column.",
+      "salience": 2
+    },
+    {
+      "text": "I edited an uploaded image by adding sunglasses and headphones in a painted art style.",
+      "salience": 2
+    },
+    {
+      "text": "I uploaded my audiobooks to my website.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a new tactical rewrite system prompt template to generate applied, practical rewrites of philosophical texts.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a literary journalism rewrite system prompt template to produce culturally rich, New Yorker–style rewrites of philosophical texts.",
+      "salience": 3
+    },
+    {
+      "text": "I adjusted TTS (text-to-speech) voice parameters and tested them with samples from philosophical texts.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to batch-wrap every paragraph in SSML prosody tags at a 90% rate.",
+      "salience": 2
+    },
+    {
+      "text": "I modified the script so it processes all text files in a directory for batch prosody wrapping.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to batch-wrap every paragraph of all .txt and .md files in a directory with SSML prosody tags and save them to a new directory.",
+      "salience": 3
+    },
+    {
+      "text": "I decided to build a new script to batch-send book text chunks to OpenAI's Text-to-Speech API and return audio files, modeled on my prior ElevenLabs batch script.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to batch-convert .txt chunks into audio files using the ElevenLabs TTS API.",
+      "salience": 2
+    },
+    {
+      "text": "I created argument parsing and helper functions to process files, directories, and various output formats.",
+      "salience": 2
+    },
+    {
+      "text": "I set up automatic manifest file handling for tracking processed and skipped audio files.",
+      "salience": 1
+    },
+    {
+      "text": "I built a Python script that reads a directory of chunked .txt files and uses OpenAI TTS to generate an audio file per chunk, tracking results in audio_manifest.json.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script to batch-process .txt chunk files with OpenAI TTS, supporting both standard and instruction-controlled voices, and outputting tracked manifests.",
+      "salience": 3
+    },
+    {
+      "text": "I documented and tested CLI usage patterns for the new TTS batching tool with real data folders and example commands.",
+      "salience": 2
+    },
+    {
+      "text": "I ran a Python script to generate and preview OpenAI TTS voices by looping through different voices and saving sample audio files.",
+      "salience": 2
+    },
+    {
+      "text": "I optimized my audiobook TTS generation pipeline by choosing model defaults, speed settings, chunk sizes, and audio formats to avoid artifacts.",
+      "salience": 3
+    },
+    {
+      "text": "I used ffmpeg to post-process audio time-stretching, improving audio quality compared to model-side speed changes.",
+      "salience": 2
+    },
+    {
+      "text": "I experimented with a Python script (md_to_openai_tts_v1.py) to process Gutenberg audiobook chunks and tested different prompts for narrator expressiveness.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to batch-convert text chunks to audio files using Azure Neural TTS for my Gutenberg pipeline.",
+      "salience": 3
+    },
+    {
+      "text": "I ran and troubleshooted a Python-based pipeline that converts text into audio using Azure's TTS, including configuring input/output directories and parameters.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my Azure Speech SDK script to add logging for cancellation details and to delete empty output files when synthesis failed.",
+      "salience": 2
+    },
+    {
+      "text": "I refactored my SSML wrapper code so the prosody rate is only added if a rate is actually given.",
+      "salience": 2
+    },
+    {
+      "text": "I fixed how I passed the rate option in PowerShell by using quotes or the equals sign for negative rates.",
+      "salience": 1
+    },
+    {
+      "text": "I reviewed and critiqued SSML markup used for Azure Neural Text-to-Speech, offering specific, production-grade changes for better narration.",
+      "salience": 2
+    },
+    {
+      "text": "I developed clear rules and a rubric for pause and emphasis in SSML, aiming to standardize audiobook production quality.",
+      "salience": 2
+    },
+    {
+      "text": "I improved my SSML markup by moving quotes inside emphasis tags, standardizing paragraph pauses, and removing extra micro-pauses for better audio flow.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and maintained a Python script for batch Azure Neural TTS synthesis from chunked text files.",
+      "salience": 2
+    },
+    {
+      "text": "I modified my TTS pipeline to use Azure's 24kHz or 16kHz output format instead of 44.1kHz to eliminate crackling artifacts.",
+      "salience": 2
+    },
+    {
+      "text": "I removed the redundant prosody wrapper from my SSML code to simplify and stabilize speech synthesis.",
+      "salience": 2
+    },
+    {
+      "text": "I refactored my Azure TTS pipeline by removing the <prosody> wrapper and any custom rate logic from my SSML handling.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote my SSML markup prompt to increase emphasis, add more dynamic pacing, and use longer pauses for Azure TTS audiobook narration.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and used a Python script to stitch audio chunks into MP3 and M4B audiobooks.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and maintained a Python script that stitched together multiple TTS chunk audio files into one MP3 and one M4B file, with support for chapters and metadata.",
+      "salience": 2
+    },
+    {
+      "text": "I designed a plan to add an audio normalization path to my audiobook creation script, including new flags and a revised processing pipeline.",
+      "salience": 3
+    },
+    {
+      "text": "I received and began using a Python script that stitched Azure TTS WAV chunks, normalized them, and encoded the result to MP3 and M4B audiobooks.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and structured a Python script to automate stitching, loudness normalization, and encoding of audiobook chunks into MP3 and M4B formats.",
+      "salience": 3
+    },
+    {
+      "text": "I refactored the script to allow custom metadata, normalization settings, and created command-line flags for flexibility.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my ffmpeg stitching command to include the -rf64 auto flag so the pipeline could process and normalize long audiobooks exceeding the 4 GB WAV limit.",
+      "salience": 3
+    },
+    {
+      "text": "I identified and fixed an empty WAV file that was causing problems in my audio chunking pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my TTS pipeline to escape ampersands properly in XML to avoid failures.",
+      "salience": 2
+    },
+    {
+      "text": "I ran the updated 'stitch_tts_chunks_v2_normalize.py' script to stitch and normalize the audiobook files.",
+      "salience": 2
+    },
+    {
+      "text": "I ran a Python script to stitch and normalize audiobook chapters into a single audio file, but encountered an error during the loudnorm step.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote my extract_last_json_object() function to use a brace counter instead of a recursive regex, making JSON extraction from ffmpeg output reliable.",
+      "salience": 2
+    },
+    {
+      "text": "I tested the full audio normalization pipeline on a small data set and produced annotated manifests to confirm that normalization met targets.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my Python script to add '-map_chapters 1' and force the ipod container in the ffmpeg command for creating M4B audiobooks.",
+      "salience": 2
+    },
+    {
+      "text": "I refactored my audiobook stitching script to build chapter metadata from audio filenames and durations, so chapters always appeared in the output regardless of manifest presence.",
+      "salience": 3
+    },
+    {
+      "text": "I patched my ffmpeg command in the script to map chapter metadata and correct sample rate for best compatibility with audiobook apps.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to automate stitching audio chunks, normalize loudness, and export final audiobook files in MP3 and M4B formats, with flexible options for loudness normalization and metadata handling.",
+      "salience": 3
+    },
+    {
+      "text": "I set up command-line arguments and error handling to make the script robust for different audiobook processing workflows.",
+      "salience": 2
+    },
+    {
+      "text": "I repaired and refactored a Python script to stitch, normalize, and encode audiobook chunks into MP3 and M4B formats, adding robust handling for chapters, sample rate, mono output, and metadata.",
+      "salience": 3
+    },
+    {
+      "text": "I created and documented a working PowerShell command for executing the audiobook processing script with correct arguments.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote Python code to automate the process of stitching together WAV audio chunks, normalizing loudness, and encoding MP3 and M4B audiobook files with optional chapters.",
+      "salience": 3
+    },
+    {
+      "text": "I implemented support for building chapter metadata from manifests or filenames and wrote code to generate FFMETADATA files for use in the audiobook pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I integrated ffmpeg-based loudness normalization as both one-pass and two-pass processes within the pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I added command-line argument parsing so the script could be run flexibly with various input and output settings.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script that automated the process of stitching, normalizing, and encoding audiobook chunks into MP3 and M4B formats with optional metadata and chapter marker support.",
+      "salience": 3
+    },
+    {
+      "text": "I examined and debugged my audiobook encoding pipeline to understand why chapters were missing from the output.",
+      "salience": 2
+    },
+    {
+      "text": "I decided to refactor my MD chunker to extract clean chapter titles from ###-level headings and store them in the manifest for use in audiobook chapter generation.",
+      "salience": 3
+    },
+    {
+      "text": "I updated my audiobook stitching script to use chapter breaks based on chapter_title changes in the manifest instead of 1-per-chunk chapters.",
+      "salience": 3
+    },
+    {
+      "text": "I used ffmpeg's loudnorm filter to measure the loudness and volume variance of my audiobook files, ensuring that my normalization process worked as intended.",
+      "salience": 2
+    },
+    {
+      "text": "I revised my SSML markup prompt to reduce within-sentence breaks and increase pauses between paragraphs and sections for better pacing in audiobook narration.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my audio normalization pipeline to prepend a gentle compressor filter before the loudnorm step, following best audiobook practices.",
+      "salience": 2
+    },
+    {
+      "text": "I began creating a Python script to automatically insert SSML pause tags in my book Markdown files with customizable settings.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to insert Azure-compatible SSML <break> tags into Markdown files, supporting configurable pauses for headings, sentences, paragraphs, and paragraph levels, with options to skip code blocks.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script to insert SSML <break> tags in Markdown files using customizable rules for Azure TTS.",
+      "salience": 3
+    },
+    {
+      "text": "I revised my SSML markup prompt to eliminate prosody tags and specify longer, randomized pauses of 400 ms and above after every period.",
+      "salience": 2
+    },
+    {
+      "text": "I reviewed and validated my audiobook production pipeline for chapter creation, ensuring manifest compatibility and identifying misconfigurations.",
+      "salience": 2
+    },
+    {
+      "text": "I generated chapters.ffmetadata files automatically by placing the manifest from chunking into the folder with the Azure audio chunks.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and improved a Python script that parses Markdown files with YAML front-matter, splits them into ordered TTS chunks by headings, and generates a manifest with chapter information.",
+      "salience": 3
+    },
+    {
+      "text": "I designed and described a significant refactor to my Markdown chunking and manifest pipeline to separate stable chapter titles from chunk and part labels.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote parts of my Python markdown-to-chunk script to only treat ## and ### headings as chapters, fixed chapter title handling to avoid '(part N)' and merged title artifacts, and improved intro formatting.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script to split YAML-topped Markdown files into smaller chunk files for TTS, including chapter-based chunking, word-count enforcement, merging logic, and output manifest generation.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and tested an audiobook production pipeline that stitched, normalized, and encoded large audiobook files.",
+      "salience": 3
+    },
+    {
+      "text": "I developed and maintained a loudness normalization routine using ffmpeg's loudnorm filter in a two-pass process for audio processing.",
+      "salience": 2
+    },
+    {
+      "text": "I dropped the chunk-generated manifest into the chunk audio file to try to improve chapter metadata in my audiobook pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I modified my chapter generation logic to use real section heading markers from the manifest instead of creating one chapter per audio chunk.",
+      "salience": 3
+    },
+    {
+      "text": "I redesigned my manifest structure so each chunk could indicate whether it starts a true chapter, making it possible to generate accurate chapter markers.",
+      "salience": 2
+    },
+    {
+      "text": "I revised my audiobook stitching pipeline to integrate attaching cover images directly after audio assembly, minimizing extra file copying and preserving audio quality.",
+      "salience": 3
+    },
+    {
+      "text": "I planned a refactor of my stitcher script to add CLI arguments and functions for attaching cover images to MP3 and M4B files after normalization.",
+      "salience": 2
+    },
+    {
+      "text": "I built a Roman Numeral Normalizer web tool that loads, edits, and batch-replaces Roman numeral headings in text files.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and refactored Python scripts to process and chunk Markdown book files for audio production, supporting batch processing and robust manifest generation.",
+      "salience": 3
+    },
+    {
+      "text": "I created Python scripts to batch-convert text chunks into TTS audio files using Azure, supporting error handling and flexible command options.",
+      "salience": 3
+    },
+    {
+      "text": "I built a Python-based audiobook stitching pipeline capable of loudness normalization, chapter metadata, and embedding covers for multiple formats in single or batch runs.",
+      "salience": 3
+    },
+    {
+      "text": "I cleaned up my git repo by completely removing large audio files from history using git-filter-repo and successfully force-pushed to GitHub.",
+      "salience": 2
+    },
+    {
+      "text": "I created and edited Shopify-ready CSV files, updating tags and descriptions, and structured smart collections and menus for my book store.",
+      "salience": 2
+    },
+    {
+      "text": "I moved my main domain from Wix to Namecheap, collected and restored all essential Google Workspace DNS records to keep email working during the transfer.",
+      "salience": 2
+    },
+    {
+      "text": "I set up Namecheap Private Email, backed up my Google Workspace mailbox, and migrated mail delivery to my new provider.",
+      "salience": 2
+    },
+    {
+      "text": "I created new markdown content and configuration files for my book projects, then fixed git remote branch issues after previous history rewrites.",
+      "salience": 2
+    },
+    {
+      "text": "I built a local HTML/JS markdown cleanup editor with detection, editing, fix/undo, autosave, keyboard shortcuts, and file directory support, using Node.js and refactored Python cleanup logic.",
+      "salience": 3
+    },
+    {
+      "text": "I refined my Wikimedia author image fetch script in Python to add normalization, manual overrides, new search/fallback strategies, and made errors non-fatal for smoother automation.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote Python functions to fetch and filter author images from Wikimedia and Wikipedia APIs, scoring candidates and filtering out unwanted image types.",
+      "salience": 2
+    },
+    {
+      "text": "I completed and tested a Python script to fetch, score, and download Wikimedia author images for use as covers, including options for argument parsing and reporting.",
+      "salience": 3
+    },
+    {
+      "text": "I modified Pandoc and my conversion script arguments to fix chapter page splits and ensure table of contents generation and hyperlinked sections in EPUBs.",
+      "salience": 2
+    },
+    {
+      "text": "I debugged and updated my Shopify CSV import/export scripts to ensure blank image fields and proper product description formatting and to remove columns triggering errors.",
+      "salience": 2
+    },
+    {
+      "text": "I reconstructed and documented the data and prompt-driven architecture behind my Anti-Prince pipeline and planned to standardize it like my Gutenberg flow.",
+      "salience": 3
+    },
+    {
+      "text": "I cleaned up Shopify CSV columns in my pipeline to solve metafield upload issues and to keep the workflow future-proof.",
+      "salience": 2
+    },
+    {
+      "text": "I designed and wrote a batchable script (prepare_analysis_sources.py) to output clean analysis-ready markdown by stripping out frontmatter, HTML, injected sections, and redundant titles.",
+      "salience": 3
+    },
+    {
+      "text": "I set up the YAML-based workflow for analytic markdown prep, downstream extraction scripts, and maintained semantic structure in the cleaned outputs.",
+      "salience": 3
+    },
+    {
+      "text": "I built analysis_block_builder.py to break source texts into semantic blocks with lightweight refs, enabling better principle extraction and citation.",
+      "salience": 3
+    },
+    {
+      "text": "I designed, tested, and integrated batch_principle_extractor.py and a local HTML/JS viewer so I could extract, review, and filter hundreds of AI-generated principles.",
+      "salience": 3
+    },
+    {
+      "text": "I built an automated, multi-stage principle deduplication and selection pipeline with select_principles.py, balancing categories and scoring principles with LLM-powered attention metrics.",
+      "salience": 3
+    },
+    {
+      "text": "I created and wired scripts to flatten, score, filter, and re-flatten principle extraction outputs, piping them through YAML steps for batch processing.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote and tested prompt instructions in JSON templates for creative, vivid, and non-generic AI-generated expansions of principles, including new fields like psychological mechanisms and real-world examples.",
+      "salience": 3
+    },
+    {
+      "text": "I patched viewer and downstream Python scripts to ensure principle items and scores exported in the right flattened structure for review and publishing.",
+      "salience": 2
+    },
+    {
+      "text": "I merged and cleaned JSON files to match expanded and flat principle data together, keeping quotes and source refs for final Markdown rendering.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote scripts to turn principle book content into clean Markdown and then into PDFs, carefully handling metadata, headings, and cover links.",
+      "salience": 3
+    },
+    {
+      "text": "I created batch scripts to convert long and short Markdown directories to marketing-ready JSONL, CSV, Canva, and Substack draft assets.",
+      "salience": 3
+    },
+    {
+      "text": "I built and refined scripts for CSV-based export, batch PDF handouts using ReportLab, and marketing carousels for Canva Bulk Create.",
+      "salience": 3
+    },
+    {
+      "text": "I set up separate principle-companion pipelines for covers, metadata, and YAML automation, duplicating images and files as needed for correct metadata and asset flow.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and adapted scripts to inject principle-specific front matter, duplicate selected cover images, and automate stylization and composition of new book covers.",
+      "salience": 3
+    },
+    {
+      "text": "I debugged, patched, and updated scripts as I hit recurring bugs with YAML indentation, triple-dash Markdown sections, and metadata mismatches in my batch generators.",
+      "salience": 3
+    },
+    {
+      "text": "I manually fixed JSON candidates and selection files when pipeline steps broke on stale artifacts, learning to patch files or regenerate outputs as needed.",
+      "salience": 2
+    },
+    {
+      "text": "I consistently documented, tested, and edited pipeline YAML files to automate workflows for both ebook and marketing asset production, preparing for future scaling.",
+      "salience": 3
+    }
+  ]
+}

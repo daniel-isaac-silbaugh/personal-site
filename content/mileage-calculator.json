@@ -1,0 +1,54 @@
+{
+  "title": "Delivery Route Calculator",
+  "date": "2026-04-01",
+  "tagline": "A python/LLM/google  pipeline for turning months of handwritten delivery logs into accurate, auditable mileage totals — saving roughly ten hours of manual work a month.",
+  "sections": [
+    {
+      "heading": "The problem",
+      "body": "At my day job, delivering inventory to restaurants wholesale, I work very hard and very fast, so I often skip logging my delivery miles. This presents some complications come tax time. Luckily, even though my miles often go unlogged, I do keep copious notes on my delivery routes in the Notes app on my phone. Last year, when I was preparing to file my taxes, I began by manually looking up distances with Google Maps, reconstructing routes by hand. But then I thought, \"This is insane, I have to just automate this.\" So I did.",
+      "tools": []
+    },
+    {
+      "heading": "Parsing the logs",
+      "body": "The notes I make are comprehensive, but they can be a little messy. Stop names get abbreviated, for instance, or misspelled, or written differently on different days. So the first challenge was turning the raw export into structured data.\n\nFirst I wrote a parsing script — notes_to_routes.py — that used regular expressions to extract delivery sequences from unstructured text, handling the variation in how I'd written stop names across hundreds of entries. From there, a second script walked the cleaned routes and extracted every unique stop name along with its frequency, giving me a reference set to work from.\n\nHowever, this system missed a lot. The same restaurant might appear as 'Cafe Mox,' 'Café Mox,' 'cafe mox,' or just 'Mox' depending on the day. It was just too human, too messy. So, instead, I used the OpenAI API: I fed it my messy stop names, had it generate a master reference list, and then had it map each raw variant to its canonical form. The output was a mapping file called apply_stop_mapping.py, that I then used to normalize the entire route history in one pass. It handled edge cases that regex alone would have missed and required almost no manual correction.\n\nI then used Google's API to fetch addresses for each stop name, and pair these with the stop, creating a table. With my route notes and my normalized stop/address table, I could now begin calculating distances.",
+      "tools": [
+        "Python",
+        "regex",
+        "pandas",
+        "OpenAI API (name rectification)",
+        "argparse",
+        "environment variables"
+      ]
+    },
+    {
+      "heading": "Calculating distances",
+      "body": "That would first be done by generating stepwise origin-destination pairs: every leg of every route would appear as one row in a CSV. The starting point for each day was fixed at the wholesaler's warehouse. From there, I used the Google Distance Matrix API and a Python script to get the distance for each origin/destination pair.\n\nThen, I simplified it a bit and made it more flexible, to accommodate edits and changes. Instead of using a standalone python script, I opened the stepwise origin/destination CSV in Google Sheets, and created a custom Apps Script function that called the Distance Matrix API directly. Then I just pasted that custom script into a column in the spreadsheet, and watched as about 1500 distances appeared in the sheet one by one, easily totaled with one sum function.",
+      "tools": [
+        "Google Distance Matrix API",
+        "Google Sheets / Apps Script",
+        "stepwise route generation",
+        "Google Cloud Console"
+      ]
+    },
+    {
+      "heading": "The result",
+      "body": "The finished pipeline runs from a raw Notes export to an auditable mileage CSV in a few minutes. Each script accepts file paths as command-line arguments and reads API keys from environment variables, so it's portable and safe to run anywhere. A diagnostic script can also scan the processed data for any errors or unusual activity, to ensure total accuracy.\n\nWhat I found most satisfying about this project wasn't the technical complexity — it's not the most sophisticated thing I've built — but the fit between the problem and the solution. Every design decision, from using the OpenAI API for fuzzy name matching instead of a lookup table, to batch retrieving addresses and using google sheets instead of google maps to map things, came from thinking carefully about how to do something efficiently and precisely.",
+      "tools": []
+    }
+  ],
+  "status": "Complete.",
+  "tags": [
+    "python",
+    "automation",
+    "ai",
+    "logistics",
+    "tools",
+    "google-maps"
+  ],
+  "objective": "",
+  "summary": "",
+  "external_url": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": []
+}

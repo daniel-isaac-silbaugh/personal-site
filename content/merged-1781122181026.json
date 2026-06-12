@@ -1,0 +1,849 @@
+{
+  "title": "AI-Enhanced Public Domain Books",
+  "date": "2025-06-27",
+  "objective": "I wanted to build a set of Python tools to transform, clean, and reformat public domain books using AI, so I could create modernized, cleanly structured ebooks with properly handled footnotes, headings, and metadata.\n---\nI wanted to build a mostly automated system that could find, clean, rewrite, and publish public domain books and documents using AI, and then package those works for sale as ebooks, audiobooks, and print books while testing different web and marketing tools along the way.",
+  "summary": "I started by realizing I could use AI to transform public domain books in creative ways and decided to build a Python pipeline using the OpenAI API to preprocess and rewrite texts from Project Gutenberg. I set up a modular project, wrote initial scripts for cleaning and transforming text, and resolved issues with file handling and API key management in Windows. As I refined the cleaning process, I dealt with tricky details like paragraph breaks and modernizing language while keeping the original narrative voice. I experimented with prompt engineering to move from summarizing text to maintaining style and specific instructions, especially for novels.\n\nI introduced a multi-pass pipeline to handle language modernization, perspective shifts, and enrichment step by step, and learned how changing temperature parameters could give me more control over creativity in each stage. I researched the legal and practical aspects of working with public domain sources and figured out how to credit original sources properly. When I ran the full Critique of Pure Reason through my pipeline, I confirmed my API cost estimates, observed issues like missing headings, and started improving my scripts to fix them.\n\nI noticed that AI was better at non-fiction and started to research the limits of model pre-training versus fine-tuning for style and consistency, considering the requirements for collecting good example datasets. I found and explored several online communities and tools devoted to AI-assisted fiction writing, evaluating their techniques and workflows. Drawing from Sudowrite’s chunk-based approach, I improved my own chunking and metadata strategies, and calculated data usage for large-scale API calls.\n\nI wrote scripts to unwrap hard-wrapped lines and remove or extract footnotes from Gutenberg files, making sure these could be preserved for ebook footers or appendices. After seeing issues with detecting headings in classic texts, I spent several iterations refining Python scripts using regular expressions and pattern matching to robustly identify and wrap single or multi-line headings, planning for proper markdown formatting. I set up workflows to turn cleaned markdown files into well-structured EPUBs with Pandoc, learned how to add covers, metadata, and tables of contents, and refined scripts to convert various heading formats for compatibility.\n\nI ran into challenges with exported Google Docs files containing hidden HTML, so I wrote additional scripts to clean these out before running my heading detection. I further improved my footnote removal scripts to handle malformed and multi-line notes, ensuring clean outputs for both non-fiction and fiction pipelines. As I explored processing fiction, I developed new pipelines using multi-stage summarization and narrative reconstruction, adapting and renaming my scripts to support this two-step workflow.\n\nBy the end, I had a modular, repeatable workflow to transform and summarize public domain texts (both fiction and non-fiction), split and clean them, handle artifacts like HTML or footnotes, convert them to ebook formats with proper metadata and structure, and experiment with both straight AI rewriting and staged summarization techniques, all while learning a lot about the quirks of classic texts and AI capabilities.\n---\nI started by figuring out what parts of my Project Gutenberg rewriting business I liked and wanted to automate, especially the technical side. I built a local Python agent that could find, download, and clean public domain history and philosophy books from Project Gutenberg using GPT-4 lists and web scraping. After hitting limitations with some packages, I switched to using requests and BeautifulSoup for direct scraping, and cleaned up my API key handling. I updated my scripts to use the new OpenAI SDK and generated book excerpts, batch rewrote them with my pipeline, and automated side-by-side comparison files for easier review. Along the way, I refactored everything into functional modules so I could automate the whole workflow hands-free.\n\nI realized there was a lot more to do beyond just rewriting the books. I started building scripts to generate marketing assets using GPT-4o. I learned to send only the first 3,000 words to save costs and confirmed GPT-4o handled markdown nicely. I also tweaked my comparison scripts to group and display paragraphs properly, making it easier to compare the original and rewritten versions. I put together a pipeline that handled everything from discovery and download all the way through rewriting and creating marketing materials.\n\nI decided to add audiobooks to my offerings and researched ElevenLabs, OpenAI TTS, and Google TTS for this. I found ElevenLabs worked best for long narration with SSML, and started planning an automated workflow that added SSML markup with ChatGPT before sending it to the TTS API. When I ran into anti-bot walls scraping the Congressional Record, I switched to using Playwright to automate browser scraping, which worked after some setup headaches. Once I got clean Congressional Record TXT files from Congress.gov, I wrote scripts to combine and clean them, sometimes falling back to PDF extraction with tools like pdfplumber and regex to deal with garbled text.\n\nOn the content side, I explored rewriting not just books but also open access scientific articles, using ChatGPT to create plain-language summaries and adapting content for websites and social media. I experimented with tools like Canva and CapCut for making Instagram carousels and Reels and got a handle on what different platforms needed in terms of content styles. I realized Reels boosted my Instagram growth most, but also faced headaches with Wix's poor responsive design, so I started building my site on Shopify for more flexibility.\n\nAs I worked through options for selling digital books, I learned about Shopify apps for digital downloads, DRM, and watermarking, then realized I could launch with just basic protection and switch to DRM later. Converting markdown files for print and digital was a technical hurdle—I worked through MiKTeX and xelatex installation issues, eventually decided to use Overleaf and Pandoc for LaTeX, but then found Word simpler for basic book layout. I built Pandoc and CSS-based pipelines for generating EPUBs with styled tables of contents, had to tweak for e-reader differences, and learned that Kindle sometimes overrides my CSS choices.\n\nLooking back, I pieced together a nearly end-to-end system that finds, cleans, rewrites, and packages old books for modern readers, with automation for most steps and lots of technical dead ends and workarounds along the way. I learned a ton about text extraction, book formatting, web scraping, marketing content, and the practical gotchas of building a digital book business.",
+  "tags": [
+    "ai",
+    "python",
+    "publishing",
+    "text-cleaning",
+    "ebook",
+    "openai",
+    "pipeline",
+    "pandoc",
+    "markdown",
+    "automation",
+    "summarization",
+    "gutenberg",
+    "books",
+    "prompt-engineering",
+    "scripting",
+    "gpt-4",
+    "marketing",
+    "web scraping",
+    "batch-processing",
+    "ebooks",
+    "tts",
+    "audiobooks",
+    "ssml",
+    "workflow",
+    "public domain",
+    "pdf",
+    "text extraction",
+    "congress",
+    "modernization",
+    "ocr",
+    "data-extraction",
+    "scraping",
+    "congressional record",
+    "text cleaning",
+    "web-scraping",
+    "script",
+    "playwright",
+    "debugging",
+    "open access",
+    "scientific publishing",
+    "cc by",
+    "plos",
+    "content",
+    "social media",
+    "formats",
+    "planning",
+    "writing",
+    "scicomm",
+    "psychology",
+    "climate",
+    "text-processing",
+    "refactoring",
+    "blogging",
+    "email",
+    "social",
+    "canva",
+    "image-generation",
+    "content-creation",
+    "video",
+    "wix",
+    "design",
+    "web",
+    "shopify",
+    "responsive design",
+    "mvp",
+    "digital downloads",
+    "drm",
+    "fonts",
+    "branding",
+    "print",
+    "terminal",
+    "latex",
+    "configuration",
+    "windows",
+    "setup",
+    "overleaf",
+    "book-layout",
+    "css",
+    "epub"
+  ],
+  "skills_demonstrated": [
+    "python scripting",
+    "prompt engineering",
+    "text cleaning",
+    "regular expressions",
+    "ai pipeline design",
+    "markdown and ebook formatting",
+    "automation",
+    "troubleshooting",
+    "api integration",
+    "data preprocessing",
+    "iterative debugging",
+    "workflow documentation",
+    "web scraping",
+    "natural language processing",
+    "file conversion",
+    "ebook formatting",
+    "website setup",
+    "marketing content creation",
+    "audiobook pipeline development",
+    "problem solving"
+  ],
+  "entities": [
+    {
+      "name": "Project Gutenberg",
+      "note": "I used text from Project Gutenberg as input for my pipeline, worked with its formatting quirks, and cleaned its footnotes and headings for further processing."
+    },
+    {
+      "name": "OpenAI API",
+      "note": "I integrated and used the OpenAI API for multi-pass AI rewriting, modernizing, and summarizing public domain texts, using prompt templates and chunked text."
+    },
+    {
+      "name": "Python",
+      "note": "I used Python to write, refine, and run scripts for cleaning, processing, extracting, chunking, and formatting text files for ebook production."
+    },
+    {
+      "name": "cleaner.py",
+      "note": "I created and repeatedly refined cleaner.py to strip headers, preserve paragraphs, remove footnotes, and prepare text chunks for AI processing."
+    },
+    {
+      "name": "transformer.py",
+      "note": "I built transformer.py to handle the API-side rewriting or summarization of text chunks with custom prompts."
+    },
+    {
+      "name": "config.py",
+      "note": "I used config.py to organize, update, and experiment with prompt instructions and temperature settings for each processing pass."
+    },
+    {
+      "name": "main.py",
+      "note": "I updated and rewrote main.py to orchestrate multi-stage processing passes and manage per-pass settings."
+    },
+    {
+      "name": "OpenAI Python library",
+      "note": "I installed and set up the OpenAI Python library to enable API requests and processed text in my scripts."
+    },
+    {
+      "name": "VS Code",
+      "note": "I used VS Code to write, edit, inspect, and debug my Python scripts and markdown files, and to find and remove leftover HTML tags."
+    },
+    {
+      "name": "Gutenberg Rewriter",
+      "note": "I developed and evolved my Gutenberg Rewriter project into a modular pipeline to process public domain books."
+    },
+    {
+      "name": "PowerShell",
+      "note": "I used PowerShell to set environment variables for the OpenAI API key and to run Pandoc commands."
+    },
+    {
+      "name": "system message",
+      "note": "I rewrote and tuned the system message driving the AI's output style and tone during rewriting."
+    },
+    {
+      "name": "prompt template",
+      "note": "I created and revised reusable prompt templates to shape the AI's transformations, especially for stylistic fidelity."
+    },
+    {
+      "name": "Claude (Anthropic)",
+      "note": "I considered experimenting with Claude as an alternative AI for more controlled rewriting."
+    },
+    {
+      "name": "AI rewriting pipeline",
+      "note": "I designed and rebuilt a pipeline using multiple scheduled passes for more control and consistency in output."
+    },
+    {
+      "name": "Critique of Pure Reason",
+      "note": "I used the full text as a test case and successfully ran it through my entire pipeline (with cost tracking and analysis)."
+    },
+    {
+      "name": "Internet Archive",
+      "note": "I considered the Internet Archive as an alternate source for public domain book scans."
+    },
+    {
+      "name": "HathiTrust Digital Library",
+      "note": "I evaluated HathiTrust as another source for high-quality public domain book scans."
+    },
+    {
+      "name": "Pandoc",
+      "note": "I used Pandoc to convert markdown output to EPUB, add covers, TOCs, and manage chapter splitting and metadata."
+    },
+    {
+      "name": "Calibre",
+      "note": "I used Calibre to preview the generated EPUB files for layout and conversion issues."
+    },
+    {
+      "name": "markdown",
+      "note": "I used markdown as my working and transition format for structuring headings, paragraphs, and metadata in ebooks."
+    },
+    {
+      "name": "Google Docs",
+      "note": "I exported source materials and drafts from Google Docs, uncovered hidden HTML tags, and wrote scripts to clean up exported markdown."
+    },
+    {
+      "name": "Project Gutenberg rewriting business",
+      "note": "I continued developing a business that rewrites public domain books using AI."
+    },
+    {
+      "name": "Wix",
+      "note": "I experimented with Wix for my website before switching due to poor responsiveness."
+    },
+    {
+      "name": "nltk",
+      "note": "I used nltk for text preprocessing tasks like sentence tokenization."
+    },
+    {
+      "name": "agent mode",
+      "note": "I explored how agent or automation features could handle marketing and workflow tasks in my business."
+    },
+    {
+      "name": "Zapier",
+      "note": "I considered Zapier for simple workflow automation but did not fully implement it."
+    },
+    {
+      "name": "gutenberg-dammit",
+      "note": "I evaluated gutenberg-dammit for text discovery but eventually worked without it."
+    },
+    {
+      "name": "beautifulsoup4",
+      "note": "I used beautifulsoup4 to scrape and parse HTML for text discovery on Project Gutenberg and Congress.gov."
+    },
+    {
+      "name": "requests",
+      "note": "I used requests for web scraping tasks like downloading books and government records."
+    },
+    {
+      "name": "openai",
+      "note": "I used openai for GPT-powered book discovery and rewriting steps."
+    },
+    {
+      "name": "cleaned_books",
+      "note": "I used and populated this folder with processed and cleaned book text files."
+    },
+    {
+      "name": "excerpted_books",
+      "note": "I created a folder to store 1000-word excerpts from my cleaned book files."
+    },
+    {
+      "name": "rewriter pipeline",
+      "note": "I built a pipeline to automate rewriting book excerpts with GPT and integrate it with my automation scripts."
+    },
+    {
+      "name": "batch_rewriter.py",
+      "note": "I wrote batch_rewriter.py to automate rewriting all files in a folder."
+    },
+    {
+      "name": "KantCleaner",
+      "note": "I used my custom KantCleaner module as part of the text cleaning process in the rewriter pipeline."
+    },
+    {
+      "name": "KantTransformer",
+      "note": "I used KantTransformer for the text transformation step in my workflow."
+    },
+    {
+      "name": "GPT-4o",
+      "note": "I used GPT-4o for creating marketing assets from book content."
+    },
+    {
+      "name": "marketing_agent.py",
+      "note": "I built marketing_agent.py to automate marketing asset generation."
+    },
+    {
+      "name": "book comparison script",
+      "note": "I developed scripts to generate side-by-side comparison files of original and rewritten texts, both in HTML and plain text."
+    },
+    {
+      "name": "HTML",
+      "note": "I created HTML files to show side-by-side comparisons of book excerpts."
+    },
+    {
+      "name": "rewritten_books",
+      "note": "I processed rewritten book files in multiple formats for comparison and publishing."
+    },
+    {
+      "name": "book_comparator.py",
+      "note": "I created and updated book_comparator.py for sentence and paragraph-level comparisons."
+    },
+    {
+      "name": "AI audiobook tools",
+      "note": "I researched options and began building a pipeline for automated AI audiobook creation using TTS APIs."
+    },
+    {
+      "name": "ElevenLabs",
+      "note": "I evaluated and planned to use ElevenLabs TTS for audiobook narration because it supports SSML and long-form content."
+    },
+    {
+      "name": "OpenAI TTS",
+      "note": "I evaluated OpenAI TTS but found it was limited for long audiobooks due to character limits and SSML support."
+    },
+    {
+      "name": "Google Cloud TTS",
+      "note": "I researched Google Cloud TTS as a cost-effective alternative for text-to-speech."
+    },
+    {
+      "name": "ChatGPT",
+      "note": "I used ChatGPT for SSML tagging and for generating summaries and content, including social media posts."
+    },
+    {
+      "name": "SSML",
+      "note": "I used and learned about SSML for controlling speech in generated audiobooks."
+    },
+    {
+      "name": "Markdown (.md) files",
+      "note": "I used markdown files throughout as the main source format for manuscripts and for editing content."
+    },
+    {
+      "name": "Congressional Record",
+      "note": "I scraped and processed the Congressional Record for plain text documents to adapt and rewrite."
+    },
+    {
+      "name": "pdfplumber",
+      "note": "I used pdfplumber to extract text from multi-column PDFs with custom cropping to get the correct reading order."
+    },
+    {
+      "name": "NASA Technical Reports",
+      "note": "I discovered NASA Technical Reports as a modern public domain source I could adapt."
+    },
+    {
+      "name": "Supreme Court decisions",
+      "note": "I identified Supreme Court decisions as public domain legal texts with adaptation potential."
+    },
+    {
+      "name": "Congress.gov",
+      "note": "I used Congress.gov as the source for Congressional Record TXT files, scraping them via browser and script-based automation."
+    },
+    {
+      "name": "BeautifulSoup",
+      "note": "I consistently used BeautifulSoup for HTML parsing during web scraping projects."
+    },
+    {
+      "name": "Playwright",
+      "note": "I set up and used Playwright to automate browser scraping, bypassing anti-bot protections on Congress.gov."
+    },
+    {
+      "name": "Selenium",
+      "note": "I briefly considered Selenium for browser automation but chose Playwright instead."
+    },
+    {
+      "name": "Chromium",
+      "note": "I installed and used Chromium alongside Playwright to enable headless browsing."
+    },
+    {
+      "name": "CongressScraper.py",
+      "note": "I wrote, debugged, and updated CongressScraper.py to extract Congressional Record content with a browser automation approach."
+    },
+    {
+      "name": "Adobe Acrobat Pro DC",
+      "note": "I considered using Adobe Acrobat Pro DC for high quality OCR of Congressional Record PDFs."
+    },
+    {
+      "name": "ABBYY FineReader",
+      "note": "I considered ABBYY FineReader as a desktop OCR tool for complex PDFs."
+    },
+    {
+      "name": "pdf2docx",
+      "note": "I looked at pdf2docx for converting PDFs to editable documents as an extraction fallback."
+    },
+    {
+      "name": "pytesseract",
+      "note": "I considered using pytesseract for OCR with PDF images."
+    },
+    {
+      "name": "PDF Plumber",
+      "note": "I used PDF Plumber for fine-grained PDF text extraction and layout handling."
+    },
+    {
+      "name": "regex",
+      "note": "I wrote regex functions to clean headers, footers, and broken line wraps in extracted text."
+    },
+    {
+      "name": "CREC-2025-07-21.pdf",
+      "note": "I used this Congressional Record PDF as a test case for my multi-column extraction experiments."
+    },
+    {
+      "name": "column specifications",
+      "note": "I defined region boundaries to extract just the main column text from multi-column documents."
+    },
+    {
+      "name": "PLOS",
+      "note": "I picked scientific articles from PLOS due to their open license and summarized them with AI."
+    },
+    {
+      "name": "arXiv",
+      "note": "I checked arXiv as another potential source for reusable scientific articles."
+    },
+    {
+      "name": "public domain / Creative Commons licenses",
+      "note": "I targeted articles with public domain or open Creative Commons licensing so I could adapt them for my business."
+    },
+    {
+      "name": "Website",
+      "note": "I planned to publish adapted content including full-length articles and visuals on my site, focusing on SEO."
+    },
+    {
+      "name": "Facebook",
+      "note": "I formatted and posted medium-length summaries and discussions on Facebook as part of my marketing."
+    },
+    {
+      "name": "Instagram",
+      "note": "I learned and practiced content techniques for Instagram, focusing especially on carousels and Reels for growth."
+    },
+    {
+      "name": "Canva",
+      "note": "I used Canva for quick design of graphics, quote cards, and carousel slides for social media content."
+    },
+    {
+      "name": "CapCut",
+      "note": "I evaluated CapCut for making Instagram Reels and adding music to social videos."
+    },
+    {
+      "name": "Instagram carousel script",
+      "note": "I created sample carousel scripts to test Instagram content workflows."
+    },
+    {
+      "name": "Facebook Reel caption",
+      "note": "I experimented with short-form copywriting for Facebook and Instagram Reels."
+    },
+    {
+      "name": "blog post",
+      "note": "I drafted and tested blogging workflows for long-form content adaptation."
+    },
+    {
+      "name": "PLOS Complex Systems",
+      "note": "I referenced and summarized an article from this journal about climate chaos and human cooperation."
+    },
+    {
+      "name": "classical paintings",
+      "note": "I explored using classical paintings as visuals for science communication posts to boost engagement."
+    },
+    {
+      "name": "headings-wrapper script",
+      "note": "I refined my script for better heading detection and formatting during manuscript processing."
+    },
+    {
+      "name": "text file",
+      "note": "I used sample text files to test heading detection and other text-processing scripts."
+    },
+    {
+      "name": "Mailchimp",
+      "note": "I considered Mailchimp for scalable email marketing and automation."
+    },
+    {
+      "name": "Blog",
+      "note": "I set up my blog as part of my web presence and focused initial content on SEO."
+    },
+    {
+      "name": "Email list",
+      "note": "I worked on building an early-stage email list and adding a lead magnet."
+    },
+    {
+      "name": "AI image generation",
+      "note": "I used AI tools to generate playful variations of images for content marketing."
+    },
+    {
+      "name": "Pinetools",
+      "note": "I used Pinetools to split images into slides for Instagram carousels."
+    },
+    {
+      "name": "Instagram Reels",
+      "note": "I realized and acted on the importance of Reels for Instagram growth."
+    },
+    {
+      "name": "Meta Business Suite",
+      "note": "I considered Meta Business Suite for scheduled posting and multi-platform coordination."
+    },
+    {
+      "name": "Shopify",
+      "note": "I migrated my website to Shopify for ecommerce, digital download sales, and better design."
+    },
+    {
+      "name": "Wix Studio",
+      "note": "I evaluated Wix Studio as an option before moving to Shopify."
+    },
+    {
+      "name": "Shopify Domains",
+      "note": "I learned how to connect and transfer domains for my new Shopify site."
+    },
+    {
+      "name": "FlickRocket (Digital Content Sales with DRM)",
+      "note": "I learned about FlickRocket as a DRM delivery option for digital books on Shopify."
+    },
+    {
+      "name": "Sky Pilot",
+      "note": "I considered Sky Pilot for digital downloads with watermarking, branding, and light DRM-like features."
+    },
+    {
+      "name": "Filemonk",
+      "note": "I considered Filemonk as a simple Shopify app for digital downloads with watermarking."
+    },
+    {
+      "name": "Uplinkly Digital Downloads",
+      "note": "I reviewed Uplinkly as a basic non-DRM download tool."
+    },
+    {
+      "name": "Lulu",
+      "note": "I prepared print-ready PDFs to upload to Lulu for print-on-demand book sales."
+    },
+    {
+      "name": "Markdown",
+      "note": "I used Markdown for nearly all manuscript and content writing and conversion steps."
+    },
+    {
+      "name": "Digital Content Sales with DRM",
+      "note": "I evaluated this for stronger DRM if digital book piracy became an issue."
+    },
+    {
+      "name": "Shopify Digital Downloads",
+      "note": "I used and evaluated Shopify's own basic digital downloads app."
+    },
+    {
+      "name": "MiKTeX",
+      "note": "I installed, uninstalled, and reinstalled MiKTeX several times to get PDF generation working for my book formatting needs."
+    },
+    {
+      "name": "xelatex",
+      "note": "I troubleshot xelatex's availability for PDF generation in my Pandoc workflow."
+    },
+    {
+      "name": "MiKTeX Console",
+      "note": "I used MiKTeX Console to try package installs and system settings."
+    },
+    {
+      "name": "TeX Live",
+      "note": "I considered switching to TeX Live after failing to get MiKTeX working."
+    },
+    {
+      "name": "Overleaf",
+      "note": "I switched to Overleaf for LaTeX-based book production when local installations failed."
+    },
+    {
+      "name": "LaTeX",
+      "note": "I wrote, structured, and edited LaTeX files for book layout before choosing Word for simpler needs."
+    },
+    {
+      "name": "Microsoft Word",
+      "note": "I formatted my book in Microsoft Word for A5 layout for Lulu printing."
+    },
+    {
+      "name": "CSS",
+      "note": "I wrote custom CSS to style the EPUB table of contents and tweak layout for ebook readers."
+    },
+    {
+      "name": "EPUB",
+      "note": "I generated and tweaked EPUB files for publishing and for tests on multiple reader devices."
+    },
+    {
+      "name": "Word",
+      "note": "I used Word to layout my print book after deciding LaTeX-based workflows were too complex."
+    },
+    {
+      "name": "Kindle",
+      "note": "I tested my EPUB on Kindle and discovered it sometimes overrides custom CSS."
+    },
+    {
+      "name": "Apple Books",
+      "note": "I tested EPUB compatibility with Apple Books and confirmed support for my custom CSS."
+    },
+    {
+      "name": "Google Play Books",
+      "note": "I tested EPUB CSS on Google Play Books with positive results."
+    },
+    {
+      "name": "Kobo",
+      "note": "I checked the EPUB on Kobo and found it respected my CSS tweaks."
+    },
+    {
+      "name": "pandoc",
+      "note": "I continued using pandoc to convert markdown to EPUB for publishing with custom CSS styling."
+    }
+  ],
+  "actions": [
+    {
+      "text": "I built the starter version of a Python pipeline that processes Project Gutenberg books by stripping headers, chunking text, sending it to an AI API, and saving outputs.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote my main.py script to process text in three distinct passes: language modernization, perspective shift, and detail enrichment.",
+      "salience": 3
+    },
+    {
+      "text": "I ran Kant's Critique of Pure Reason through my OpenAI API-based processing pipeline and verified the cost and results.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and refined a Python script to wrap headings in text files by detecting both single and multi-line headings based on line patterns.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote and tested a new Python script to more accurately remove and log multi-line and malformed footnotes from book text files.",
+      "salience": 3
+    },
+    {
+      "text": "I refactored my existing Python scripts to shift from text rewriting to fiction summarization, focusing on paragraph-based chunking.",
+      "salience": 3
+    },
+    {
+      "text": "I adapted my existing four-part Python script system to handle fiction summarization, not just nonfiction rewriting.",
+      "salience": 3
+    },
+    {
+      "text": "I updated my main.py script to support independent temperature settings for each transformation pass in my AI-driven rewriting pipeline.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script to unwrap hard-wrapped text from Project Gutenberg files and output clean paragraphs.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to remove inline footnotes from plain text files.",
+      "salience": 2
+    },
+    {
+      "text": "I ran a Python script that removed footnotes from my main text and saved them in a separate file.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my footnote extraction Python script to accurately remove both bracketed and unbracketed 'Note:' footnotes from Project Gutenberg texts.",
+      "salience": 2
+    },
+    {
+      "text": "I updated and refactored a Python script to robustly detect and wrap headings that begin with a Roman numeral and period or the § symbol, including when these are followed by text.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote my heading-wrapping Python script to properly detect and join multi-line headings surrounded by blank lines before processing.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a Python script to join and wrap multi-line headings in my text files.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refactored a Python script that combined pattern matching and block detection to robustly identify and wrap single and multi-line headings in text files.",
+      "salience": 2
+    },
+    {
+      "text": "I designed a Python script that detects headings, formats them as bold and centered in markdown, and creates a separate headings log file.",
+      "salience": 2
+    },
+    {
+      "text": "I generated an EPUB file for my ebook using a recommended tool, then prepared and added a cover image, metadata, and a table of contents to the EPUB through my markdown file and Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I prepared to write a Python script to convert bold text headings into markdown # headings in my document.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a Python script to convert HTML-style headings in my markdown file to proper markdown headings for better compatibility with Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and modified a Python script that detects headings in a text file and format them as Markdown headings for Pandoc compatibility.",
+      "salience": 2
+    },
+    {
+      "text": "I used a Python script to remove all HTML tags from my markdown file and produce a clean version for ebook conversion.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined a script to automatically add blank lines between paragraphs in markdown files to improve Pandoc output.",
+      "salience": 2
+    },
+    {
+      "text": "I improved my process for removing and extracting irregular footnotes from my project files by analyzing leftover fragments.",
+      "salience": 2
+    },
+    {
+      "text": "I created and renamed configuration, main, transform, and cleaner scripts for the new summarization-first pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I adapted my config file to support paragraph-based chunking and set up distinct summarization prompt blocks.",
+      "salience": 2
+    },
+    {
+      "text": "I refactored my configuration script to support new summarization prompts and models.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined logic in my cleaning script to split fiction into clear paragraph-based chunks and remove lingering HTML, footnotes, and formatting artifacts.",
+      "salience": 2
+    },
+    {
+      "text": "I set up a repeatable pipeline for fiction: prepare input text, split and clean with a script, configure parameters, run main and transformer scripts, inspect outputs, and optionally convert to EPUB.",
+      "salience": 2
+    },
+    {
+      "text": "I initiated the creation of a Python script for a local agent that finds, downloads, and cleans philosophy or history texts from Project Gutenberg.",
+      "salience": 2
+    },
+    {
+      "text": "I created an AI-powered Python script that used GPT-4 to generate a list of top philosophy and history books, searched Project Gutenberg for each, downloaded the text files, and cleaned them.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a Python script that scanned my cleaned_books folder and generated 1000-word excerpts for each file, saving them to a new excerpted_books folder.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script to truncate text files from a custom marker and preserve structure.",
+      "salience": 3
+    },
+    {
+      "text": "I updated the script to let me specify a starting marker for excerpting.",
+      "salience": 2
+    },
+    {
+      "text": "I set up an automation script to run my rewriter pipeline hands-free for all excerpted book files.",
+      "salience": 3
+    },
+    {
+      "text": "I refactored my main book rewriting script into a function-based module with a reusable run_pipeline() function.",
+      "salience": 3
+    },
+    {
+      "text": "I wrote a batch_rewriter.py script to automate processing all books in a folder using my new pipeline function.",
+      "salience": 2
+    },
+    {
+      "text": "I built a Python script called marketing_agent.py to automate marketing content generation for my rewritten books using GPT-4o.",
+      "salience": 2
+    },
+    {
+      "text": "I built and updated a Python script to create side-by-side comparison files for original and rewritten books, first in HTML and then in plain text format.",
+      "salience": 3
+    },
+    {
+      "text": "I fixed a formatting error in the HTML template by escaping curly braces in the CSS block for Python's format method.",
+      "salience": 2
+    },
+    {
+      "text": "I updated my marketing script to use the new OpenAI client call style.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refactored Python scripts for processing and comparing original and rewritten books at both sentence and paragraph levels.",
+      "salience": 3
+    },
+    {
+      "text": "I upgraded my marketing content generation script to handle multiple input formats and added features like a terminal preview and better error handling.",
+      "salience": 2
+    },
+    {
+      "text": "I wired up a pipeline that automated discovery, downloading, cleaning, truncation, and rewriting of classic texts.",
+      "salience": 3
+    },
+    {
+      "text": "I adjusted my comparison script to group three rewritten paragraphs with every one original paragraph based on my file structure.",
+      "salience": 2
+    },
+    {
+      "text": "I planned and designed a two-stage audiobook generation pipeline using SSML tagging with ChatGPT and TTS API integration.",
+      "salience": 3
+    },
+    {
+      "text": "I decided to repurpose my existing rewriter scripts to review finished manuscripts by sending them through the API for error checking and marking.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote a Python script using requests and BeautifulSoup to scrape and download individual Congressional Record section TXT files from Congress.gov.",
+      "salience": 2
+    },
+    {
+      "text": "I planned to automate compiling all the sections for a particular day into one .txt document and pass it through my text cleaner pipeline.",
+      "salience": 2
+    },
+    {
+      "text": "I rewrote and finalized a Python script that scraped all sections of the Congressional Record for a single day, added browser headers to bypass 403 errors, and compiled the results into a grouped text file.",
+      "salience": 3
+    },
+    {
+      "text": "I rewrote my Congress.gov scraper to use Playwright with Python, enabling it to fully load and extract text from the site despite anti-bot protections.",
+      "salience": 3
+    },
+    {
+      "text": "I fixed a PATH issue so Playwright would work in PowerShell by running the executable directly.",
+      "salience": 2
+    },
+    {
+      "text": "I ran my Congress Record scraper script and debugged why the output file was empty.",
+      "salience": 2
+    },
+    {
+      "text": "I decided to rewrite the CongressScraper.py script to extract the full main-content body from each section page directly.",
+      "salience": 2
+    },
+    {
+      "text": "I updated the CongressScraper.py script to wait for dynamically loaded main content and added debug logging.",
+      "salience": 2
+    },
+    {
+      "text": "I adjusted the code in my PDF Plumber script to use custom cropping coordinates for extracting text from a three-column layout.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote example Python functions to remove headers and footers with regex and to fix broken hyphenated words from line breaks in extracted text.",
+      "salience": 2
+    },
+    {
+      "text": "I wrote and refined scripts for cleaning up raw PDF text after extraction, including fixing hyphens and unwrapping lines.",
+      "salience": 2
+    },
+    {
+      "text": "I integrated successful column specifications and top/bottom cropping with pdfplumber for precise PDF text extraction.",
+      "salience": 2
+    },
+    {
+      "text": "I created a simplified pdfplumber script for extracting text from non-column, clean PDFs.",
+      "salience": 2
+    },
+    {
+      "text": "I refined my Python script for wrapping headings to make its block-level detection stricter and avoid wrapping whole paragraphs.",
+      "salience": 2
+    },
+    {
+      "text": "I tested and reviewed multiple Python scripts for automatically wrapping headings in my text file based on word count and line isolation.",
+      "salience": 2
+    },
+    {
+      "text": "I uninstalled and reinstalled MiKTeX with the correct Letter paper size configuration for North American print needs.",
+      "salience": 2
+    },
+    {
+      "text": "I investigated and attempted to resolve issues with MiKTeX and xelatex integration for generating PDFs with Pandoc.",
+      "salience": 2
+    },
+    {
+      "text": "I converted my Markdown .md file to a .tex file using Pandoc for integration into Overleaf.",
+      "salience": 2
+    },
+    {
+      "text": "I reviewed and began restructuring my main LaTeX document to fit Overleaf's template and file structure.",
+      "salience": 1
+    },
+    {
+      "text": "I prepared a custom CSS file and Pandoc command to generate an EPUB with a clean, nested, numberless table of contents.",
+      "salience": 2
+    },
+    {
+      "text": "I updated the CSS for the EPUB table of contents to improve indentation and compatibility with various e-readers.",
+      "salience": 2
+    }
+  ]
+}

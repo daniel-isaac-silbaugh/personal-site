@@ -1,0 +1,91 @@
+{
+  "title": "Obsidian AI Chat Notes",
+  "date": "2025-12-14",
+  "tagline": "An automated pipeline that turns years of raw LLM chat exports into searchable, indexed notes (this website is built on this tool).",
+  "objective": "I wanted a system that could turn my old LLM chat conversations into useful notes I could actually search, reference, and show to other people. The goal was to organize and summarize my entire chat history in Obsidian with strong privacy controls, flexible extraction, and clear narrative output.",
+  "sections": [
+    {
+      "heading": "Setup & Data Import",
+      "body": "Over the years, as my LLM chat history kept expanding (by now I have hundreds of conversations), it became difficult to keep track of those conversations- where did we talk about this or that, when was this tool mentioned, what did the model say about this, and so on. I was doing a lot of scrolling.\n\nIn addition, I felt that, because I ran anything work related by an LLM, it was an extremely valuable standalone asset. However, in its current form, it could not really be shared or displayed. So I exported all of my chats and began to figure out how to parse and render them in an accessible, easy-to-browse format. The result is the website you're reading right now. Here's how I did it.\n\nFirst, I started by choosing Obsidian as my knowledge base. I started a vault for projects and chat logs, exported my ChatGPT conversations, and wrote Python scripts to batch-convert the raw conversations.json into Markdown files. This included handling filename normalization for Windows compatibility.\n\nThe initial import gave me hundreds of raw conversation files. The next problem was making them actually useful - filtering out everything irrelevant, promoting interesting things, and condensing them into summaries for a quick scan. (Later on, my LLM provider included the model's chain-of-thought in the logs, which was very interesting to read.)",
+      "tools": [
+        "Python",
+        "Obsidian",
+        "ChatGPT"
+      ]
+    },
+    {
+      "heading": "The Map-Reduce Pipeline",
+      "body": "To perform chat-triage and get summaries, I took the main python scripts from my Book Modernizer project and began modifying their logic. It would be a two pass system: chunk-level summary and weighting, followed by integration. Each chat file was split into manageable chunks, each chunk was analyzed and scored independently (the \"map\" step), and the results were merged into a single JSON and Markdown summary per conversation (the \"reduce\" step). Early versions hit token limit errors and JSON parsing failures, so I refactored for better chunk handling, template validation, error recovery, and budget scaling.\n\nI also built a JSONL index across all chats for future bulk analysis. The map and reduce steps were kept fully modular so I could swap in a new reducer prompt and re-summarize the entire archive in a different format — for personal review, a portfolio, or an employer — without rerunning the expensive map step.",
+      "tools": [
+        "Python",
+        "OpenAI API",
+        "VS Code"
+      ]
+    },
+    {
+      "heading": "Clustering & Semantic Grouping",
+      "body": "Once I had summaries, I wanted to find themes across the whole archive — not just read each note in isolation. I wrote scripts for Level 1 clustering by tag frequency, then moved to semantic clustering using OpenAI embeddings to group ideas and todos that were really about the same thing but worded differently.\n\nThis required a lot of tag cleanup first. I built a canonical tag map and merge process to collapse duplicate and overly granular tags. A separate script cleaned tags across all Markdown files in the vault. The clustering work revealed the difference between repeating information and higher-level themes, and helped me focus the workflow on projects, core questions, and things worth acting on.",
+      "tools": [
+        "Python",
+        "OpenAI API",
+        "Obsidian"
+      ]
+    },
+    {
+      "heading": "Salience Scoring & Output Quality",
+      "body": "Simple extraction by chat length wasn't enough — what mattered was how important each chunk actually was. I moved to a salience-weighted approach, scoring every idea, todo, and project for significance before deciding what made it into the final output. Prompts were rewritten to enforce strict first-person, plain-past-tense language and to clearly define what counts as a project versus a stray idea.\n\nI tuned the number of narrative paragraphs in each output to scale independently with chat salience and project salience — up to nine paragraphs for large, important conversations. The Markdown renderer was overhauled to produce readable narrative paragraphs rather than bullet lists. The end result is a batch-processed archive where every conversation has a clean, human-readable case-study-style note that accurately reflects what was actually done.",
+      "tools": [
+        "Python",
+        "OpenAI API",
+        "prompt engineering"
+      ]
+    },
+    {
+      "heading": "Web Portfolio Integration",
+      "body": "With a clean archive of structured JSON notes in hand, the last step was putting them online. I built this site — a Next.js portfolio — to serve as the public face of the archive. Each JSON file produced by the pipeline maps directly to a project page, with sections, tags, tools, and skills rendered automatically from the data. A manifest file controls what's published and what stays private, and an admin panel makes it easy to review drafts, edit content, and merge notes from multiple sessions on the same project. The pipeline that started as a personal organization tool became the content engine for the site you're reading now.",
+      "tools": [
+        "Claude",
+        "Node.js",
+        "Next.js"
+      ]
+    }
+  ],
+  "status": "Complete. The pipeline is stable and the full archive has been processed. Modular design makes it easy to re-run with new prompts.",
+  "skills_demonstrated": [
+    "python scripting",
+    "prompt engineering",
+    "data pipeline design",
+    "nlp chunking",
+    "semantic clustering",
+    "data cleaning",
+    "workflow automation",
+    "markdown rendering"
+  ],
+  "entities": [
+    {
+      "name": "Obsidian",
+      "note": "Local-first knowledge base used to store, index, and search all conversation analyses and project notes."
+    },
+    {
+      "name": "OpenAI API",
+      "note": "Called in both map and reduce steps to analyze conversation chunks and return structured JSON summaries."
+    },
+    {
+      "name": "Python",
+      "note": "Used for all scripting: data import, chunking, map-reduce orchestration, clustering, tag cleaning, and Markdown export."
+    }
+  ],
+  "tags": [
+    "python",
+    "ai",
+    "automation",
+    "knowledge-management",
+    "prompt-engineering",
+    "clustering",
+    "obsidian",
+    "data-pipeline"
+  ],
+  "summary": "",
+  "external_url": "",
+  "actions": []
+}

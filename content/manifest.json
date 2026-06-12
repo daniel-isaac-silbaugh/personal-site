@@ -1,0 +1,494 @@
+[
+  {
+    "slug": "drgronk",
+    "file": "drgronk.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "drgronkgoestothebeach",
+    "file": "drgronkgoestothebeach.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "book-modernizer",
+    "file": "book-modernizer.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "kant-for-kids",
+    "file": "kant-for-kids.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "mileage-calculator",
+    "file": "mileage-calculator.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "ai-tools",
+    "file": "ai-tools.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "simple-low-risk-business",
+    "file": "2023-12-01 – Simple, Low-Risk Business_analysis.json",
+    "type": "brainstorm",
+    "published": false
+  },
+  {
+    "slug": "2023-05-23-real-estate-development-experience",
+    "file": "2023-05-23 – Real Estate Development Experience_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-09-23-boosting-productivity-success-tips",
+    "file": "2024-09-23 – Boosting Productivity Success Tips_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-09-24-business-website-inquiry",
+    "file": "2024-09-24 – Business Website Inquiry_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-09-25-beginner-python-tutorial",
+    "file": "2024-09-25 – Beginner Python Tutorial_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-09-user-friendly-ai-tools",
+    "file": "2024-10-09 – User Friendly AI Tools_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-10-home-cost-breakdown-us",
+    "file": "2024-10-10 – Home Cost Breakdown US_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-10-python-program-example",
+    "file": "2024-10-10 – Python Program Example_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-10-transistor-switching-speed",
+    "file": "2024-10-10 – Transistor Switching Speed_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-17-generating-large-language-models",
+    "file": "2024-10-17 – Generating Large Language Models_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-17-learn-python-basics",
+    "file": "2024-10-17 – Learn Python Basics_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-23-custom-ai-relationship-advice",
+    "file": "2024-10-23 – Custom AI Relationship Advice_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-30-fortran-programming-language-overview",
+    "file": "2024-10-30 – Fortran Programming Language Overview_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2024-10-31-prompt-completion-pair-ideas",
+    "file": "2024-10-31 – Prompt Completion Pair Ideas_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-01-21-1906-diary",
+    "file": "2025-01-21 – 1906 Diary_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-01-21-zoning-reform",
+    "file": "2025-01-21 – Zoning Reform_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-02-07-construction-path-options",
+    "file": "2025-02-07 – Construction Path Options_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-02-11-business-plan-generation",
+    "file": "2025-02-11 – Business Plan Generation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-03-01-2024-tax-estimate",
+    "file": "2025-03-01 – 2024 Tax Estimate_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-03-12-life-story-business-model",
+    "file": "2025-03-12 – Life Story Business Model_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-03-project-overview-summary",
+    "file": "2025-05-03 – Project Overview Summary_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-03-zoning-laws-and-approval",
+    "file": "2025-05-03 – Zoning Laws and Approval_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-11-political-approach-to-construction",
+    "file": "2025-05-11 – Political Approach to Construction_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-11-substack-bio-creation",
+    "file": "2025-05-11 – Substack Bio Creation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-22-1099-taxes",
+    "file": "2025-05-22 – 1099 Taxes_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-05-26-zoning-project-data-analysis",
+    "file": "2025-05-26 – Zoning Project Data Analysis_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-06-15-ai-web-and-mobile-apps",
+    "file": "2025-06-15 – AI Web and Mobile Apps_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-06-27-ai-enhanced-public-domain-books",
+    "file": "2025-06-27 – AI-Enhanced Public Domain Books_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-07-12-new-nonfiction-book-generation",
+    "file": "2025-07-12 – New Nonfiction Book Generation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-07-20-route-calculator",
+    "file": "2025-07-20 – Route Calculator_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-07-21-forked-books-2",
+    "file": "2025-07-21 – Forked Books #2_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-07-24-project-gutenberg-rewrite",
+    "file": "2025-07-24 – Project Gutenberg rewrite_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-08-06-gutenberg-rewriter-marketing",
+    "file": "2025-08-06 – Gutenberg rewriter marketing_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-08-10-anti-prince-concept-review",
+    "file": "2025-08-10 – Anti-Prince concept review_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-08-13-file-structure-recreation",
+    "file": "2025-08-13 – File structure recreation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-08-19-gutenberg-rewriter-pipeline",
+    "file": "2025-08-19 – Gutenberg rewriter pipeline_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-09-04-project-overview-summary",
+    "file": "2025-09-04 – Project overview summary_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-09-11-childrens-book-project",
+    "file": "2025-09-11 – Children's book project_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-09-19-project-focus-advice",
+    "file": "2025-09-19 – Project focus advice_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-09-20-ken-burns-video-tools",
+    "file": "2025-09-20 – Ken Burns video tools_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-09-26-literature-transformation-gui",
+    "file": "2025-09-26 – Literature transformation GUI_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-10-08-childrens-book-project-summary",
+    "file": "2025-10-08 – Children's book project summary_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-10-10-pdf-to-txt-conversion",
+    "file": "2025-10-10 – PDF to TXT conversion_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-10-19-childrens-book-part-ii",
+    "file": "2025-10-19 – Children's Book Part II_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-10-22-project-idea-assistance",
+    "file": "2025-10-22 – Project idea assistance_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-11-12-rebranding-childrens-books",
+    "file": "2025-11-12 – Rebranding children's books_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-11-13-coding-with-two-laptops",
+    "file": "2025-11-13 – Coding with two laptops_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-11-16-modifier-design-for-prompts",
+    "file": "2025-11-16 – Modifier design for prompts_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-11-19-childrens-book-part-iii",
+    "file": "2025-11-19 – Children's Book Part III_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-11-27-manifest-generation-process",
+    "file": "2025-11-27 – Manifest generation process_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-04-aristotle-kantforkids-chat",
+    "file": "2025-12-04 – Aristotle kant_for_kids chat_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-04-aristotles-ethics-introduction",
+    "file": "2025-12-04 – Aristotle's ethics introduction_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-04-new-chat-initiation",
+    "file": "2025-12-04 – New chat initiation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-04-tax-data-conversion-plan",
+    "file": "2025-12-04 – Tax data conversion plan_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-09-appendix-creator-idea",
+    "file": "2025-12-09 – Appendix creator idea_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-09-appendix-program-summary",
+    "file": "2025-12-09 – Appendix program summary_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-09-journal-automation-ideas",
+    "file": "2025-12-09 – Journal automation ideas_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-12-tech-in-housing-industry",
+    "file": "2025-12-12 – Tech in Housing Industry_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-14-ai-chat-organization-tools",
+    "file": "2025-12-14 – AI chat organization tools_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-19-custom-ai-interface",
+    "file": "2025-12-19 – Custom AI Interface_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-30-gutenberg-rewriter-discussion",
+    "file": "2025-12-30 – Gutenberg Rewriter Discussion_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2025-12-31-ai-llm-capabilities-exploration",
+    "file": "2025-12-31 – AI LLM Capabilities Exploration_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-01-21-publishing-and-distribution-hub",
+    "file": "2026-01-21 – Publishing and Distribution Hub_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-01-super-chat-saas-project",
+    "file": "2026-03-01 – Super Chat SaaS Project_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-04-product-marketing-strategy",
+    "file": "2026-03-04 – Product Marketing Strategy_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-19-project-memory-and-details",
+    "file": "2026-03-19 – Project Memory and Details_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-22-intellectual-lineages-exploration",
+    "file": "2026-03-22 – Intellectual Lineages Exploration_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-23-yaml-metadata-generation",
+    "file": "2026-03-23 – YAML metadata generation_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-26-intellectual-lineages-research",
+    "file": "2026-03-26 – Intellectual Lineages Research_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-03-26-marketing-modernizer-project",
+    "file": "2026-03-26 – Marketing Modernizer Project_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-04-02-intellectual-lineages-research",
+    "file": "2026-04-02 – Intellectual Lineages Research_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-04-03-brook-farm-fruitlands-facts",
+    "file": "2026-04-03 – Brook Farm Fruitlands Facts_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-04-03-claude-polymarket-rumor",
+    "file": "2026-04-03 – Claude Polymarket Rumor_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "2026-04-30-text-cleanup-pipeline-design",
+    "file": "2026-04-30 – Text Cleanup Pipeline Design_analysis.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "merged-1781122181026",
+    "file": "merged-1781122181026.json",
+    "type": "project",
+    "published": false
+  },
+  {
+    "slug": "merged-1781122568179",
+    "file": "merged-1781122568179.json",
+    "type": "project",
+    "published": false
+  }
+]

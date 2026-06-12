@@ -1,26 +1,321 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #edeae3;
+  --foreground: #1a1918;
+  --muted: #6b6860;
+  --link: #1a1918;
+  --link-hover: #000000;
+  --selection: #c8c2b4;
+  --border: #d4d0c8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme="dark"] {
+  --background: #1a1918;
+  --foreground: #edeae3;
+  --muted: #9a9690;
+  --link: #edeae3;
+  --link-hover: #ffffff;
+  --selection: #3a3835;
+  --border: #2e2c2a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-serif), Georgia, "Times New Roman", Times, serif;
+  font-size: 18px;
+  line-height: 1.65;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Main content column */
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 96px;
+}
+
+/* Top nav */
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 56px;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+header a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+header nav a {
+  font-size: 0.9em;
+}
+
+header a:hover {
+  opacity: 0.6;
+}
+
+/* Main title */
+h1 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Section headings */
+h2 {
+  margin: 52px 0 16px;
+  font-size: 1.25em;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Paragraph rhythm */
+p {
+  margin: 0 0 24px;
+}
+
+/* Links */
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--link-hover);
+  opacity: 0.7;
+}
+
+/* Bio section — slightly muted */
+.bio p {
+  color: var(--foreground);
+  font-size: 1em;
+  line-height: 1.7;
+}
+
+/* Bulleted article/project lists */
+ul {
+  margin: 0 0 28px 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0 0 14px;
+  padding-left: 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+}
+
+li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Optional smaller secondary text */
+small,
+.meta,
+.muted {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+
+/* Section note text (the "—" descriptions) */
+li span {
+  color: var(--muted);
+  font-size: 0.92em;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--foreground);
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.theme-toggle::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--foreground);
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  transition: right 0.2s ease;
+}
+
+[data-theme="dark"] .theme-toggle::after {
+  right: calc(100% - 17px);
+}
+
+/* Divider between header and content */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  html {
+    font-size: 17px;
+  }
+
+  main {
+    padding: 28px 20px 72px;
+  }
+
+  header {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    margin-top: 44px;
+  }
+}
+
+/* ── Project pages ── */
+
+.back-nav {
+  margin-bottom: 48px;
+}
+
+.back-nav a {
+  font-size: 0.88em;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.back-nav a:hover {
+  color: var(--foreground);
+  opacity: 1;
+}
+
+.project-header {
+  display: block;
+  margin-bottom: 48px;
+}
+
+.project-header h1 {
+  font-size: 2em;
+  margin-bottom: 16px;
+}
+
+.project-tagline {
+  font-size: 1.1em;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.project-link {
+  display: inline-block;
+  font-size: 0.9em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--foreground);
+  padding-bottom: 1px;
+}
+
+.project-link:hover {
+  opacity: 0.6;
+}
+
+.project-section {
+  margin-bottom: 40px;
+}
+
+.project-section h2 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.project-section h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.experiment {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.experiment:last-child {
+  border-bottom: none;
+}
+
+/* Tags */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.section-tools {
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.78em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.project-date {
+  font-size: 0.88em;
+  color: var(--muted);
+  margin: 6px 0 16px;
+}
+
+/* Entity list (from analysis files) */
+.entity-list {
+  margin-left: 0;
+  list-style: none;
+}
+
+.entity-list li {
+  font-size: 0.92em;
+}
+
+::selection {
+  background: var(--selection);
 }

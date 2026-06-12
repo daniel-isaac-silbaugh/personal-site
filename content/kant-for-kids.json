@@ -1,0 +1,91 @@
+{
+  "title": "Kant for Kids",
+  "date": "2025-12-04",
+  "tagline": "An end-to-end AI pipeline for transforming dense philosophical texts into illustrated, child-friendly books — with custom tooling at every stage from raw OCR to print-ready layout.",
+  "sections": [
+    {
+      "heading": "The idea",
+      "body": "The Critique of Pure Reason is one of the most important books ever written and one of the least readable. I wanted to fix that — not just for adults, but for children. The premise sounds absurd, which is part of why it interested me: could you take Kant's most demanding philosophical arguments, preserve their intellectual integrity, and render them genuinely accessible to a kid? And could you do it at scale, across the whole book, with enough creative variety that each page felt like it was written by someone who cared — not generated?\n\nThe answer required building a production pipeline from scratch. What started as prompt experimentation grew into a multi-stage system covering text cleaning, semantic grouping, multi-pass AI summarization, metaphor theming, image generation, editorial review, and final layout in InDesign. Along the way I built most of the tooling myself, because the tools I needed didn't exist.",
+      "tools": []
+    },
+    {
+      "heading": "The summarization pipeline",
+      "body": "First, I used the system I had built for The Book Modernizer and used it as a base. But this one would be a bit different, because the transformation was more demanding and I wanted high-quality output. The core text transformation ran as a sequence of discrete AI passes, each with its own prompt template stored in external JSON files so I could iterate on them without touching code. An adult-level summary pass came first, capturing the philosophical content accurately. A kid-level summary pass followed, rewriting for a young audience. Then a creative pass layered in metaphors and imagery. A bridge pass wrote single-sentence connectives between paragraphs to maintain narrative flow. Each pass consumed the output of the previous one as context.\n\nGetting the kid summaries right was harder than I expected. Early outputs were repetitive, used too much meta-language (“In this passage, Kant argues...”), and cycled through the same handful of metaphors. I solved the repetition problem with a metaphor theme system: a catalog of over a hundred kid-friendly themes — animals, weather, building blocks, seasons — each described in enough detail that the model could write distinctively within it. Themes were assigned deterministically by group hash so that the same passage always got the same theme across runs, which also made prompt caching effective. A sliding-window blocker prevented the same theme from appearing in nearby groups.",
+      "tools": [
+        "GPT-4.1",
+        "multi-pass prompting",
+        "lit_operator.py / jsonl_operator.py",
+        "metaphor_themes.json",
+        "metaphor_banlist.json",
+        "prompt caching",
+        "PowerShell batch automation"
+      ]
+    },
+    {
+      "heading": "Training a taste model",
+      "body": "Pure automation wasn't good enough for the creative passes. The pipeline could generate multiple candidate summaries per paragraph, but I needed a way to select the best ones at scale without reading every candidate manually. I built a taste model: I generated OpenAI embeddings for a set of examples I'd already hand-selected as good, trained a logistic regression classifier on those labeled examples using scikit-learn, and used it to score new candidates automatically. The model learned to approximate my editorial preferences — favoring summaries that were vivid, concrete, and child-appropriate — and filtered the candidate pool before I ever looked at it. For cases where the classifier wasn't confident, an LLM judge made the final call.",
+      "tools": [
+        "scikit-learn (logistic regression)",
+        "OpenAI embeddings",
+        "pick_quartets.py",
+        "LLM judge"
+      ]
+    },
+    {
+      "heading": "Browser-based editorial tools",
+      "body": "Still, as we all know, the achilles heel of an LLM is taste. For this project, I was trying to meet my own artistic standards, so I ended up writing a suite of single-file HTML/JavaScript applications for tasks that needed human judgment but didn't need a full application framework. A custom JSONL filter viewer let me quickly scan and select output. A multi-manifest image picker loaded images from multiple generation batches, grouped them by reference, and let me browse, zoom, and export my picks to a JSONL manifest. All of these tools were built to work with my JSONL pipeline directly — load a file, make decisions, download the result.",
+      "tools": [
+        "HTML / JavaScript",
+        "JSONL filter viewer",
+        "sentence_splitter_kidtext.html",
+        "quartet picker",
+        "multi-manifest image picker",
+        "localStorage (bookmarks)"
+      ]
+    },
+    {
+      "heading": "Illustration pipeline",
+      "body": "Each page of the book needed an illustration. So I built a prompt generation pipeline that took the kid summaries and transformed them into structured image prompts, encoding style, subject, composition, and a character casting preset to maintain diversity across the book. Getting consistent visual style from diffusion models required careful prompt engineering: explicit constraints on medium (vintage children's book illustration), subject isolation (one character, no busy backgrounds), and period-appropriate detail. I generated batches through the Stability AI API (will switch in future, probably to OpenAI or Google), and used the multi-manifest picker to make final selections. ",
+      "tools": [
+        "Stability AI API (SDXL)",
+        "Pillow",
+        "Topaz Photo AI",
+        "image_stylebook.json",
+        "prompt modifier catalog"
+      ]
+    },
+    {
+      "heading": "Layout and production",
+      "body": "Final assembly used InDesign's Data Merge feature, driven by a CSV generated from my merged image and text manifests. A Python script combined the JSONL outputs of the text and image pipelines into a single structured file, with command-line flags for flexible path handling, then exported the CSV in the exact schema InDesign expected — image frame paths, captions, metadata, page layout type. I designed the InDesign template around modern picture-book conventions: generous whitespace, large image frames, clean caption typography. The annotated edition added margin-style references tying each page back to the corresponding passage in Kant's original text.\n\nThe orchestrator script that tied the whole automated portion together was resume-safe — it tracked which stages had completed and skipped them on re-runs, so a failure midway through a large batch didn't mean starting over. It produced a run report on completion so I could see exactly what had been processed.",
+      "tools": [
+        "Adobe InDesign (Data Merge)",
+        "Python (merge scripts)",
+        "CSV schema design",
+        "run_to_picker.py (orchestrator)",
+        "Parquet / Polars / DuckDB (QA analytics)"
+      ]
+    },
+    {
+      "heading": "What I built",
+      "body": "At full scale, the pipeline takes a cleaned philosophical text from raw JSONL through semantic grouping, multi-pass AI summarization with thematic variety controls, automated and human-in-the-loop creative selection, image generation and curation, and InDesign layout — producing a print-ready illustrated book. Most stages are fully automated and resumable. The human-in-the-loop stages are supported by purpose-built browser tools that make judgment-intensive work fast enough to be practical at book scale. The part I'm most proud of isn't any individual component but the fact that the system as a whole takes a genuinely hard creative problem seriously: it doesn't just generate text, it tries to get the text right.",
+      "tools": []
+    }
+  ],
+  "status": "99% complete.",
+  "tags": [
+    "ai",
+    "publishing",
+    "python",
+    "philosophy",
+    "children",
+    "illustration",
+    "ml",
+    "automation"
+  ],
+  "objective": "",
+  "summary": "",
+  "external_url": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": []
+}

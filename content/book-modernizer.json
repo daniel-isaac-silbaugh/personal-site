@@ -1,0 +1,91 @@
+{
+  "title": "The Book Modernizer",
+  "date": "2024-01-01",
+  "tagline": "An automated publishing pipeline - from raw files to retail-ready ebooks, audiobooks, and marketing assets.",
+  "external_url": "https://bookmodernizer.com",
+  "sections": [
+    {
+      "heading": "Origin",
+      "body": "This project started a couple of years ago, when I was volunteering at a Habitat for Humanity build in Seattle. I got to talking with another volunteer, who had a side gig writing biographies for ordinary people. I had been writing fiction since college, but had never done anything in nonfiction. However, I loved reading biographies. I learned a lot about her work, but ended up putting the project on the backburner. \n\nA year or so later, however, this experience sparked another idea...I had never written nonfiction, per se, but I had always kept a journal and now it ran to hundreds of pages. Could I not use AI to turn this journal into my own autobiography? And, further, using LLMs, could I not use some special rules and prompting to turn it into, say, a biography of me, but as if I had lived in the 19th century, or in some completely new, fantastic environment? \n\nI did this, and it worked pretty flawlessly. I started sending journal entries through the system. I transformed them so that it was my autobiography, if I had lived in early 20th century San Francisco. Anytime in my journal I drove a car, for instance, would be transformed into me driving a wagon, pulled along by horses. That was a lot of fun. But then I also thought, if I could do this to my journal, I could transform any text in similar ways. \n\nI had always loved reading philosophy. My life was enriched and expanded in almost tangible ways by the things that I read, that changed how the world felt, and how I saw things, not in a metaphorical sense, but in my immediate reality. \n\nHowever, there came a certain point where I could not understand what I was reading. Or it was too complex, too arcane, too old, for me to handle. \n\nThese various strands of experience collided to form the Book Modernizer project. I decided I would transform those old philosophical texts, so that they would be easily understood by a lay, modern audience.\n",
+      "tools": []
+    },
+    {
+      "heading": "The problem with source texts",
+      "body": "The first surprise was how messy the raw material actually is. The raw files typically came with hard-wrapped lines, inconsistent paragraph breaks, inline footnotes that interrupt the reading flow, and occasional OCR artifacts that survive decades of inattention. Before I could modernize a single sentence, I needed to clean the text reliably. I ended up writing a half-dozen purpose-built scripts — one that splits text on newline presence, one that classifies each chunk to detect and strip footnotes, another that unwraps hard-wrapped lines etc. I also built a local HTML/JS editor for visually reviewing and correcting Markdown headings before its sent through an LLM API, because programmatic heading detection in classic texts is genuinely hard. Basically I had to take a mess and get a clean, structured result. ",
+      "tools": [
+        "Python",
+        "BeautifulSoup",
+        "regex",
+        "HTML/JS",
+        "Notepad++ / VS Code"
+      ]
+    },
+    {
+      "heading": "The rewriting pipeline",
+      "body": "Once the text was clean, the core work began: I would use OpenAI's API to rewrite the books. I tested dozens of prompts, revising to adjust perspective, tone, and account for all the quirks and weirdness of the model. I moved all prompts into an external JSON file early on so I could iterate on them without touching code.\n\nI also had to think carefully about chunking. Large language models have context limits, and naive chunking — just splitting on character count — destroys coherence at the seams. I adapted a chunk-plus-metadata strategy, where each chunk carries summary context from the previous one so the model always knows where it is in the argument. ",
+      "tools": [
+        "OpenAI API (GPT-4o)",
+        "multi-pass prompting",
+        "temperature control",
+        "chunk + metadata strategy",
+        "JSON prompt templates"
+      ]
+    },
+    {
+      "heading": "Publishing: ebooks and print",
+      "body": "I then built a complete publishing workflow. I was transforming books in batches of up to 25, and one step of the pipeline would generate a metadata file, with names, dates, descriptions of the book. This was injected into the markdown, and then I used Pandoc to convert those into well-structured EPUBs and PDFs. For cover design, I used the metadata file to automatically download public domain source images, send them to OpenAI with a reference image so they could be cleaned up and colorized, and also mapped all book metadata to a CSV. Then I uploaded everything to Canva's bulk create tool and downloaded the finished sets, which were automatically linked to another manifest that also drew from the main metadata file. ",
+      "tools": [
+        "Pandoc",
+        "EPUB / PDF",
+        "LaTeX / Overleaf",
+        "YAML front-matter",
+        "Canva / Figma / Illustrator",
+        "Python automation"
+      ]
+    },
+    {
+      "heading": "Audiobooks",
+      "body": "The audio pipeline was the most technically demanding part of the project. I evaluated ElevenLabs, OpenAI TTS, and Azure TTS — ElevenLabs produced the best results for long-form narration, particularly for philosophical prose where pacing matters, but it was egrigiously expensive. OpenAI was cheap but subpar. I eventually found Azure's DragonHD voices, which were OpenAI-level cheap, but VERY good for the cost. To get natural-sounding output, I built a pre-processing step that wraps text in SSML prosody tags before sending it to the API, using a model to insert appropriate pause durations at section breaks and adjusting pacing for the deliberate, unhurried tone the material called for.\n\nThe stitching step had its own set of edge cases. Since some of the audiobooks would be twenty or thirty hours, I had to do them in sections. It would turn out that sometimes one book would be in 1200 sections! I had to break everything down, send it through TTS, and glue everything back together while ensuring a unified result. SInce TTS outputs are a little variable, that required managing the position of SSML tags and normalizing all volume levels. There were also weird technical challenges, like Windows path length limits breaking filenames, WAV container limits on long books requiring a forced RF64 format in ffmpeg, Markdown code blocks needing special handling to avoid being read aloud, and chapters not aligning correctly when headings weren't cleanly extracted. I rewrote the chunker to extract real section titles from headings and carry them through the manifest so chapter markers in the final M4B files matched the actual book structure.",
+      "tools": [
+        "ElevenLabs TTS",
+        "OpenAI TTS",
+        "Azure TTS",
+        "SSML",
+        "ffmpeg",
+        "MP3 / M4B",
+        "loudnorm"
+      ]
+    },
+    {
+      "heading": "The \"Anti-Prince\" derivative pipeline",
+      "body": "Late in the project I developed a parallel pipeline for extracting and expanding discrete principles from classic texts — a kind of applied-philosophy product line. Scripts batch-clean and split texts into semantic blocks, then extract candidate principles as structured JSON. Because the volume of raw output was large, I built a two-stage filtering system: deterministic scoring rules run first, then an LLM-based ranking pass that evaluates each principle for creativity, originality, and audience appeal. I built a local HTML/JS viewer to review results and a Python layer to merge, flatten, and render the final selection as Markdown, PDF (via ReportLab), and Canva Bulk Create CSVs for social media.",
+      "tools": [
+        "LLM scoring / ranking",
+        "ReportLab",
+        "Wikimedia Commons API",
+        "Buffer / Substack CSVs",
+        "Shopify / Sky Pilot"
+      ]
+    },
+    {
+      "heading": "What I built",
+      "body": "End to end, the system can take a raw public domain text file and produce a modernized ebook, a chaptered audiobook with embedded cover art, a print-ready PDF, derivative companion products, and a set of social media and marketing assets — all driven from a single metadata manifest and triggered with batch scripts. Most steps are fully automated; the ones that aren't are supported by custom visual tools that make manual review fast. The parts I found most interesting were the ones where the engineering and the craft intersected: getting chunking right so philosophical arguments don't lose their thread across context boundaries, or tuning SSML until the narration actually sounds like someone who has read the book.",
+      "tools": []
+    }
+  ],
+  "status": "Complete.",
+  "tags": [
+    "ai",
+    "publishing",
+    "python",
+    "books",
+    "automation",
+    "tts",
+    "ebooks"
+  ],
+  "objective": "",
+  "summary": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": []
+}
