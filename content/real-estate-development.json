@@ -1,0 +1,50 @@
+{
+  "title": "Real Estate & Housing",
+  "date": "2025-12-12",
+  "tagline": "An ongoing interest I keep approaching from different angles — hands-on construction, civic data analysis, zoning policy, and housing technology.",
+  "objective": "Housing is the place where my interest in the built environment, systems-level thinking, and software all overlap. I'm not a developer or a planner by trade, but I keep returning to the same questions: why is housing so hard and slow to build, where are the real bottlenecks, and what could actually move them. This page collects the threads of that interest over the past few years.",
+  "sections": [
+    {
+      "heading": "Getting Hands-On",
+      "body": "My first instinct was that the fastest way to understand development was to get close to actual construction. I looked into starting a small handyman or contracting business, but the licensing, insurance, and liability turned out to be more than I wanted to take on at the time. Instead, I volunteered with Habitat for Humanity a couple of times and joined their young professionals group, which gave me a little firsthand exposure to job sites and the people who work them.\n\nThis was exploratory more than anything — but it taught me something useful: the hard part of housing isn't usually the building. It's everything around the building. That realization is what pushed me toward the regulatory and data side of the problem.",
+      "tools": []
+    },
+    {
+      "heading": "Civic Data Analysis: Zoning & Code Complaints",
+      "body": "The most technical thread was a geospatial analysis of how Seattle's code complaints vary by zoning. The question was simple to state but messy to answer: which zoning types generate the most complaints per resident?\n\nThe work was mostly data engineering. Seattle's zoning GeoJSON had malformed polygon geometry that kept crashing spatial operations, so I cleaned and simplified it in Mapshaper, then set up a clean Python environment with GeoPandas and Shapely to run the spatial join — matching each code-complaint record to the zoning polygon it fell inside. Raw complaint counts weren't meaningful on their own, so I pulled census block-group boundaries from TIGER/Line and population estimates from the ACS 5-year survey, then ran an area-weighted spatial intersection to allocate population to each zoning polygon. That let me compute complaints per 1,000 residents by zone.\n\nThe patterns were immediate once normalized: Lowrise and Neighborhood Commercial 2 zones had the highest per-capita complaint rates, though very-low-population zones produced noisy outliers that needed filtering. I also found that some 'complaints' were actually city-initiated enforcement (Green Building Requirement violations, tenant-relocation ordinance items), not resident complaints at all — so I scoped a text-classification flag to separate public-origin from city-initiated records for cleaner comparisons.",
+      "tools": ["Python", "GeoPandas", "Shapely", "pandas", "Mapshaper", "Census TIGER/Line", "ACS"]
+    },
+    {
+      "heading": "Zoning & Permitting Research",
+      "body": "Alongside the data work, I spent real time learning the regulatory landscape directly. I researched low-capital entry paths — ADUs and DADUs, small flips, adaptive reuse — and dug into the actual permitting and zoning requirements across King, Pierce, and Snohomish counties: King County Code Title 21A, Snohomish County Code Title 30, the electrical permitting path through Washington L&I, utility hookups through Puget Sound Energy, and NEC requirements for wiring accessory structures.\n\nThe throughline of all this reading was the same lesson the data kept pointing to: the binding constraints on new housing are process constraints — zoning interpretation, discretionary review, permit timelines — far more than raw construction cost.",
+      "tools": []
+    },
+    {
+      "heading": "A Housing-Tech Product Idea",
+      "body": "Most recently I've been circling a product concept that ties the technical and regulatory threads together. I surveyed the existing zoning-intelligence landscape — Gridics, Zoneomics, Deepblocks, TestFit, Symbium, Accela, Seattle's own ADUniverse, and a dozen others — and found a consistent gap: plenty of tools do zoning lookup and feasibility, but almost none handle live, process-aware permit execution with traceable citations back to the actual code.\n\nThe idea I scoped is a structured database of Seattle's ADU/DADU regulations feeding an AI-assisted interface that turns real regulatory text into actionable, cited guidance — the seed of what I think of as a 'local development operating system.' Seattle ADUs are a deliberately narrow, high-pain starting point. Whether or not I build it, mapping the space clarified where software could actually compress housing timelines rather than just visualizing the rules.",
+      "tools": ["AI", "data modeling"]
+    }
+  ],
+  "status": "Ongoing — an interest I keep returning to from new angles.",
+  "skills_demonstrated": [
+    "geospatial data analysis",
+    "python scripting",
+    "spatial joins",
+    "data cleaning",
+    "zoning & permitting research",
+    "competitive analysis",
+    "product ideation",
+    "urban policy analysis"
+  ],
+  "tags": [
+    "real-estate",
+    "housing",
+    "zoning",
+    "geospatial",
+    "seattle",
+    "civic-tech",
+    "urban-planning",
+    "adu",
+    "python"
+  ]
+}

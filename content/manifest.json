@@ -1,5 +1,47 @@
 [
   {
+    "slug": "drgronk",
+    "file": "drgronk.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "drgronkgoestothebeach",
+    "file": "drgronkgoestothebeach.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "abel",
+    "file": "abel.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "the-model-makers",
+    "file": "the-model-makers.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "time-travel-tourist-trap",
+    "file": "time-travel-tourist-trap.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "multiverse-consultants-inc",
+    "file": "multiverse-consultants-inc.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "the-dream-machine",
+    "file": "the-dream-machine.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
     "slug": "pops-the-snowman",
     "file": "pops-the-snowman.json",
     "type": "fiction",
@@ -20,18 +62,6 @@
   {
     "slug": "mornings-with-jesus",
     "file": "mornings-with-jesus.json",
-    "type": "fiction",
-    "published": true
-  },
-  {
-    "slug": "drgronk",
-    "file": "drgronk.json",
-    "type": "fiction",
-    "published": true
-  },
-  {
-    "slug": "drgronkgoestothebeach",
-    "file": "drgronkgoestothebeach.json",
     "type": "fiction",
     "published": true
   },
@@ -57,6 +87,30 @@
     "slug": "ai-tools",
     "file": "ai-tools.json",
     "type": "project",
+    "published": true
+  },
+  {
+    "slug": "anti-prince",
+    "file": "anti-prince.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "1906-diary",
+    "file": "1906-diary.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "real-estate-development",
+    "file": "real-estate-development.json",
+    "type": "project",
+    "published": true
+  },
+  {
+    "slug": "intellectual-lineages",
+    "file": "intellectual-lineages.json",
+    "type": "essay",
     "published": true
   },
   {

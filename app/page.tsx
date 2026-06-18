@@ -13,15 +13,13 @@ export default function Home() {
         <nav className="site-nav">
           <a href="mailto:dan@danielsilbaugh.com">Email</a>
           <a href="https://www.linkedin.com/in/daniel-silbaugh/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://substack.com/@danielsilbaugh" target="_blank" rel="noopener noreferrer">Substack</a>
-          <a href="https://twitter.com/danielsilbaugh" target="_blank" rel="noopener noreferrer">Twitter</a>
           <ThemeToggle />
         </nav>
       </header>
 
       <section className="bio">
         <p>
-          Dan Silbaugh does manual labor, defaults to systems-level thinking, always has a few entrepreneurial projects going and writes science fiction. He has strong feelings about built environments. He is always going down Wikipedia rabbit holes. Someday, he'd like to live in Hawaii. Much like a Vulcan, he thinks the only rational, logical way to live one's life is to try your best to be a good person. Typically, you'll find him dressed in black.
+          Dan Silbaugh does manual labor, defaults to systems-level thinking, always has a few entrepreneurial projects going and writes science fiction. He is passionately disappointed in modern built environments. Much like a Vulcan, Dan thinks the only rational, logical way to live one's life is to try your best to be a good person. As a curious generalist, he's always going down Wikipedia rabbit holes. Dan enjoys vacationing in Hawaii, tête-à-têtes, literary realism, and reality baking competitions. 
         </p>
         <p>
           He is the creator of{' '}
@@ -31,7 +29,8 @@ export default function Home() {
         </p>
         <p>
           This site collects his projects, notes, experiments, fiction
-          writing, musings, and other public work.
+          writing, musings, and other public work. You can email him at <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com.</a> Thanks for stopping by.
+
         </p>
       </section>
 

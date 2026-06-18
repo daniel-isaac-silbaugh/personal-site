@@ -1,0 +1,41 @@
+{
+  "title": "1906 Diary",
+  "date": "2025-01-21",
+  "tagline": "A literary project that turns real travel and work experiences into a semi-fictional diary set in early 1900s San Francisco.",
+  "objective": "I wanted to use AI to help me write fiction that felt like classic literature — grounded in real settings and real periods — while weaving in my own experiences: delivery work, construction, travel by train, farm life in Ireland. The diary format let me move between fact and fiction without forcing a hard boundary between them.",
+  "sections": [
+    {
+      "heading": "The Concept",
+      "body": "The project started as an experiment in AI-assisted period fiction. I wanted to write something that felt like Frank Norris or John Dos Passos — literary realism with a documentary quality — and I was interested in using AI not to generate the content wholesale, but as a collaborator for drafting, revising, and staying true to period detail.\n\nThe format that emerged was a diary: a fictional character named Abel, living in San Francisco around 1906. The diary format worked well because it is inherently first-person and episodic, which suited both the AI collaboration process and the kinds of experiences I wanted to feed into it — fragments of daily life, observed details, moments of work and travel.",
+      "tools": ["ChatGPT"]
+    },
+    {
+      "heading": "Prompt Engineering for Period Voice",
+      "body": "Getting AI to write convincingly in an early-1900s literary register took significant prompt iteration. The defaults kept drifting toward either generic historical-fiction clichés or subtly modern phrasing. I developed master prompts that specified the literary influences explicitly — Norris, Zola, Steinbeck, Dos Passos — and that ruled out fantasy elements, disguised modern technology, and philosophical digressions. The goal was strict realism: the kind of prose that observes rather than editorializes.\n\nI also learned to give the AI very specific constraints on what not to do. Ruling out unwanted patterns turned out to be as important as describing the target voice. Once the prompts were stable, I could use them as a repeatable layer: feed in a diary entry or a scene outline, get back a passage in the target style, then revise.",
+      "tools": ["ChatGPT", "Google Docs"]
+    },
+    {
+      "heading": "Life as Source Material",
+      "body": "The most interesting thread in the project was using real experiences as raw material. Delivery work in Seattle, helping a contractor repair wallboard and paint a townhome, a solo train journey from Seattle to San Francisco, time living and working on farms in western Ireland — all of it fed into the diary, sometimes directly and sometimes transposed into Abel's world.\n\nThe Ireland section was especially generative. Working on a Workaway farm — making hummus in a commercial kitchen, building cob houses by hand, maintaining a hostel — gave me a set of physical, sensory experiences that translated well into period prose. The rhythm of farm work, the texture of unfamiliar materials, the social dynamics of a small rural community: these are the same details that make early-20th-century realism feel alive. The project is ongoing.",
+      "tools": ["Workaway"]
+    }
+  ],
+  "status": "Ongoing — diary entries accumulate as new experiences provide material.",
+  "skills_demonstrated": [
+    "creative writing",
+    "prompt engineering",
+    "historical research",
+    "scene adaptation",
+    "editing"
+  ],
+  "tags": [
+    "writing",
+    "fiction",
+    "historical",
+    "ai",
+    "prompt-engineering",
+    "travel",
+    "diary",
+    "literary-realism"
+  ]
+}

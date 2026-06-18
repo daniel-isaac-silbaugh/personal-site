@@ -1,0 +1,48 @@
+{
+  "title": "The Anti-Prince",
+  "date": "2025-08-19",
+  "tagline": "A book-length, tactic-by-tactic counter to Machiavelli's The Prince — every manipulation answered with a psychologically-grounded defense.",
+  "objective": "Machiavelli's The Prince is a manual for acquiring and holding power, much of it through manipulation. I wanted to write its mirror image: a practical field guide for the people on the receiving end. For each tactic in The Prince, the Anti-Prince offers a concrete, research-backed counter-tactic.",
+  "sections": [
+    {
+      "heading": "The Concept",
+      "body": "There are endless commentaries on The Prince, but almost nothing that answers it directly — tactic by tactic, in plain modern language, from the defender's side. That gap is the whole reason the book exists. Machiavelli is unusually systematic; he lays out his methods almost like a manual, which makes it possible to build a counter-book with the same architecture: same topics, opposite conclusions.\n\nThe organizing principle is that manipulation has structure, and structure can be answered. Where Machiavelli says 'do this to dominate,' the Anti-Prince says 'here is what that looks like from the outside, here is why it works, and here is what actually defends against it.'",
+      "tools": []
+    },
+    {
+      "heading": "From Source Text to Tactic Library",
+      "body": "The first job was turning The Prince from prose into structured data. I parsed the full public-domain text into a custom paragraph-numbered format with stable chapter-paragraph IDs, so every later step could cite exactly which passage it came from. Then I ran prompt-driven extraction over that text in two modes — a high-recall pass to catch every candidate tactic, and a high-precision pass to keep only the real ones — tuning window size and stride for extraction fidelity and anchoring each extracted tactic to a supporting quote.\n\nThe raw output was messy: duplicate tactics, inconsistent IDs, near-identical entries phrased differently. I wrote a cleaning suite to normalize, sort, and validate the tactic JSON against a schema, plus a deduplication step that combined text-similarity scoring, OpenAI embeddings, and LLM adjudication to merge near-duplicate pairs. The result was a clean, auditable library of distinct tactics, each traceable back to a specific line of Machiavelli.",
+      "tools": ["Python", "OpenAI API", "embeddings"]
+    },
+    {
+      "heading": "Counter-Tactics, Grounded in Psychology",
+      "body": "A counter-tactic is only useful if it actually works, so I didn't want to invent clever-sounding advice. For each extracted tactic I generated a counter, then grounded it in established research on manipulation and resistance — things like the Gray Rock method for starving manipulators of reaction, prebunking and social inoculation for building resistance to influence before it lands, and broader work on documentation, transparency, and collective resilience.\n\nThe generation itself was modular and prompt-driven: I could batch-produce counter-tactics, narrative expansions, and translations from JSON config, then revise prompts to preserve the psychological mechanism rather than flattening everything into generic advice. I also started a deeper research pass to build this into a real taxonomy of counter-tactics across interpersonal, group, and political contexts.",
+      "tools": ["Python", "OpenAI API"]
+    },
+    {
+      "heading": "Producing the Book",
+      "body": "Turning the cleaned content into an actual book was its own pipeline. I wrote scripts to consolidate and normalize the Markdown — deduping quotes, fixing subheadings and line breaks, assembling front matter (title page, copyright, epigraph, table of contents, reader instructions) — and then learned the Pandoc + LaTeX toolchain well enough to control table of contents, page breaks, section numbering, and cover layout. I set up TinyTeX and XeLaTeX on Windows to produce genuinely print-quality PDFs, plus a custom CSS-styled EPUB and a DOCX, all from the same source.\n\nOn the publishing side I worked through the practical questions: Amazon KDP requirements, pen names and branding, AI-disclosure policy, pricing, and the trade-offs between selling on Amazon versus direct from my own site. The throughline of the whole project is that a clean data pipeline and serious content research can meet in a single finished, professional artifact.",
+      "tools": ["Pandoc", "XeLaTeX", "TinyTeX", "Markdown", "CSS"]
+    }
+  ],
+  "status": "Late drafting — content library complete, book in publishing prep.",
+  "skills_demonstrated": [
+    "content pipeline design",
+    "python scripting",
+    "prompt engineering",
+    "data deduplication",
+    "psychological research",
+    "print & ebook production",
+    "self-publishing strategy"
+  ],
+  "tags": [
+    "writing",
+    "nonfiction",
+    "ai",
+    "python",
+    "publishing",
+    "machiavelli",
+    "psychology",
+    "pandoc"
+  ]
+}
