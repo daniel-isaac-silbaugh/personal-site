@@ -1,5 +1,29 @@
 [
   {
+    "slug": "pops-the-snowman",
+    "file": "pops-the-snowman.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "the-zoo-part-1",
+    "file": "the-zoo-part-1.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "the-zoo-part-2",
+    "file": "the-zoo-part-2.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
+    "slug": "mornings-with-jesus",
+    "file": "mornings-with-jesus.json",
+    "type": "fiction",
+    "published": true
+  },
+  {
     "slug": "drgronk",
     "file": "drgronk.json",
     "type": "fiction",
