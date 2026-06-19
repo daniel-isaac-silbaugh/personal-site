@@ -1,5 +1,26 @@
 import { getAllPublished, getBySlug } from '../../../lib/content';
 import { notFound } from 'next/navigation';
+import React from 'react';
+
+// Render a paragraph, turning markdown [text](url) into real links.
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+function renderParagraph(text: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+  LINK_RE.lastIndex = 0;
+  while ((match = LINK_RE.exec(text)) !== null) {
+    if (match.index > last) nodes.push(text.slice(last, match.index));
+    nodes.push(
+      <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer">
+        {match[1]}
+      </a>
+    );
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 
 export async function generateStaticParams() {
   return getAllPublished().map(item => ({ slug: item.slug }));
@@ -59,7 +80,7 @@ export default async function ProjectPage({
           <section key={section.heading} className="project-section">
             <h2>{section.heading}</h2>
             {section.body.split(/\n+/).filter(p => p.trim()).map((para, i) => (
-              <p key={i}>{para}</p>
+              <p key={i}>{renderParagraph(para)}</p>
             ))}
             {section.tools && section.tools.length > 0 && (
               <div className="tag-list section-tools">

@@ -114,6 +114,12 @@
     "published": true
   },
   {
+    "slug": "housing-first",
+    "file": "housing-first.json",
+    "type": "essay",
+    "published": true
+  },
+  {
     "slug": "simple-low-risk-business",
     "file": "2023-12-01 – Simple, Low-Risk Business_analysis.json",
     "type": "brainstorm",
