@@ -65,16 +65,17 @@ export function getByType(type: ContentType): ContentItem[] {
  * Known types appear first in the preferred order; any new types are
  * appended alphabetically after them.
  */
-const TYPE_ORDER = ['project', 'writing', 'fiction', 'essay', 'note'];
+const TYPE_ORDER = ['project', 'writing', 'fiction', 'essay', 'note', 'work-diary'];
 
 /** Explicit labels for known types; fallback capitalises and adds 's'. */
 const TYPE_LABELS: Record<string, string> = {
-  project:     'Projects',
-  writing:     'Writing',
-  fiction:     'Fiction',
-  essay:       'Essays',
-  note:        'Notes',
-  brainstorm:  'Brainstorms',
+  project:      'Projects',
+  writing:      'Writing',
+  fiction:      'Fiction',
+  essay:        'Essays',
+  note:         'Notes',
+  brainstorm:   'Brainstorms',
+  'work-diary': 'Work Diary',
 };
 
 function toLabel(type: string): string {

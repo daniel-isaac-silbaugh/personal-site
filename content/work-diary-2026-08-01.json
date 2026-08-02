@@ -1,0 +1,86 @@
+{
+  "title": "August 1, 2026",
+  "date": "2026-08-01",
+  "tagline": "Building in public: founding-post results, a pivot to paid ads for Dum Phones, offer math, and a rebuilt job search.",
+  "sections": [
+    {
+      "heading": "Work diary reorganization",
+      "body": "Split the work diary into one file per day. What had been a single July 30 entry actually covered work from July 27 through July 30, so I broke it into separate dated files, removed the subheadings from that batch, and put each day into one chronological list. The corpus cleanup for the Book Modernizer batch moved to July 29, where it happened, and the LinkedIn essay and first connection moved there as well.",
+      "tools": []
+    },
+    {
+      "heading": "Founding post readout",
+      "body": "Two days after posting about the phone on Facebook: five reactions, including one astonished face. No comments, no messages, no referrals, nobody saying they wanted one.\n\nTwo findings, kept separate. First, the fear was wrong — I had predicted embarrassment, mockery, or pity, and none of it happened. Second, the ask underperformed. Both questions I ended on were analytical ones that require composing a paragraph in public, and the two low-effort asks — name someone who struggles with their phone, raise your hand if you'd want one — were the ones I had edited out. Facebook reach on a long text post with no early comments is also poor. The conclusion is that this was a channel and question problem, not a signal about the product.",
+      "tools": []
+    },
+    {
+      "heading": "Dropped the friend outreach",
+      "body": "Claude suggested messaging the five people who reacted. I declined. Sending what amounts to a sales message to friends and acquaintances I haven't spoken to in years feels like the MLM move, and I don't want to convert my relationships into a sales channel. This is the second time I've drawn that line, and it stands. It doesn't mean avoiding market contact — the research project is eight cold interviews with strangers and the job search is all strangers.",
+      "tools": []
+    },
+    {
+      "heading": "New distribution plan for Dum Phones: ads",
+      "body": "Instead of personal outreach, the plan is now a launch page with pricing and a reserve link, and paid ads driving to it. The reasoning: it tests the actual acquisition channel rather than a proxy, stranger clicks are clean data in a way friend responses never are, and I'd have to learn the ad machinery before a Christmas campaign anyway. Claude pushed back on scope — a full site with features and interactive elements is a build, and building ahead of demand is the exact pattern I'm trying to break — so the first version is one page: price, what's included, ships for Christmas, and an email capture. Test parameters: about $300 over three weeks on Google Search, two ad groups (parents versus adults wanting their own attention back), with the success bar written down before spending anything at 8% of clicks leaving an email.",
+      "tools": []
+    },
+    {
+      "heading": "Offer math and competitor research",
+      "body": "Settled on pricing.\n\nDirect competitors of Dum both resell cellular service, which is a business I have no reason to enter. Only one doesn't — it sells a device plus a roughly $15/month subscription to the control dashboard while the parent keeps their own carrier. That's exactly my structure, which means the market has already accepted a price for the management layer alone. Also noted: the subscription is what makes advertising affordable at all. Light Phone sells hardware only at around $299 and does no meaningful paid acquisition. The difference is arithmetic, not strategy. And a rule specific to me — the funded competitors can run negative margin at acquisition and let subscriptions repay it, while I can't, so acquisition cost has to stay under the upfront margin.\n\nWrote all of this up as an offer sheet in the dum-phones folder.",
+      "tools": []
+    },
+    {
+      "heading": "Job postings, lane two",
+      "body": "Collected ten remote customer education and training roles. The lane is noisier than the first one — the obvious search terms drag in clinical roles and traveling dealership trainers. Two of the best fits are in educational publishing, Macmillan Learning and Cengage, which are the closest things to the Book Modernizer world that appeared in either lane.\n\nAlso generated an HTML version of both lanes with clickable links and a checkbox on each posting to mark it applied, which saves in the browser.",
+      "tools": []
+    },
+    {
+      "heading": "The strategic question: applications versus in-person networking",
+      "body": "Asked whether it's a better use of time to apply for degree-required roles with 100+ applicants for not much more money, or to network in person at places like AI House.\n\nThe data is lopsided. Referred candidates convert to hire at around 40% versus about 7% from job boards, referrals are roughly four times likelier to produce an interview, and cold applications convert at 0.1–2%. With no bachelor's and no formal job titles, the ATS keyword screen is where I lose, and every real asset I have — the operator history, the shipped products, the way I think about systems — is invisible to a parser and obvious to a person. So in-person is the stronger channel for me specifically.\n\nThe caution I accepted: \"being present for organic collaborations\" is a hope, not a strategy, and it's the same move as the Facebook post that dropped its referral question — showing up while withholding the ask. So I go with vehicles: the research project, the phone, and Book Modernizer are all legitimate conversation openers, and the ask is \"who should I be talking to,\" not \"hire me.\"",
+      "tools": []
+    },
+    {
+      "heading": "New job search criteria",
+      "body": "Rewrote the criteria. Hard filters: companies under about 50 people, postings under 48 hours old, a findable human to send a note to, and no hard degree requirement. Strong signals: SQL, API, scripting, data migration, and verticals I know. Volume drops from five to eight applications a week down to two or three, each with a human touch the same day. The freed hours go to in-person networking. Scoreboard targets for August 26 change accordingly: 8–10 tailored applications, 6–8 events, 15+ in-person conversations.",
+      "tools": []
+    },
+    {
+      "heading": "Re-ran the job search",
+      "body": "Produced a shortlist of ten candidates, but with a real caveat: the new criteria filter on company headcount, posting age, and a findable human, and job board search results expose none of those. LinkedIn does show company size and applicant counts but is now blocked from the research browser, and Indeed's remote implementation results are dominated by staffing agencies and enterprise consultancies, which the criteria say to skip. So the shortlist is candidates to verify rather than verified matches. Fleetio got cut after confirming 463 employees despite being the right vertical. Miter, at 161 people in construction and field service payroll, is worth watching even though the current opening is too senior.\n\nThe better motion, going forward: find the company first and then check whether it's hiring. Build a running list of sub-50-person vertical SaaS companies in industries I know and check their careers pages weekly. That also reframes AI House as a company-discovery channel rather than just a networking one.",
+      "tools": []
+    },
+    {
+      "heading": "Events research",
+      "body": "Built an events document organized around the four things I need to do in person: career networking, recruiting research interviews, selling, and simply being present enough to be recognized.\n\nTwo findings stand out. Chamber of commerce mixers are rooms full of owner-operators, which makes them a recruiting channel for the research project that converts far better than cold email and involves no friends. And the Seattle Christmas Market runs November 20 through December 24 at Seattle Center with vendor applications open now — those dates are exactly the Dum Phones Christmas window, and a booth would sell phones, sell physical books, and put me in front of a few hundred parents at once. Urban Craft Uprising's winter show is the other one, and winter applications typically close in late summer, so both are time-sensitive.",
+      "tools": []
+    },
+    {
+      "heading": "Events registered",
+      "body": "Signed up for the AI House event \"Building AI for content and storytelling\" — Tuesday, August 4 at 3:00 PM at Pier 70. This is the best-fit event of the six they have listed, since Book Modernizer and the screenplay database are directly on topic.\n\nAlso signed up for the New Tech Seattle meetup, second Tuesday monthly at The Collective. Northwest's largest tech community.\n\nEarlier I had tried registering for an AI House event and never received an acceptance. Learned that these are host-approved, that no email usually means pending rather than declined, and that what actually moves approval is writing something specific in the registration field rather than leaving it generic — the same legibility problem my LinkedIn About section and Facebook post had.",
+      "tools": []
+    },
+    {
+      "heading": "Dum Phones page copy",
+      "body": "Wrote the landing page copy. Claude ran three competing full drafts against each other — one leading with the parent case, one leading with my own story, one leading with the mechanism — then had two separate readers score them, one for whether a cold stranger from an ad would convert and one for whether it actually sounded like me. The final page is a graft: the adult-first headline (\"A dumb phone that still has maps,\" which is close to what someone would actually type into a search box), my own provenance line as the opening, the parent section's kitchen-argument passage, and the mechanism draft's honest FAQ answers. Six lines got cut for sounding like a copywriter rather than a person, and they're listed in the file so they don't creep back in.\n\nEdited it myself afterward: lowered the monthly price, genericized most of the manufacturer references, and rewrote the kid-hacker FAQ answer.\n\nThe most useful thing the exercise turned up was a question none of the drafts had answered and I hadn't thought to ask: what happens to the phone if the customer stops paying, or if I stop operating? For a stranger sending money to a one-person company, that's the objection that matters most. The answer is now on the page — cancel and I release the phone from management and it becomes an ordinary unlocked Android, and the same happens to every phone if Dum Phones ever winds down. The lock is a service, not a hostage. I need to verify the software releases a device cleanly on unenrollment before that goes live, since it's a written promise now.",
+      "tools": []
+    },
+    {
+      "heading": "Return policy",
+      "body": "Settled it: thirty days, full refund on the phone, customer pays return shipping, monthly fee not refunded since the service happened.\n\nThe math behind it: a return costs relatively little if I reuse the device, because wiping and reconfiguring a phone is already the normal fulfillment step — a returned phone goes back into inventory rather than becoming refurbished stock. It costs more if I have to sell it off. At a modest expected return rate, the per-phone cost is small against the upfront margin. Cheap, and the alternative — no return policy at all on a product from an unknown one-person website — would cost more in conversion than returns ever would. Returns do bite through advertising, though, since a refund gives back the customer’s money but not the ad spend, so the acquisition math has to account for the return rate on top of the per-return cost.\n\nAlso noted that the unenroll-on-cancel promise doubles as a pressure valve: someone who relapses after a month doesn’t need to return anything, they just cancel and keep a normal phone.",
+      "tools": []
+    },
+    {
+      "heading": "LinkedIn experience entries",
+      "body": "Rewrote the whole experience section, which turned out to be in worse shape than I thought.\n\nSplit The Daniel Silbaugh Company into two positions — AI Workflow Systems listed first, with Book Modernizer, the screenplay database, Dum Phones, and the route tooling itemized under it, and Logistics second. Claude talked me out of calling the second entry \"side projects,\" on the grounds that the word gives a hiring manager permission to discount the work.\n\nFilled in Kleenco, which had been sitting there with no description at all. The lead is that I redesigned the production process and cut manufacturing time by up to 50%, which is the only hard operations metric I have anywhere and was nowhere on my profile. Also the website I built for them with the dealer map and SDS lookup, the mechanical troubleshooting, the labels, the trade shows, and the rest.\n\nAdded Clean City Vacuum, 2009 to 2020, which had been missing entirely. Eleven years. My profile had been showing a work history that started in 2020. Also corrected the record — I managed that store, I didn't own it — and added the electrical trainee card I earned through the Construction Industry Training Council, both in the entry and in the certifications section.\n\nThe profile now reads as a continuous run from 2009: retail management, then manufacturing, then logistics and software, with the technical work sitting at the top.",
+      "tools": []
+    },
+    {
+      "heading": "Not done today",
+      "body": "Nothing. Everything on the day's list is finished, including the two items carried over from yesterday.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

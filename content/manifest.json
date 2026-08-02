@@ -108,6 +108,30 @@
     "published": true
   },
   {
+    "slug": "we-already-know",
+    "file": "we-already-know.json",
+    "type": "essay",
+    "published": true
+  },
+  {
+    "slug": "the-going-rate",
+    "file": "the-going-rate.json",
+    "type": "essay",
+    "published": true
+  },
+  {
+    "slug": "goskomtsen-and-star-trek-communes",
+    "file": "goskomtsen-and-star-trek-communes.json",
+    "type": "essay",
+    "published": true
+  },
+  {
+    "slug": "a-chess-board-of-feedback-loops",
+    "file": "a-chess-board-of-feedback-loops.json",
+    "type": "essay",
+    "published": true
+  },
+  {
     "slug": "intellectual-lineages",
     "file": "intellectual-lineages.json",
     "type": "essay",
@@ -117,6 +141,12 @@
     "slug": "housing-first",
     "file": "housing-first.json",
     "type": "essay",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-08-01",
+    "file": "work-diary-2026-08-01.json",
+    "type": "work-diary",
     "published": true
   },
   {
