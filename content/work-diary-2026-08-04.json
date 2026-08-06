@@ -1,0 +1,41 @@
+{
+  "title": "August 4, 2026",
+  "date": "2026-08-04",
+  "tagline": "A lost event, the gating problem with a structural fix, and publishing the screenplay analyzer to GitHub without the copyrighted corpus.",
+  "sections": [
+    {
+      "heading": "The AI House event fell through",
+      "body": "The approval for \"Building AI for content and storytelling\" never came. These events are host-approved through Luma, and a registration that goes unreviewed produces no email at all, so there is no way to distinguish pending from declined. The event was this afternoon; it's gone.",
+      "tools": []
+    },
+    {
+      "heading": "The gating problem, and the structural fix",
+      "body": "This is the second AI House event I've applied to without getting in. The useful conclusion is that this is a property of the platform, not a judgment about me: Luma events are host-approved for capacity and sponsor headcounts, and organizers skip registrations they can't quickly categorize.\n\nThe fix is venue selection. Meetup and Eventbrite don't screen anyone — you RSVP or buy a ticket and you're in. Chamber events don't either, because you're paying. So the rule going forward is that ungated venues are the plan and gated ones are the bonus. New Tech Seattle on August 11 is plain Meetup RSVP and I'm already registered. The Startup Founders Meetup on August 6 is an Eventbrite ticket, available any time.",
+      "tools": []
+    },
+    {
+      "heading": "AI Tinkerers",
+      "body": "Applied for tonight's AI Dev Tools Track. Went back and filled out the AI Tinkerers profile properly — bio, projects, skills — which is the surface the organizers actually screen on, since their registration has no free-form field. Wrote most of it by hand.\n\nThen applied for a second AI Tinkerers event as well. Capacity for tonight is 200 and 224 people have applied, so tonight may not pan out either. Organizers of free events usually approve past capacity because no-shows run 20 to 40 percent, so it's still live, but not something to count on.\n\nOne angle worth pursuing: the August 19 Demo Night takes applications from people who want to present, which is a different queue than attendees. Organizers need demos. Presenting would skip the capacity fight entirely and invert the social problem — instead of approaching strangers, I'd stand up for five minutes and people would come to me afterward.",
+      "tools": []
+    },
+    {
+      "heading": "Published Scripter to GitHub",
+      "body": "The thing that actually got done today. The screenplay analyzer is now public at github.com/daniel-isaac-silbaugh/scripter. This started because the AI Tinkerers profile asks for links, and an empty GitHub is the weakest possible signal for a technical meetup — and the same gap shows up in job applications, where the criteria call for SQL and scripting to be visible rather than claimed.\n\nTwo checks before publishing. Secrets were clean: everything reads `ANTHROPIC_API_KEY` and `PGPASSWORD` from the environment, no `.env`, nothing hardcoded.\n\nCopyright was not clean. The project directory held ten full teleplays, seven detailed scene-by-scene analyses that quote heavily, and generated episodes using the show's characters. Publishing that would have been straightforward infringement, and the wrong first impression on a repo I'm linking from job applications.\n\nThe fix turned out to improve the project rather than damage it. The system was always designed to be series-agnostic — the show is never named in the prompts, and series identity lives in the data — so shipping the code without the corpus is faithful to the design. It also reframes the repo from a fan project into a general screenplay analysis system, which is what it actually is.\n\nWhat I did:\n\n- Gitignored the corpus, the analyses, the generated episodes, and the output directory - Replaced the verbatim show dialogue in the extraction prompts with an invented ensemble, preserving line numbering and JSON structure so the few-shot examples teach the same format and reasoning - Swapped every hardcoded cast name across the code and comments - Generalized the title-page stripping regex into a generic list plus an empty `CORPUS_FURNITURE` for a user's own series, which makes the series-agnostic claim true in code rather than only in the prompts - Added a \"Bring your own corpus\" section to the README explaining what's excluded and why - Verified all six Python entry points still compile\n\nThe important detail: because the gitignore was written before `git init`, the corpus never entered git history at all. Had I committed first and cleaned up after, the scripts would still be recoverable from an earlier revision despite being deleted. History contains exactly 47 files.",
+      "tools": []
+    },
+    {
+      "heading": "What the repo demonstrates",
+      "body": "Six-table Postgres schema design, four LLM extraction passes classifying scenes into controlled vocabularies, loaders and a migration, and a generation system that runs the measured patterns backwards to write original episodes. That's the technical evidence the job search criteria said to lead with, and it now exists as something a stranger can verify in one click.",
+      "tools": []
+    },
+    {
+      "heading": "Still open",
+      "body": "Deploying the dumphones.com page, the LinkedIn Featured section, the job-requirements extraction, and the UW degree audit.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

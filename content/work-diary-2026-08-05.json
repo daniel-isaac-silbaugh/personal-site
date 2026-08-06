@@ -1,0 +1,31 @@
+{
+  "title": "August 5, 2026",
+  "date": "2026-08-05",
+  "tagline": "Where online communities actually help, ranking my contact methods around arriving with a role or an artifact, and fixing a promise the landing page got wrong.",
+  "sections": [
+    {
+      "heading": "Online communities as a contact channel",
+      "body": "Asked whether boosting social media, posting on Reddit, or joining virtual communities would serve my goals. The answer split by goal rather than by channel.\n\nFor Dum Phones customers, Reddit is genuinely valuable — r/dumbphones is active, and the moderators there define a dumb phone as \"intentionally limited in scope, not capability,\" which is almost word for word the product thesis. For the job search it's close to worthless; LinkedIn is that channel and I've just rebuilt it. For recruiting research interviews it's mediocre, since local owner-operators are the cohort I actually want.\n\nThe constraint that matters: about 61% of founder-focused subreddits ban self-promotion outright and the rest run a 9-to-1 rule, so there is no version where I show up and post about the product without being removed. The way in is contribution first — answering questions where I have real expertise — and a genuine \"I built this for myself\" post much later.\n\nOne useful piece of market intelligence fell out of it: the 2026 minimalist phones that community is excited about run $699 to $799. Against my price point, that's a much stronger position than I had assumed.",
+      "tools": []
+    },
+    {
+      "heading": "Ranking the contact methods",
+      "body": "Worked out the highest-value ways to interact with people over the next three weeks. The principle underneath the list: structured contact with a role and an artifact beats unstructured mingling, for me specifically. My weak spot is walking up to strangers with nothing but conversation, so every channel worth prioritizing is one where I arrive with a script, a role, or an object.\n\nIn order: research interviews (a role, a question list, five outputs from one contact), the 24-hour follow-up note (the multiplier on everything else), demoing at the August 19 event, the human touch attached to each application, events with a three-conversation quota, answering inbound quickly, and the daily LinkedIn comment. Below the line for now: Reddit posting, the newsletter, Discord communities, and cold coffee-chat requests with no vehicle attached.",
+      "tools": []
+    },
+    {
+      "heading": "Found the old setup thread",
+      "body": "Located the original configuration thread in the old ChatGPT archive — app restrictions, lockdown, and a troubleshooting trail for when a device gets stuck mid-setup. That's the rebuild manual, and I noted the path so it isn't a search problem next time.",
+      "tools": []
+    },
+    {
+      "heading": "The cancellation promise was wrong",
+      "body": "The page had committed, in writing, that cancelling releases the phone and it becomes an ordinary unlocked Android, yours to keep. Which turns out, for technical reasons, isn't quite right.\n\nReworded it to say plainly that release means a factory reset. Then found the mitigation, which turns the problem into a product decision: Android backs contacts, photos and app data up to the Google account automatically when backup is switched on, and I'm the one setting up every phone. So enabling backup during setup is now a standard step, and cancelling goes from \"wipes your phone\" to \"resets your phone and your things come back.\" The page says so.\n\nStill worth testing firsthand during the rebuild rather than trusting documentation. If the real behavior is cleaner than this, the promise can be upgraded later — publishing the generous version first and retracting it is the failure I wanted to avoid.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

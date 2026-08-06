@@ -1,0 +1,16 @@
+{
+  "title": "July 27, 2026",
+  "date": "2026-07-27",
+  "tagline": "Built a master to-do list across every project, cut the first two weeks down to size, and corrected the record on what Dum Phones actually is.",
+  "sections": [
+    {
+      "heading": "",
+      "body": "6:45 p.m. PST\n\nBuilt a master to-do list covering every project from the past several months. Building it meant deciding what to keep: I dropped the anti-advertising campaign, the Wikipedia-style reading format idea, the Obsidian cleanup, and Shoperies hours (still a monthly chore, just not a tracked project). I also formally dropped the PM consulting sprint from early July and replaced it with the networking and distribution-first plan from the two planning documents I put in the to-do folder.\n\nEvening\n\nSent the first version of the list to another LLM for a critique. It said the strategy was sound but the first two weeks contained roughly a month of work, that my sequence was backwards in places — I had planned to write résumés before analyzing the job descriptions that would tell me what belonged in them — and that Book Modernizer had quietly turned back into an expansion program. I agreed with most of it. We cut the first two weeks down to two job-description lanes instead of four and one case study instead of three, added a work-in-progress limit of one career task, one distribution task, and one side project at a time, put a \"This Week\" block at the top of the list, and I committed to no pivots before the August 26 scoreboard. The anti-Prince/Principles-style prediction books are deferred until one KDP batch with a distribution test shows whether the channel works. Revisions to the list continued over the following two days.\n\nLater that evening\n\nCorrected the record on Dum Phones, which the list had wrongly filed as an essay: it is a physical product — unlocked Android phones locked down to run only the apps the customer chooses. Decisions on it: it runs under my existing LLC for now, the business groundwork (packaging, shipping, permits, insurance) is gated to actual orders rather than built up front, and the official rollout targets Christmas with founding customers sold quietly starting now. The device rebuild is about a half day of work and only happens when someone orders.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

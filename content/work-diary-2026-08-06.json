@@ -1,0 +1,41 @@
+{
+  "title": "August 6, 2026",
+  "date": "2026-08-06",
+  "tagline": "Sorted out where the domain really lives, chose a clean transfer path, picked a form service, and built the one-file landing page.",
+  "sections": [
+    {
+      "heading": "Administrative",
+      "body": "Updated the Shoperies delivery invoice for July. Filed three quarters of B&O tax, which had been outstanding.\n\nWrote back to the sales rep, who had asked for a business email address and company name before proceeding with the trial. Kept the reply to exactly the two facts he asked for. The original draft I was working from volunteered that I'm a one-person business with zero customers starting on the free tier, which is a poor thing to hand a salesperson unprompted — it invites him to deprioritize the account and gives away the whole position before I know whether I even need him.",
+      "tools": []
+    },
+    {
+      "heading": "Where the domain actually lives",
+      "body": "Checked dumphones.com properly instead of guessing. It's fully on Wix — Wix runs the nameservers, the apex points at their IPs, and www is a CNAME to their CDN.\n\nThen checked the registry record, because a domain can't be transferred within 60 days of registration. Registered May 2024, so no problem there; expiration is May 2027. But the domain is locked with transfer and update prohibited, which is the standard registrar lock and has to be lifted at Wix before Namecheap can pull it.\n\nDecided on the slower, cleaner path: unlock at Wix, start the transfer to Namecheap, and meanwhile deploy the site to a temporary Vercel URL. A transfer takes five to seven days. The alternative was repointing DNS inside Wix to get the real domain live today, but then I'd configure DNS twice and sit in a half-migrated state. Since the ad test is still a couple of weeks out, the wait costs nothing real.",
+      "tools": []
+    },
+    {
+      "heading": "Form handling",
+      "body": "Asked why a form service is necessary at all, given that a form on a page sending to my email doesn't sound like a big deal. The answer is that an HTML form can't send email — it can only POST to a URL, which requires a server. The mailto: version opens the visitor's own mail client with a half-filled draft, which most people abandon.\n\nSo the choice was: write my own serverless function plus an email API, use a hosted form service, or accept the conversion loss of a mailto link. Writing my own is within my ability, but good deliverability needs DNS records on the sending domain, and the domain is about to spend a week in transfer — exactly the thing I can't configure cleanly right now. And building a custom pipeline before a single reservation exists is the same pattern as buying phones before orders, which is the thing the demand ladder is meant to stop.\n\nWent with Formspree. What I'm actually buying is spam filtering, which matters because paid ads attract bots, and a stored copy of every submission so a failed email doesn't lose a lead.",
+      "tools": []
+    },
+    {
+      "heading": "Built the landing page",
+      "body": "One self-contained HTML file — no external fonts, scripts, or images, so it loads fast on a phone, which is where most ad clicks come from. Mobile-first, light and dark aware. Three reserve forms placed where someone is most likely to be convinced, each tagged with its position so I'll learn whether people reserve from the hero or only after reading everything. FAQ as a native accordion so nine questions don't read as a wall. The form works with or without JavaScript, and a failure message points at a direct email so a broken submission doesn't silently disappear.",
+      "tools": []
+    },
+    {
+      "heading": "Also today",
+      "body": "Groceries, recycling, dishes, and an actual lunch — grilled chicken on a salad.\n\nFilled the vape with gorilla glue to make quitting stick. Which is, on reflection, the entire Dum Phones thesis applied to myself: stop negotiating with the part of you that wants the thing, and make it impossible instead.",
+      "tools": []
+    },
+    {
+      "heading": "Tonight",
+      "body": "The Startup Founders Meetup. Ticketed and ungated, so this one actually happens. Three conversations, arrive early, follow-up notes within 24 hours.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

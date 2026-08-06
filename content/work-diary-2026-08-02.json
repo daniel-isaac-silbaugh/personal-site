@@ -1,0 +1,31 @@
+{
+  "title": "August 2, 2026",
+  "date": "2026-08-02",
+  "tagline": "An import pipeline for essays, four essays published, and the work diary itself goes public.",
+  "sections": [
+    {
+      "heading": "Essay import pipeline",
+      "body": "Wrote a one-off importer, `scripts/import-essays.js`, that converts my essay markdown files and work-diary entries into the site's content JSON format, preserving the prose verbatim. For essays, the `# Title` line becomes the title and the rest becomes a single section body. For diary entries, each `## Heading` becomes its own section. This removes the hand-transcription step that had been the friction in getting writing onto the site.",
+      "tools": []
+    },
+    {
+      "heading": "Four essays published",
+      "body": "Ran the importer and published four essays to danielsilbaugh.com:\n\n- **We Already Know** — if AI makes goods nearly free, what will life mean - **A Chessboard of Feedback Loops** — on why knowledge work turned out to be real work after all - **Goskomtsen and Star Trek Communes** — what if the computer the 1960s communes needed had arrived on time - **The Going Rate** — prices aren't set by the market so much as by talk",
+      "tools": []
+    },
+    {
+      "heading": "Started publishing the work diary",
+      "body": "Added a new `work-diary` content type to the site and published the August 1 entry as a public page, titled \"August 1, 2026\" with the summary \"Building in public: founding-post results, a pivot to paid ads for Dum Phones.\"\n\nThis is the build-in-public part of the distribution plan actually starting. The plan has said since July that every meaningful project should produce proof, media, and relationships, and that the work should leave a public trail. Publishing the diary is the cheapest version of that — the writing already exists as a byproduct of doing the work, so the marginal cost of making it public is close to zero. It also means the record of the Dum Phones launch, the job search, and the strategy changes is public as it happens rather than reconstructed later.",
+      "tools": []
+    },
+    {
+      "heading": "Rest of the day",
+      "body": "Not worked. Spent the day with my girlfriend.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

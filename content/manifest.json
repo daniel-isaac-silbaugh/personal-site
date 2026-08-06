@@ -66,6 +66,12 @@
     "published": true
   },
   {
+    "slug": "scripter",
+    "file": "scripter.json",
+    "type": "project",
+    "published": true
+  },
+  {
     "slug": "book-modernizer",
     "file": "book-modernizer.json",
     "type": "project",
@@ -108,6 +114,18 @@
     "published": true
   },
   {
+    "slug": "class-fears",
+    "file": "class-fears.json",
+    "type": "essay",
+    "published": true
+  },
+  {
+    "slug": "car-people",
+    "file": "car-people.json",
+    "type": "essay",
+    "published": true
+  },
+  {
     "slug": "we-already-know",
     "file": "we-already-know.json",
     "type": "essay",
@@ -144,8 +162,50 @@
     "published": true
   },
   {
+    "slug": "work-diary-2026-08-06",
+    "file": "work-diary-2026-08-06.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-08-05",
+    "file": "work-diary-2026-08-05.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-08-04",
+    "file": "work-diary-2026-08-04.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-08-02",
+    "file": "work-diary-2026-08-02.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
     "slug": "work-diary-2026-08-01",
     "file": "work-diary-2026-08-01.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-07-30",
+    "file": "work-diary-2026-07-30.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-07-29",
+    "file": "work-diary-2026-07-29.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-07-27",
+    "file": "work-diary-2026-07-27.json",
     "type": "work-diary",
     "published": true
   },

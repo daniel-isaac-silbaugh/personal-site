@@ -1,0 +1,98 @@
+{
+  "title": "Scripter",
+  "date": "2026-08-06",
+  "tagline": "A television comedy, read line-by-line into a database — then run in reverse to write new episodes.",
+  "sections": [
+    {
+      "heading": "Origin",
+      "body": "I wanted to learn databases. I have never been able to learn anything from a tutorial — the knowledge slides off if there is nothing underneath it — so I needed a project where the database would be load-bearing, where I would have to live inside it for weeks, and where the output would be interesting enough to keep me at the desk. Customer tables named customers were not going to do it.\n\nWhat I landed on: take a television comedy I love, read it scene by scene with a language model, and store everything the model can see — who feels what at every single line, who wants what and whether they get it, which storylines pass through which scenes, what the running gags are — as structured, queryable data in Postgres. And then, once the show existed as data, the real point: run the whole thing in reverse, and make it write new episodes.\n\nI won't name the show here. Partly for the obvious reasons, but mostly because the system doesn't know it either: nothing in the prompts names the series. That is a design rule. The show's identity lives entirely in the data, which keeps the pipeline portable — pour in a different show and in principle you get a different generator — and it keeps the model from cheating by remembering real episodes instead of reading the ones in front of it.",
+      "tools": []
+    },
+    {
+      "heading": "Reading a season into a database",
+      "body": "The analysis half is a series of extraction passes, each at its own grain, all sharing the same keys so they join. The model reads one scene at a time and tags every line of dialogue with the speaker's emotion from a controlled vocabulary — which started at eight emotions and grew to twenty-one, because the data kept demanding distinctions the vocabulary didn't have — plus the tactic they're using on the other person and what triggered them. Other passes read the same scenes for goals and their outcomes, for each episode's storylines and where they collide, and for the world itself: recurring locations, props, side characters, and running bits, each with a count of how often it has been seen.\n\nThe organizing principle, which I ended up applying to everything: the model classifies, the database measures. A language model reading one scene is careful and precise. A language model asked about a whole season is guessing. So the model only ever does small, local labeling, and every aggregate claim — who is angriest, which locations matter, how long scenes run — comes out of SQL, where it can be checked.",
+      "tools": [
+        "Python",
+        "PostgreSQL",
+        "psycopg",
+        "Claude API",
+        "prompt caching",
+        "controlled vocabularies"
+      ]
+    },
+    {
+      "heading": "Learning SQL against real questions",
+      "body": "This is where the actual database education happened, because every question about the show turned out to be a SQL lesson wearing a costume. Which scenes belong to which storylines is a many-to-many relationship, so: junction tables. Whether scenes get longer toward the end of an episode is a window function. (They don't. I was sure they would. They get slightly shorter.) The extraction spells one location five different ways, so: a crosswalk table mapping raw values to canonical ones without ever touching the raw data. And ranking anything by frequency turns out to reward whatever one episode happened to be about, so you rank by spread — the number of distinct episodes a thing appears in — instead.\n\nSome of what the measuring produced: the show's median scene is eight turns of dialogue. Its transition scenes run about three turns; its big set-pieces about fourteen. Those numbers mattered later, because the generator's first drafts were running eighteen.",
+      "tools": [
+        "SQL window functions",
+        "junction tables",
+        "percentile aggregates",
+        "crosswalk / canonicalization",
+        "views"
+      ]
+    },
+    {
+      "heading": "Running it in reverse",
+      "body": "The generation half is a toolkit of small command-line operations with the filesystem as shared state: every step writes JSON into an episode folder, I review and edit it in a small browser editor I built (no server — it opens the folder directly), and the next step reads whatever is there. A premise goes in; candidate B- and C-stories get proposed and picked; each story is developed into characters, activated world elements, comic moments, and beats; the stories get braided into a scene list.\n\nThe scene writer works in two passes, and the second is my favorite mechanism in the system. First the model blocks the scene abstractly — who speaks, in what emotional register, beat by beat. Then, for every character-and-emotion pair in that blocking, the system queries the database for real lines the character actually delivered in that register and hands them to the writing pass as a reference for how the voice sounds, with instructions to write fresh dialogue and never copy. The database is the voice coach. The model does the writing; the data keeps it honest.",
+      "tools": [
+        "Python CLI toolkit",
+        "JSON-on-disk state",
+        "HTML/JS editor (File System Access API)",
+        "two-pass prompting",
+        "retrieval by (character, emotion)"
+      ]
+    },
+    {
+      "heading": "Being wrong, measurably",
+      "body": "A measurement harness compares any generated script to the corpus, and it kept delivering bad news. The first drafts ran eighteen dialogue turns a scene against the show's eight. Chasing that number led somewhere better: a third of my dialogue table turned out to be stage directions — the extractor had been attributing them to whichever character was standing in them — which meant the voice bank had been teaching the model to sound like stage directions. One migration later, dialogue and non-verbal reads live in separate tables, and the voices cleaned up on their own.\n\nThe more expensive lesson: I built a second labeling axis — a controlled vocabulary of twenty-two plot functions, what each line does to the story — labeled the whole corpus with it, and wired it into the writer so scenes would be conditioned on the structure of real ones. The scripts got measurably less funny. Structure primed the model for substance over throwaway, and the rapid-fire volleys died. I reverted it in an afternoon and kept the data. Every metric I built misled me at least once; the only instrument that never lied was reading the script and either laughing or not.",
+      "tools": [
+        "measurement harness (SQL + Python)",
+        "one-shot migrations",
+        "corpus baselines"
+      ]
+    },
+    {
+      "heading": "Teaching it craft instead",
+      "body": "What finally worked was not more structure but more understanding. I had the model write a close reading of every real episode — two parts, a detailed synopsis and then a technical analysis of how the comedy is actually built: the joke mechanics, the ironies, why each collision between storylines lands as earned rather than coincidental. Praise banned; mechanisms only.\n\nThose close readings become the lens for designing new episodes. A treatment pass reads a few of them plus the development documents and designs the new episode the same way — craft logic first, deciding what will be funny and why it will work, and only then rendering the synopsis. It is explicitly firewalled: the close readings teach how the show thinks, never what to reuse. A notes pass lets me paste my own notes at the bottom of the treatment file and have the whole thing revised accordingly; a scene-map pass segments the finished treatment into a production scene list; the two-pass writer realizes it, with the full treatment riding along as cached context so scene twenty knows what scene four planted.\n\nThe current output: from a one-line premise, a complete thirty-three scene episode — cold open, three braided storylines, a tag — that is funny in a way the purely mechanical version never was.",
+      "tools": [
+        "close-reading passes",
+        "craft-logic-first treatments",
+        "notes-based revision",
+        "treatment-to-scene-map segmentation",
+        "streaming outputs"
+      ]
+    },
+    {
+      "heading": "The simulator",
+      "body": "The newest experiment attacks the layer the language model handles worst — storylines and their collisions — with the oldest tool there is: arithmetic. Characters are flat grids, one variable per row, scored one to ten: passivity 9, aggression 2, likes-the-beach 1. Situations are typed frames instead of prose. A rules engine resolves them deterministically — a conflict's winner is preference times assertiveness, and the loser's reaction depends on their own grid — and every interaction banks directed pressures into a state file: resentment toward this person, guilt toward that one, a point or two at a time. A pressure crossing its threshold flags a scene that must vent it. Threads become trajectories you can plot. Convergences become bookkeeping.\n\nTo test it, I ran a situation through the language model first, then wrote roughly a dozen threshold rules and ran the same situation through them. The arithmetic reproduced the model's output exactly — nine state changes for nine. The plan is to keep the model on as the oracle: run it on situations the rulebook hasn't seen, and freeze whatever patterns recur into new rules.",
+      "tools": [
+        "deterministic rules engine (pure Python)",
+        "trait grids (JSON)",
+        "directed pressure state",
+        "threshold-triggered discharges",
+        "LLM-as-oracle rule mining"
+      ]
+    },
+    {
+      "heading": "What it is now",
+      "body": "End to end: a season of television read into a few thousand tagged rows — every line's feeling, every scene's function and recap, every goal and its outcome, every storyline and every place two of them touch, every recurring prop and bit — and a generation pipeline that runs the whole thing backwards, from a one-line premise to a complete episode script, with me editing JSON between the steps. I am currently forking the architecture to try it on novels.\n\nThe thing I keep coming back to, though, is how good the original is. Every measurement was a writers' room decision I was discovering years later, frozen in data: the three-turn cuts, the buttons, the way a storyline plants something small and quiet three scenes before it needs it. The database didn't teach the model to be funny. It let a very good show do the teaching.",
+      "tools": []
+    }
+  ],
+  "status": "Active. Currently forking the pipeline to attempt the same architecture on novels.",
+  "tags": [
+    "ai",
+    "python",
+    "postgres",
+    "sql",
+    "llm",
+    "screenwriting",
+    "comedy",
+    "data"
+  ],
+  "objective": "",
+  "summary": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": []
+}
