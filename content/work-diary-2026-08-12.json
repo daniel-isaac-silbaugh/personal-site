@@ -1,0 +1,41 @@
+{
+  "title": "August 12, 2026",
+  "date": "2026-08-12",
+  "tagline": "Simplified the whole system · Skipped the meetup, no regrets · Domain transfer started",
+  "sections": [
+    {
+      "heading": "Simplified the whole system",
+      "body": "On Saturday I told Claude I was considering abandoning the month's schedule — out of steam, scatterbrained, wanting to start fresh. The answer I got back drew a line I ended up agreeing with: the direction stays, because I committed to no pivots before August 26 and wrote that rule specifically for the moment when a fresh start would feel good. But the apparatus — the weekly plan documents, the day-by-day blocks, the ledger of what slipped from which day — could go. The plan wasn't wrong; I was tired, and the tracking machinery was generating guilt as a byproduct even in a week where things went well.\n\nSo today we collapsed it. The week docs are retired. The master list is now just two pick-lists — contact things and build things — with no dates on anything. The system is one question, asked when I sit down to work: what's the one contact thing and the one build thing today? Some days the answer is one thing. Some days it's zero, said plainly.\n\nThe work diary stays. It's the practice I want to keep.",
+      "tools": []
+    },
+    {
+      "heading": "Skipped the meetup, no regrets",
+      "body": "New Tech Seattle was yesterday and I spent the evening with friends instead, which I feel fine about. Also decided against sending follow-up notes from Thursday's meetup — the conversations were long and the group was small, and a formal note on top of that feels off. We're already connected.",
+      "tools": []
+    },
+    {
+      "heading": "Domain transfer started",
+      "body": "Got dumphones.com moving from Wix to Namecheap: unlocked the domain, got the authorization code, submitted the transfer on Namecheap's side. It takes five to seven days to complete. In the meantime the site lives at a temporary address.",
+      "tools": []
+    },
+    {
+      "heading": "The sandbox comedy",
+      "body": "Deploying the landing page produced a genuinely instructive failure. Claude installed the publishing tool, verified it was installed, and gave me the command — which my terminal had never heard of. Three failed fixes later, the answer: Claude's commands run in a sandbox, and the installation had landed in a virtualized copy of my filesystem that only its own tools can see. My actual Windows never got the files. Good safety behavior — an AI shouldn't be able to quietly install programs on my machine — and a useful thing to now know about how this all works. I ran the install myself and it worked immediately.",
+      "tools": []
+    },
+    {
+      "heading": "DUM is live",
+      "body": "Deployed the landing page to Vercel: dumphones-site.vercel.app. Reservation forms wired to a form service, tested end to end. The page that's been the bottleneck behind everything — the ad test, the launch post, any founding customer — now exists at a public URL. When the domain transfer lands next week, two DNS records point dumphones.com at it and the real address goes live.\n\nSixteen days ago Dum Phones was a line item on a to-do list that had been mislabeled as an essay. It now has a price, an offer sheet, a public demo, a founding post, and a live reservation page.",
+      "tools": []
+    },
+    {
+      "heading": "Still open, no deadline attached",
+      "body": "The test reservation through the form. Email forwarding for dan@danielsilbaugh.com at Namecheap. The demo application for the August 19 AI Tinkerers night. The research launch. The UW audit.",
+      "tools": []
+    }
+  ],
+  "tags": [
+    "work-diary",
+    "building-in-public"
+  ]
+}

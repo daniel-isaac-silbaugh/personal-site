@@ -664,5 +664,17 @@
     "file": "merged-1781122568179.json",
     "type": "project",
     "published": false
+  },
+  {
+    "slug": "work-diary-2026-08-08",
+    "file": "work-diary-2026-08-08.json",
+    "type": "work-diary",
+    "published": true
+  },
+  {
+    "slug": "work-diary-2026-08-12",
+    "file": "work-diary-2026-08-12.json",
+    "type": "work-diary",
+    "published": true
   }
 ]
