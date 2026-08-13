@@ -56,8 +56,18 @@ export function getAllPublished(): ContentItem[] {
     .map(e => ({ ...e, ...getContentFile(e.file) } as ContentItem));
 }
 
+/**
+ * Sort a group newest-first by date — but only when every item in the group
+ * has a date (the work diary does; essays and projects are mostly undated
+ * and keep their curated manifest order).
+ */
+function sortGroup(items: ContentItem[]): ContentItem[] {
+  if (!items.every(i => i.date)) return items;
+  return [...items].sort((a, b) => (b.date as string).localeCompare(a.date as string));
+}
+
 export function getByType(type: ContentType): ContentItem[] {
-  return getAllPublished().filter(e => e.type === type);
+  return sortGroup(getAllPublished().filter(e => e.type === type));
 }
 
 /**
@@ -103,7 +113,7 @@ export function getGroupedByType(): { type: string; label: string; items: Conten
   return [...knownTypes, ...unknownTypes].map(type => ({
     type,
     label: toLabel(type),
-    items: map.get(type)!,
+    items: sortGroup(map.get(type)!),
   }));
 }
 
