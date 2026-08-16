@@ -1,11 +1,8 @@
 // Buttondown signup — a plain form POST, no client JS. Buttondown handles
-// confirmation and unsubscribe. Set the username below after creating the
-// account at buttondown.com.
+// confirmation and unsubscribe.
 const BUTTONDOWN_USERNAME = 'silbaugh';
 
 export default function Subscribe() {
-  if (BUTTONDOWN_USERNAME === 'REPLACE_ME') return null; // hidden until wired
-
   return (
     <section className="subscribe">
       <p className="subscribe-pitch">
