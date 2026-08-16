@@ -319,3 +319,46 @@ li span {
 ::selection {
   background: var(--selection);
 }
+
+/* ── Subscribe box ─────────────────────────────────────────── */
+.subscribe {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.subscribe-pitch {
+  margin: 0 0 0.9rem;
+  color: var(--foreground);
+}
+.subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.subscribe-form input[type='email'] {
+  flex: 1 1 14rem;
+  min-width: 0;
+  font: inherit;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.subscribe-form input[type='email']:focus {
+  outline: 2px solid var(--foreground);
+  outline-offset: 1px;
+}
+.subscribe-form button {
+  font: inherit;
+  color: var(--background);
+  background: var(--foreground);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+}
+.subscribe-form button:hover {
+  opacity: 0.85;
+}

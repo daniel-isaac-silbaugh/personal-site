@@ -1,5 +1,6 @@
 import { getGroupedByType, getBlurb } from '../lib/content';
 import ThemeToggle from './ThemeToggle';
+import Subscribe from './Subscribe';
 
 export default function Home() {
   const groups = getGroupedByType();
@@ -33,6 +34,8 @@ export default function Home() {
 
         </p>
       </section>
+
+      <Subscribe />
 
       {groups.map(({ type, label, items }) => (
         <Section key={type} title={label}>
