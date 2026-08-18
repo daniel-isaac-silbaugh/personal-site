@@ -33,6 +33,10 @@ export default function Home() {
           writing, musings, and other public work. You can email him at <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com.</a> Thanks for stopping by.
 
         </p>
+         <p>
+          ALSO! Forgot to mention. I'm keeping a "Work Diary", that tracks, in minute second-to-second detail, most of what I'm working on. To read it, sign up in the box below. You can peruse 10 public entries at the bottom of this page. I also plan on sending out more good stuff, and probably keeping 60-75% of it exclusive to the email list. 
+
+        </p>
       </section>
 
       <Subscribe />
