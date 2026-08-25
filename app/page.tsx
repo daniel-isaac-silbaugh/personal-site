@@ -20,26 +20,29 @@ export default function Home() {
 
       <section className="bio">
         <p>
-          Dan Silbaugh does manual labor, defaults to systems-level thinking, always has a few entrepreneurial projects going and writes science fiction. He is passionately disappointed in modern built environments. Much like a Vulcan, Dan thinks the only rational, logical way to live one's life is to try your best to be a good person. As a curious generalist, he's always going down Wikipedia rabbit holes. Dan enjoys vacationing in Hawaii, tête-à-têtes, literary realism, and reality baking competitions. 
+          Can Dan the delivery driver become Dan the successful businessman?
         </p>
+         <p>
+          Follow my work diary to find out! I'm keeping detailed records of my journey to become an entrepreneur. Follow as I put myself out there, make mistakes, and figure out how to succeed. You can preview the first 10 entries down below. Sign up for a weekly update, with achievements, lessons learned, work summaries and detailed daily logs.
+        </p>
+      </section>
+
+      <Subscribe />
+
+      <section className="bio">
         <p>
-          He is the creator of{' '}
+          So far I have created{' '}
           <a href="https://bookmodernizer.com">The Book Modernizer</a>, a
           project that produces modern-language editions of classic literature
           and related reading tools.
         </p>
         <p>
-          This site collects his projects, notes, experiments, fiction
-          writing, musings, and other public work. You can email him at <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com.</a> Thanks for stopping by.
+          This site collects my projects, notes, experiments, fiction
+          writing, musings, and other public work. You can email me at <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com.</a> Thanks for stopping by.
 
         </p>
-         <p>
-          ALSO! Forgot to mention. I'm keeping a "Work Diary", that tracks, in minute second-to-second detail, most of what I'm working on. To read it, sign up in the box below. You can peruse 10 public entries at the bottom of this page. I also plan on sending out more good stuff, and probably keeping 60-75% of it exclusive to the email list. 
 
-        </p>
       </section>
-
-      <Subscribe />
 
       {groups.map(({ type, label, items }) => (
         <Section key={type} title={label}>
