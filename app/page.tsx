@@ -36,7 +36,9 @@ export default function Home() {
         <div className="home-grid">
           {/* A drawing set opens with its sheet index; so does this. */}
           <aside className="rail">
-            <div className="sheetindex">
+            <Subscribe />
+
+            <div className="sheetindex card">
               <p className="annot-head">Sheet Index</p>
               <ul>
                 {groups.map(({ type, label, items }, i) => (
@@ -63,12 +65,10 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-
-            <Subscribe />
           </aside>
 
           <div className="content">
-            <header className="hero">
+            <header className="hero card">
               <Dim label="SUBJECT" className="dim-top" />
 
               <h1 className="hero-name">Daniel Isaac Silbaugh</h1>
@@ -78,7 +78,8 @@ export default function Home() {
               </p>
 
               <p className="hero-lede">
-                I do manual labor, default to systems-level thinking, always
+                Hi, I&rsquo;m Dan. I do manual labor, default to systems-level
+                thinking, always
                 have a few entrepreneurial projects going, and write science
                 fiction. I am passionately disappointed in modern built
                 environments. Much like a Vulcan, I think the only rational,
@@ -100,7 +101,10 @@ export default function Home() {
                 <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com</a>.
               </p>
 
-              <Socials />
+              <div className="hero-actions">
+                <Socials />
+                <Subscribe variant="inline" />
+              </div>
             </header>
 
             <div className="index">
@@ -108,7 +112,7 @@ export default function Home() {
                 <section
                   key={type}
                   id={type}
-                  className="index-group"
+                  className="index-group card"
                   style={layerStyle(i)}
                 >
                   <h2 className="index-label">

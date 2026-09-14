@@ -43,7 +43,7 @@ export default async function ProjectPage({
         <a href="/">← Index of Work</a>
       </nav>
 
-      <article className="project-page">
+      <article className="project-page card">
         <header className="project-header">
           <h1>{item.title}</h1>
           {item.date && (

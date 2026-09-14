@@ -1006,3 +1006,521 @@ main.sheet-article .sheet-inner {
     padding: 18px 16px 20px;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   EXPERIMENT: lineless
+   Every stroke removed -- the paper grid, the sheet frame, rules,
+   leaders, borders, the bubble circle. Structure, spacing, type and
+   colour are untouched. Where a line was load-bearing it is kept as an
+   invisible spacer (so the dimension label stays centred and the index
+   counts stay right-aligned) or replaced by a fill, never by a stroke.
+   Whitespace is opened up to do the separating the rules used to do.
+   Delete this whole block to get the drawing back.
+   ════════════════════════════════════════════════════════════ */
+
+/* --- ground --- */
+body {
+  background-image: none;
+}
+
+.sheet-inner {
+  border: none;
+  box-shadow: none;
+  padding: 6px 0 0;
+}
+
+/* --- frame, rules, separators --- */
+.topbar,
+.hero,
+.annot-head,
+.index-label,
+.entry,
+.project-header,
+.project-section h2,
+.experiment,
+.titleblock,
+.tb-cell {
+  border: none;
+}
+
+@media (min-width: 980px) {
+  .content {
+    border-left: none;
+    padding-left: 52px;
+  }
+}
+
+/* Kept in the flow, just not drawn: these still push the dimension label
+   to the centre and the index counts to the right edge. */
+.dim-line,
+.dim-tick,
+.leader {
+  background: transparent;
+}
+
+.si-leader,
+.il-rule {
+  border-bottom-color: transparent;
+}
+
+/* --- space replaces the rules --- */
+.topbar {
+  padding-bottom: 0;
+  margin-bottom: 34px;
+}
+
+.hero {
+  padding-bottom: 0;
+  margin-bottom: 52px;
+}
+
+.annot-head {
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+.index-group {
+  margin-bottom: 68px;
+}
+
+.index-label {
+  padding: 0 12px 0 0;
+  margin-bottom: 24px;
+}
+
+.entry > a {
+  padding: 19px 12px 19px 0;
+}
+
+.si-row {
+  padding: 7px 0;
+}
+
+/* --- the detail bubble, minus its circle --- */
+.bubble {
+  border: none;
+  width: auto;
+  justify-self: start;
+  padding-left: 2px;
+}
+
+.bubble::after {
+  display: none;
+}
+
+.bubble-n {
+  font-size: 0.95rem;
+  padding-bottom: 1px;
+}
+
+.bubble-ref {
+  font-size: 0.52rem;
+  opacity: 0.7;
+}
+
+.entry > a:hover .bubble {
+  background: transparent;
+  color: var(--layer, var(--l-cyan));
+}
+
+/* --- outlined controls become filled or plain --- */
+.socials {
+  border: none;
+  gap: 20px;
+  width: auto;
+}
+
+.social-link {
+  border: none;
+  padding: 4px 0;
+}
+
+.social-link:hover {
+  background: transparent;
+  color: var(--layer, var(--l-cyan));
+}
+
+.note-flag,
+.tag {
+  border: none;
+  padding: 1px 0;
+}
+
+.note-flag {
+  margin-right: 9px;
+}
+
+.tag {
+  padding: 2px 9px;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.back-nav a,
+.project-link {
+  border: none;
+  padding: 4px 0;
+}
+
+.back-nav a:hover,
+.project-link:hover {
+  background: transparent;
+  color: var(--rev);
+}
+
+.theme-toggle {
+  border: none;
+  width: 20px;
+  height: 16px;
+}
+
+.theme-toggle::after {
+  right: 0;
+  top: 2px;
+}
+
+[data-theme="dark"] .theme-toggle::after {
+  right: auto;
+  left: 0;
+}
+
+/* --- subscribe: a fill, not a box --- */
+.subscribe {
+  border: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.subscribe-form {
+  border: none;
+  gap: 8px;
+}
+
+/* An unbordered input is an invisible input, so it gets a wash instead. */
+.subscribe-form input[type="email"] {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  padding: 7px 10px;
+}
+
+/* --- title block: a grid of labelled fields, no cells --- */
+.titleblock {
+  margin-top: 76px;
+  gap: 20px 26px;
+}
+
+.tb-cell {
+  padding: 0;
+}
+
+/* Two strokes the grouped reset above could not reach: .si-sub was never
+   listed, and the title block's :nth-child rules outrank a bare .tb-cell
+   selector regardless of order. */
+.si-sub {
+  border-left: none;
+  padding-left: 0;
+  margin-left: 24px;
+}
+
+.tb-cell:nth-child(-n + 3),
+.tb-cell:nth-child(3),
+.tb-cell:nth-child(8) {
+  border: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   EXPERIMENT: floating cards over a backdrop
+   Each section becomes an opaque rounded panel carrying the paper
+   colour; the gaps between them reveal a fixed backdrop image. The
+   panels are what keep the text legible, so the backdrop never has to
+   be dimmed or blurred to stay readable.
+
+   To swap in a real photograph: replace --backdrop below with
+   url("/your-file.jpg"). Nothing else changes.
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --backdrop: url("/backdrop.svg");
+  --card-radius: 20px;
+  --card-gap: 22px;
+  --card-shadow: 0 1px 2px rgba(16, 26, 34, 0.06),
+    0 10px 30px rgba(16, 26, 34, 0.1);
+}
+
+[data-theme="dark"] {
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 34px rgba(0, 0, 0, 0.42);
+}
+
+html {
+  background: #16242f;
+}
+
+body {
+  background-color: transparent;
+}
+
+/* A fixed pseudo-element rather than background-attachment: fixed, which
+   forces a repaint on every scroll frame in most browsers. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--backdrop);
+  background-size: cover;
+  background-position: center;
+}
+
+.card {
+  background: var(--paper);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 30px 32px;
+}
+
+/* Let the backdrop through at the page edges too, not only between
+   panels -- otherwise it only ever reads as thin seams. */
+main.home {
+  padding: var(--card-gap);
+}
+
+.sheet-inner {
+  padding: 0;
+}
+
+.topbar {
+  margin-bottom: var(--card-gap);
+  padding: 0 8px;
+  color: var(--paper);
+}
+
+.topbar-ref {
+  color: var(--paper);
+  opacity: 0.75;
+}
+
+.home-grid {
+  gap: var(--card-gap);
+}
+
+@media (min-width: 980px) {
+  .home-grid {
+    gap: var(--card-gap);
+  }
+
+  .rail {
+    padding-right: 0;
+    /* The panels' own padding replaces the column rule's breathing room. */
+    max-height: calc(100vh - (var(--card-gap) * 2));
+    top: var(--card-gap);
+    overflow: visible;
+  }
+
+  .content {
+    padding-left: 0;
+  }
+}
+
+.content,
+.index,
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+/* Panels supply their own separation now. */
+.sheetindex,
+.hero,
+.index-group,
+.subscribe {
+  margin: 0;
+}
+
+.hero {
+  padding-bottom: 30px;
+}
+
+.titleblock {
+  margin-top: 0;
+  background: var(--paper);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 26px 32px;
+}
+
+/* --- the name: title case, warmer face, smaller --- */
+.hero-name {
+  font-family: var(--font-serif), Georgia, "Times New Roman", Times, serif;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.1vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  margin: 0 0 8px;
+}
+
+/* --- article pages sit on the backdrop too --- */
+main.sheet-article {
+  padding: var(--card-gap);
+  max-width: 860px;
+}
+
+main.sheet-article .sheet-inner {
+  padding: 0;
+}
+
+.back-nav {
+  margin-bottom: var(--card-gap);
+  padding: 0 8px;
+}
+
+.back-nav a {
+  color: var(--paper);
+  opacity: 0.85;
+}
+
+.back-nav a:hover {
+  color: var(--paper);
+  opacity: 1;
+}
+
+.project-page {
+  padding: 34px 36px;
+}
+
+@media (max-width: 700px) {
+  .card,
+  .titleblock,
+  .project-page {
+    padding: 22px 20px;
+  }
+}
+
+/* The subscribe block lost its border in the lineless pass, so on the
+   backdrop it was dark text on a dark photo. It needs a panel like every
+   other section. */
+.subscribe {
+  background: var(--paper);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px 26px;
+}
+
+@media (max-width: 700px) {
+  .subscribe {
+    padding: 22px 20px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   Backdrop photograph + prominent links + two signup points
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Plain url first as the fallback; image-set lets browsers that
+     understand AVIF take the 91KB version over the 142KB WebP. */
+  --backdrop: url("/backdrop.webp");
+  --backdrop: image-set(
+    url("/backdrop.avif") type("image/avif"),
+    url("/backdrop.webp") type("image/webp")
+  );
+}
+
+/* --- social links: bigger, and reading as real buttons --- */
+.socials {
+  gap: 10px;
+  align-items: center;
+}
+
+.social-link {
+  gap: 9px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.social-link svg {
+  width: 17px;
+  height: 17px;
+  opacity: 0.9;
+}
+
+.social-link:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.social-link:hover svg {
+  opacity: 1;
+}
+
+/* --- hero foot: links on the left, compact signup on the right --- */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 28px;
+  margin-top: 26px;
+}
+
+.subscribe-inline {
+  flex: 1 1 16rem;
+  max-width: 22rem;
+}
+
+.subscribe-inline-label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-mono-site), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.subscribe-inline .subscribe-form input[type="email"] {
+  padding: 8px 11px;
+  border-radius: 999px;
+}
+
+.subscribe-inline .subscribe-form button {
+  border-radius: 999px;
+  padding: 8px 15px;
+}
+
+/* --- the sidebar signup now leads the rail --- */
+.subscribe-form button {
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.subscribe-form input[type="email"] {
+  border-radius: 999px;
+}
+
+@media (max-width: 700px) {
+  .hero-actions {
+    gap: 18px;
+  }
+
+  .subscribe-inline {
+    max-width: none;
+  }
+
+  .social-link {
+    flex: 0 1 auto;
+    padding: 8px 14px;
+  }
+}
+
+/* The only text that sits on the photograph rather than on a panel. A
+   shadow keeps it readable over a light passage of any backdrop, which a
+   fixed colour cannot promise. */
+.topbar-ref,
+.back-nav a {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
