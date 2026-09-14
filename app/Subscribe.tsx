@@ -6,10 +6,8 @@ export default function Subscribe() {
   return (
     <section className="subscribe">
       <p className="subscribe-pitch">
-        Can a delivery driver build a company from scratch? Follow my journey
-        day by day as I build things, make mistakes, figure things out, and
-        try everything I can, all in real time. The full daily work diary is
-        available by email only.
+        I keep a work diary: what I built, what broke, what it taught
+        me. The full thing goes out by email.
       </p>
       <form
         action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}

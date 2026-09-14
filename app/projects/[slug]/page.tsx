@@ -1,5 +1,6 @@
 import { getAllPublished, getBySlug } from '../../../lib/content';
 import { notFound } from 'next/navigation';
+import { TitleBlock } from '../../Drafting';
 import React from 'react';
 
 // Render a paragraph, turning markdown [text](url) into real links.
@@ -36,9 +37,10 @@ export default async function ProjectPage({
   if (!item) notFound();
 
   return (
-    <main>
+    <main className="sheet sheet-article">
+      <div className="sheet-inner">
       <nav className="back-nav">
-        <a href="/">← Daniel Silbaugh</a>
+        <a href="/">← Index of Work</a>
       </nav>
 
       <article className="project-page">
@@ -130,7 +132,14 @@ export default async function ProjectPage({
             ))}
           </div>
         )}
+        <TitleBlock
+          sheet="A-00"
+          title={item.title}
+          date={(item.date ?? new Date().toISOString()).slice(0, 10)}
+          total="01"
+        />
       </article>
+      </div>
     </main>
   );
 }

@@ -1,74 +1,176 @@
-import { getGroupedByType, getBlurb } from '../lib/content';
+import { getGroupedByType, getBlurb, type ContentItem } from '../lib/content';
 import ThemeToggle from './ThemeToggle';
 import Subscribe from './Subscribe';
+import Socials from './Socials';
+import { Dim, Bubble, TitleBlock } from './Drafting';
+import type { CSSProperties } from 'react';
+
+// CAD layer colours. Drawing sets really do assign a colour per layer, so
+// this is the honest way to keep a palette in a restrained drawing.
+const LAYERS = ['--l-cyan', '--l-red', '--l-green', '--l-magenta', '--l-blue'];
+
+function layerStyle(i: number): CSSProperties {
+  return { ['--layer' as string]: `var(${LAYERS[i % LAYERS.length]})` };
+}
+
+/** Sheet numbers run A-01, A-02, ... in manifest order. */
+function sheetNo(i: number): string {
+  return `A-${String(i + 1).padStart(2, '0')}`;
+}
 
 export default function Home() {
   const groups = getGroupedByType();
+  const total = String(groups.length).padStart(2, '0');
+
+  // One continuous item number across every section, like a drawing index.
+  let counter = 0;
 
   return (
-    <main className="site-shell">
-      <header className="site-header">
-        <h1 className="site-title">
-          <a href="/">Daniel Isaac Silbaugh</a>
-        </h1>
-        <nav className="site-nav">
-          <a href="mailto:dan@danielsilbaugh.com">Email</a>
-          <a href="https://www.linkedin.com/in/daniel-silbaugh/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <main className="home sheet">
+      <div className="sheet-inner">
+        <div className="topbar">
+          <span className="topbar-ref">SILBAUGH &middot; PERSONAL WORKS</span>
           <ThemeToggle />
-        </nav>
-      </header>
+        </div>
 
-      <section className="bio">
-        <p>
-          Can Dan the delivery driver become Dan the successful businessman?
-        </p>
-         <p>
-          Follow my work diary to find out! I'm keeping detailed records of my journey to become an entrepreneur. Follow as I put myself out there, make mistakes, and figure out how to succeed. You can preview the first 10 entries down below. Sign up for a weekly update, with achievements, lessons learned, work summaries and detailed daily logs.
-        </p>
-      </section>
+        <div className="home-grid">
+          {/* A drawing set opens with its sheet index; so does this. */}
+          <aside className="rail">
+            <div className="sheetindex">
+              <p className="annot-head">Sheet Index</p>
+              <ul>
+                {groups.map(({ type, label, items }, i) => (
+                  <li key={type} style={layerStyle(i)}>
+                    <a className="si-row" href={`#${type}`}>
+                      <span className="si-no">{sheetNo(i)}</span>
+                      <span className="si-dot" />
+                      <span className="si-name">{label}</span>
+                      <span className="si-leader" />
+                      <span className="si-count">
+                        {String(items.length).padStart(2, '0')}
+                      </span>
+                    </a>
+                    {type === 'project' && (
+                      <ul className="si-sub">
+                        {items.map(item => (
+                          <li key={item.slug}>
+                            <a href={`/projects/${item.slug}`}>{item.title}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-      <Subscribe />
+            <Subscribe />
+          </aside>
 
-      <section className="bio">
-        <p>
-          So far I have created{' '}
-          <a href="https://bookmodernizer.com">The Book Modernizer</a>, a
-          project that produces modern-language editions of classic literature
-          and related reading tools.
-        </p>
-        <p>
-          This site collects my projects, notes, experiments, fiction
-          writing, musings, and other public work. You can email me at <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com.</a> Thanks for stopping by.
+          <div className="content">
+            <header className="hero">
+              <Dim label="SUBJECT" className="dim-top" />
 
-        </p>
+              <h1 className="hero-name">Daniel Isaac Silbaugh</h1>
+              <p className="hero-callout">
+                <span className="leader" aria-hidden="true" />
+                Seattle &middot; builds things &middot; writes things
+              </p>
 
-      </section>
+              <p className="hero-lede">
+                I do manual labor, default to systems-level thinking, always
+                have a few entrepreneurial projects going, and write science
+                fiction. I am passionately disappointed in modern built
+                environments. Much like a Vulcan, I think the only rational,
+                logical way to live one&rsquo;s life is to try your best to be
+                a good person. As a curious generalist, I&rsquo;m always going
+                down Wikipedia rabbit holes. I enjoy vacationing in Hawaii,
+                t&ecirc;te-&agrave;-t&ecirc;tes, literary realism, and reality
+                baking competitions.
+              </p>
 
-      {groups.map(({ type, label, items }) => (
-        <Section key={type} title={label}>
-          {items.map(item => (
-            <li key={item.slug}>
-              <a href={`/projects/${item.slug}`}>{item.title}</a>
-              {getBlurb(item) && <span> — {getBlurb(item)}</span>}
-            </li>
-          ))}
-        </Section>
-      ))}
+              <p className="hero-sub">
+                <span className="note-flag">NOTE 1</span> I build things that
+                take dense or messy input and give back something clearer. The
+                largest of them is{' '}
+                <a href="https://bookmodernizer.com" target="_blank" rel="noopener noreferrer">
+                  The Book Modernizer
+                </a>
+                . Write to me at{' '}
+                <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com</a>.
+              </p>
+
+              <Socials />
+            </header>
+
+            <div className="index">
+              {groups.map(({ type, label, items }, i) => (
+                <section
+                  key={type}
+                  id={type}
+                  className="index-group"
+                  style={layerStyle(i)}
+                >
+                  <h2 className="index-label">
+                    <span className="il-sheet">{sheetNo(i)}</span>
+                    <span className="il-name">{label}</span>
+                    <span className="il-rule" aria-hidden="true" />
+                    <span className="il-meta">
+                      {String(items.length).padStart(2, '0')} ITEMS
+                    </span>
+                  </h2>
+                  <ul className="index-list">
+                    {items.map(item => {
+                      counter += 1;
+                      return (
+                        <Entry
+                          key={item.slug}
+                          item={item}
+                          n={counter}
+                          sheet={sheetNo(i)}
+                        />
+                      );
+                    })}
+                  </ul>
+                </section>
+              ))}
+
+              <TitleBlock
+                sheet="A-01"
+                title="Index of Work"
+                date={new Date().toISOString().slice(0, 10)}
+                total={total}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
 
-function Section({
-  title,
-  children,
+function Entry({
+  item,
+  n,
+  sheet,
 }: {
-  title: string;
-  children: React.ReactNode;
+  item: ContentItem;
+  n: number;
+  sheet: string;
 }) {
+  const blurb = getBlurb(item);
   return (
-    <section className="content-section">
-      <h2 className="section-title">{title}</h2>
-      <ul className="link-list">{children}</ul>
-    </section>
+    <li className="entry">
+      <a href={`/projects/${item.slug}`}>
+        <Bubble n={n} sheet={sheet} />
+        <span className="entry-body">
+          <span className="entry-title">{item.title}</span>
+          {blurb && <span className="entry-blurb">{blurb}</span>}
+        </span>
+        <span className="entry-meta">
+          {item.date && <span className="entry-rev">REV {item.date}</span>}
+        </span>
+      </a>
+    </li>
   );
 }

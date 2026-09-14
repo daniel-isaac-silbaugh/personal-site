@@ -114,6 +114,12 @@
     "published": true
   },
   {
+    "slug": "robinson-crusoe-standard",
+    "file": "robinson-crusoe-standard.json",
+    "type": "essay",
+    "published": true
+  },
+  {
     "slug": "dans-wager",
     "file": "dans-wager.json",
     "type": "essay",
