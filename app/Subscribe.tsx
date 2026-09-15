@@ -36,8 +36,8 @@ export default function Subscribe({
   return (
     <section className="subscribe">
       <p className="subscribe-pitch">
-        I keep a work diary: what I built, what broke, what it taught me. The
-        full thing goes out by email.
+        I keep a work diary: what I built, what broke, and what it taught
+        me.
       </p>
       <form action={ACTION} method="post" className="subscribe-form">
         <input

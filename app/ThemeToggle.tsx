@@ -20,7 +20,18 @@ export default function ThemeToggle() {
     return () => btn.removeEventListener('click', toggle);
   }, []);
 
+  // Both labels are rendered and CSS shows the one matching the current
+  // theme. The theme is set by an inline script before React hydrates, so
+  // picking the label in JS here would risk a hydration mismatch.
   return (
-    <button id="theme-toggle" className="theme-toggle" aria-label="Toggle color theme" />
+    <button
+      id="theme-toggle"
+      className="theme-toggle"
+      aria-label="Toggle between light and dark"
+    >
+      <span className="tt-dot" aria-hidden="true" />
+      <span className="tt-label tt-when-light">Light</span>
+      <span className="tt-label tt-when-dark">Dark</span>
+    </button>
   );
 }

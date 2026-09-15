@@ -8,47 +8,52 @@
    ════════════════════════════════════════════════════════════ */
 
 :root {
-  --paper: #faf8f1;
-  --ink: #1c1b18;
-  --annot: #5f6a6e;
-  --faint: #8d9498;
-  --rule: #1c1b18;
-  --hairline: #cdc9bd;
-  --rev: #b8472c;
+  /* Sampled from the Lands End photograph: hue bands taken from the
+     image's own high-chroma pixels, values adjusted only where legibility
+     required it (paper is the foam white lifted, since the photo's
+     lightest tone is too dim to set text on). */
+  --paper: #eef0ee;
+  --ink: #1b1d27;
+  --annot: #4e5a63;
+  --faint: #646f76;
+  --rule: #1b1d27;
+  --hairline: #c8cdcd;
+  --rev: #7f6212;
 
-  --grid-fine: rgba(72, 132, 160, 0.11);
-  --grid-major: rgba(72, 132, 160, 0.2);
+  --grid-fine: rgba(59, 129, 154, 0.11);
+  --grid-major: rgba(59, 129, 154, 0.2);
 
-  --l-cyan: #10748f;
-  --l-red: #b8472c;
-  --l-green: #4e7a2c;
-  --l-magenta: #8d3f7e;
-  --l-blue: #34508f;
+  --l-ocean: #2b7590;
+  --l-rock: #96682c;
+  --l-cypress: #4c6129;
+  --l-deep: #4a5f92;
+  --l-shallow: #3d6b64;
 
-  --selection: #ffe08a;
-  --on-layer: #faf8f1;
+  --selection: #cfe3e8;
+  --on-layer: #eef0ee;
 }
 
 [data-theme="dark"] {
-  --paper: #0d3348;
-  --ink: #eaf3f9;
-  --annot: #9dc0d3;
-  --faint: #7099b0;
-  --rule: #eaf3f9;
-  --hairline: #1d4d68;
-  --rev: #ff9c7d;
+  /* Dark is the deep water at the top of the frame, with foam as ink. */
+  --paper: #132430;
+  --ink: #e9efee;
+  --annot: #a3b6bd;
+  --faint: #8ea2ac;
+  --rule: #e9efee;
+  --hairline: #23394a;
+  --rev: #e0bb55;
 
   --grid-fine: rgba(255, 255, 255, 0.08);
   --grid-major: rgba(255, 255, 255, 0.16);
 
-  --l-cyan: #57d3ee;
-  --l-red: #ff9478;
-  --l-green: #a9d96a;
-  --l-magenta: #e39ad5;
-  --l-blue: #93b4ef;
+  --l-ocean: #6cc0d8;
+  --l-rock: #d6a659;
+  --l-cypress: #9db95e;
+  --l-deep: #93a3e0;
+  --l-shallow: #6fb3a7;
 
-  --selection: #1f5f80;
-  --on-layer: #0d3348;
+  --selection: #2b5468;
+  --on-layer: #132430;
 }
 
 html {
@@ -284,7 +289,7 @@ main.home {
 
 .hero-sub a {
   color: var(--ink);
-  text-decoration-color: var(--l-cyan);
+  text-decoration-color: var(--l-ocean);
 }
 
 /* ── Socials ────────────────────────────────────────────────── */
@@ -409,7 +414,7 @@ main.home {
   width: 7px;
   height: 7px;
   flex: none;
-  background: var(--layer, var(--l-cyan));
+  background: var(--layer, var(--l-ocean));
 }
 
 .si-name {
@@ -434,11 +439,11 @@ main.home {
 }
 
 .si-row:hover {
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
 }
 
 .si-row:hover .si-leader {
-  border-bottom-color: var(--layer, var(--l-cyan));
+  border-bottom-color: var(--layer, var(--l-ocean));
 }
 
 .si-sub {
@@ -462,7 +467,7 @@ main.home {
 }
 
 .si-sub a:hover {
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -480,7 +485,7 @@ main.home {
   gap: 10px;
   margin: 0 0 14px;
   padding: 0 12px 7px 0;
-  border-bottom: 2px solid var(--layer, var(--l-cyan));
+  border-bottom: 2px solid var(--layer, var(--l-ocean));
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.2;
@@ -490,7 +495,7 @@ main.home {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   color: var(--on-layer);
-  background: var(--layer, var(--l-cyan));
+  background: var(--layer, var(--l-ocean));
   padding: 2px 7px;
   flex: none;
 }
@@ -542,7 +547,7 @@ main.home {
 }
 
 .entry > a:hover {
-  background: color-mix(in srgb, var(--layer, var(--l-cyan)) 11%, transparent);
+  background: color-mix(in srgb, var(--layer, var(--l-ocean)) 11%, transparent);
 }
 
 /* ── Detail bubble ──────────────────────────────────────────── */
@@ -553,9 +558,9 @@ main.home {
   place-items: center;
   width: 2.9rem;
   height: 2.9rem;
-  border: 1.5px solid var(--layer, var(--l-cyan));
+  border: 1.5px solid var(--layer, var(--l-ocean));
   border-radius: 50%;
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
   line-height: 1;
   position: relative;
   transition: background 0.12s linear, color 0.12s linear;
@@ -569,7 +574,7 @@ main.home {
   right: 0;
   top: 50%;
   height: 1.5px;
-  background: var(--layer, var(--l-cyan));
+  background: var(--layer, var(--l-ocean));
   transition: background 0.12s linear;
 }
 
@@ -589,7 +594,7 @@ main.home {
 }
 
 .entry > a:hover .bubble {
-  background: var(--layer, var(--l-cyan));
+  background: var(--layer, var(--l-ocean));
   color: var(--on-layer);
 }
 
@@ -615,7 +620,7 @@ main.home {
 }
 
 .entry > a:hover .entry-title {
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
 }
 
 .entry-blurb {
@@ -749,7 +754,7 @@ main.home {
 }
 
 .subscribe-form input[type="email"]:focus {
-  outline: 1px solid var(--l-cyan);
+  outline: 1px solid var(--l-ocean);
   outline-offset: -1px;
 }
 
@@ -873,7 +878,7 @@ h2 {
   color: var(--ink);
   margin: 0 0 12px;
   padding-bottom: 5px;
-  border-bottom: 1px solid var(--l-cyan);
+  border-bottom: 1px solid var(--l-ocean);
 }
 
 .project-section h3 {
@@ -1120,7 +1125,7 @@ body {
 
 .entry > a:hover .bubble {
   background: transparent;
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
 }
 
 /* --- outlined controls become filled or plain --- */
@@ -1137,7 +1142,7 @@ body {
 
 .social-link:hover {
   background: transparent;
-  color: var(--layer, var(--l-cyan));
+  color: var(--layer, var(--l-ocean));
 }
 
 .note-flag,
@@ -1250,7 +1255,7 @@ body {
 }
 
 html {
-  background: #16242f;
+  background: #132430;
 }
 
 body {
@@ -1523,4 +1528,176 @@ main.sheet-article .sheet-inner {
 .topbar-ref,
 .back-nav a {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+/* Phones get a 900px backdrop (92KB AVIF) rather than the 1600px one
+   (287KB) -- it is a background behind opaque panels, so the detail is
+   mostly hidden anyway. */
+:root {
+  --backdrop: url("/backdrop-sm.webp");
+  --backdrop: image-set(
+    url("/backdrop-sm.avif") type("image/avif"),
+    url("/backdrop-sm.webp") type("image/webp")
+  );
+}
+
+@media (min-width: 900px) {
+  :root {
+    --backdrop: url("/backdrop.webp");
+    --backdrop: image-set(
+      url("/backdrop.avif") type("image/avif"),
+      url("/backdrop.webp") type("image/webp")
+    );
+  }
+}
+
+/* This photograph is bright along the top edge, where the only text not
+   on a panel lives. A shadow alone was not enough, so the top of the
+   viewport gets a scrim. Fixed rather than scrolled, so it protects the
+   bar wherever the page is. */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 20, 26, 0.55), transparent);
+}
+
+/* ── Primary call to action ─────────────────────────────────────
+   The Book Modernizer was an inline link inside a paragraph, which
+   made the most commercially important destination on the page the
+   least visible thing in the hero. It is a button now, and the prose
+   mention was removed rather than left as a second link to the same
+   place a few words away.
+   ─────────────────────────────────────────────────────────────── */
+
+.cta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 4px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: var(--l-ocean);
+  color: var(--on-layer);
+  text-decoration: none;
+  transition: background 0.14s linear, transform 0.14s ease;
+}
+
+.cta-kicker {
+  font-family: var(--font-mono-site), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.cta-name {
+  font-family: var(--font-display), "Futura", "Century Gothic", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.cta-arrow {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.14s ease;
+}
+
+.cta:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+
+.cta:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+.hero-actions {
+  margin-top: 22px;
+}
+
+@media (max-width: 700px) {
+  .cta {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    padding: 13px 18px;
+  }
+
+  .cta-kicker {
+    flex-basis: 100%;
+  }
+
+  .cta-arrow {
+    margin-left: auto;
+  }
+}
+
+/* ── Theme toggle: a bounded, labelled control ──────────────────
+   The lineless pass stripped its border and left a floating square with
+   no affordance. It sits on the photograph rather than on a panel, so it
+   carries its own translucent fill and paper-coloured edge.
+   ─────────────────────────────────────────────────────────────── */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  height: auto;
+  padding: 6px 13px;
+  border: 1px solid rgba(238, 240, 238, 0.55);
+  border-radius: 999px;
+  background: rgba(12, 22, 28, 0.42);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background 0.14s linear, border-color 0.14s linear;
+}
+
+.theme-toggle:hover {
+  background: rgba(12, 22, 28, 0.68);
+  border-color: var(--paper);
+}
+
+/* Replaces the old ::after square, which was the whole control. */
+.theme-toggle::after {
+  content: none;
+}
+
+.tt-dot {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--rev);
+  box-shadow: 0 0 0 1px rgba(238, 240, 238, 0.45);
+}
+
+.tt-label {
+  font-family: var(--font-mono-site), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Show whichever label matches the theme in force. */
+.tt-when-dark {
+  display: none;
+}
+
+[data-theme="dark"] .tt-when-light {
+  display: none;
+}
+
+[data-theme="dark"] .tt-when-dark {
+  display: inline;
 }

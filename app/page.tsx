@@ -7,7 +7,7 @@ import type { CSSProperties } from 'react';
 
 // CAD layer colours. Drawing sets really do assign a colour per layer, so
 // this is the honest way to keep a palette in a restrained drawing.
-const LAYERS = ['--l-cyan', '--l-red', '--l-green', '--l-magenta', '--l-blue'];
+const LAYERS = ['--l-ocean', '--l-rock', '--l-cypress', '--l-deep', '--l-shallow'];
 
 function layerStyle(i: number): CSSProperties {
   return { ['--layer' as string]: `var(${LAYERS[i % LAYERS.length]})` };
@@ -78,10 +78,10 @@ export default function Home() {
               </p>
 
               <p className="hero-lede">
-                Hi, I&rsquo;m Dan. I do manual labor, default to systems-level
+                Hey there, I&rsquo;m Dan. I do manual labor, default to systems-level
                 thinking, always
                 have a few entrepreneurial projects going, and write science
-                fiction. I am passionately disappointed in modern built
+                fiction. I am passionately disappointed by modern built
                 environments. Much like a Vulcan, I think the only rational,
                 logical way to live one&rsquo;s life is to try your best to be
                 a good person. As a curious generalist, I&rsquo;m always going
@@ -93,13 +93,21 @@ export default function Home() {
               <p className="hero-sub">
                 <span className="note-flag">NOTE 1</span> I build things that
                 take dense or messy input and give back something clearer. The
-                largest of them is{' '}
-                <a href="https://bookmodernizer.com" target="_blank" rel="noopener noreferrer">
-                  The Book Modernizer
-                </a>
-                . Write to me at{' '}
+                Book Modernizer is the clearest case of it: difficult old books
+                go in, and editions people can actually read come out. Write to
+                me at{' '}
                 <a href="mailto:dan@danielsilbaugh.com">dan@danielsilbaugh.com</a>.
               </p>
+
+              <a
+                className="cta"
+                href="https://bookmodernizer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="cta-name">The Book Modernizer</span>
+                <span className="cta-arrow" aria-hidden="true">&rarr;</span>
+              </a>
 
               <div className="hero-actions">
                 <Socials />
