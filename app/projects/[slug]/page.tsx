@@ -1,6 +1,7 @@
 import { getAllPublished, getBySlug } from '../../../lib/content';
 import { notFound } from 'next/navigation';
 import { TitleBlock } from '../../Drafting';
+import { Cover, Video } from '../../Media';
 import React from 'react';
 
 // Render a paragraph, turning markdown [text](url) into real links.
@@ -70,6 +71,26 @@ export default async function ProjectPage({
             </a>
           )}
         </header>
+
+        {/* The video facade already uses the cover as its poster, so showing
+            both would print the same picture twice in a row. */}
+        {item.video ? (
+          <Video
+            id={item.video}
+            title={item.video_title ?? item.title}
+            poster={item.cover}
+            posterAlt={item.cover_alt}
+          />
+        ) : (
+          item.cover && (
+            <Cover
+              base={item.cover}
+              alt={item.cover_alt ?? item.title}
+              className="cover-lead"
+              eager
+            />
+          )
+        )}
 
         {item.objective && (
           <section className="project-section">

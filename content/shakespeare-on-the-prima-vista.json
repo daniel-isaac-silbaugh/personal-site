@@ -1,0 +1,84 @@
+{
+  "title": "Shakespeare on the Prima Vista",
+  "date": "2026-09-03",
+  "tagline": "A compiler that stages plays inside Final Fantasy IX, using the theatre the game opens on. You write a play; it writes the game's scripts, builds the mod, and launches it.",
+  "sections": [
+    {
+      "heading": "Origin",
+      "body": "A month or so ago, I finished Zelda: Tears of the Kingdom. Despondent and desperate for another RPG fix, I went looking for something else to play, and could not find anything I wanted. What I actually wanted was more Final Fantasy IX. Then it occurred to me that the PC version was available on Steam, and that taking apart an unfamiliar codebase is a thing I can now do in an afternoon. Hmmm....\n\nMy ultimate goal was something like creating whole new sidequests or alternate versions of the game, or games within the game. But I thought I'd probably need an intermediate test step to see if that was feasible. So I decided to stage a play. Early on in the game, Tantalus stages 'I Want to Be Your Canary' on the stage of the Prima Vista airship. I would wipe the stock play, and replace it with Hamlet, to see if I could edit the story, text, scripts, blocking etc.",
+      "tools": []
+    },
+    {
+      "heading": "How the game stores a scene",
+      "body": "After downloading the Moguri mod and Hades Workshop, I started exploring the game's code. I discovered that every location in Final Fantasy IX is called a field, which consists of: a painted background, an invisible floor that defines where feet may go, a handful of fixed camera angles, and a script.\n\nThe script does not contain the words anyone says. It contains an instruction that references numbered lines of text in a separate file.\n\nFinal Fantasy IX consists of 817 fields, 345 character models and 4,071 animation clips. With Claude, we wrote a small program to read the files and print a summary. That became the method for the whole project. Anything mechanical over a large file gets done by a program that prints an answer, and the file itself never enters the conversation.",
+      "tools": [
+        "Hades Workshop",
+        "Python",
+        "binary/script export",
+        "summary-over-payload tooling"
+      ]
+    },
+    {
+      "heading": "The compiler",
+      "body": "What we ultimately constructed after a lot of trial and error was a compiler that emits new mods.\n\nYou write a list of scenes, each naming its field, camera, music, and cast, then a list of lines. A line is a role, some text, and optional stage directions: face this person, walk to that mark, enter, exit, hold a gesture, change the music, cut to a shot with nobody in it. The compiler assigns text numbers, groups consecutive lines by the same speaker into single beats, writes the field scripts, imports all sixteen of them into the editor in one session, and launches the game.",
+      "tools": [
+        "Python",
+        "declarative scene DSL",
+        "batch build pipeline",
+        "headless editor automation"
+      ]
+    },
+    {
+      "heading": "The frozen arm",
+      "body": "On the way to that result, there were a lot of weird glitches. A character would raise his arm to make a point and then stay that way for the rest of the scene. Arm up, frozen, like someone had hit pause.\n\nI worked with Claude on three separate attempts and got three sensible fixes for three different imagined problems. None worked.\n\nUltimately, after doing more digging, we discovered that the animations are not single clips. Most gestures are built from three parts: a wind up, a hold, and a release. Play the wind up and the hold but never the release and the character simply stays in the hold forever.\n\nOnce the pattern was named, a program grouped every clip by it: 3,175 complete gestures across 365 characters, now a lookup the compiler validates against.",
+      "tools": [
+        "naming-convention analysis",
+        "gesture inventory (JSON)",
+        "build-time validation"
+      ]
+    },
+    {
+      "heading": "The probe",
+      "body": "Some questions cannot be answered by reading code, and this project is full of them.\n\nThe backgrounds are flat paintings. A spot on the floor can be perfectly valid ground — the invisible floor says feet may go there — and still sit outside the edge of the painting, so anyone standing on it is invisible. Nothing in the data says where the picture ends.\n\nThe answer was a probe that stands a different character on every mark I want to test. Zidane here, Steiner there, Vivi, Baku, Dagger. Then it holds each camera angle for five seconds while screenshots are taken. Because every position has a different face on it, a single screenshot names exactly which marks are inside the frame.",
+      "tools": [
+        "differential visual probe",
+        "screenshot capture automation",
+        "confirmed-position registry"
+      ]
+    },
+    {
+      "heading": "Choosing the music by ear",
+      "body": "I wanted to pick music properly rather than guess, so the whole game's field scripts got exported — about 44 megabytes — and the music cues pulled out into an index of 106 tracks with their numbers and how often each plays.\n\nThe export turned out to be worth more than the music list. Because it contains every field in the game, the setup for any of the 345 characters can be lifted from wherever they normally appear, which means anyone can be cast in the theatre. I did not plan that. It fell out of doing the music properly.\n\nThen I sat and listened, writing three words next to about thirty tracks. Tense, conspiratorial. Formal and courtly, a little pompous. Awful, never use this.\n\nThree of the six pieces I had already chosen were on the never-use list, including both of the main ones. The scenes got recast from my notes.",
+      "tools": [
+        "full-corpus script export",
+        "cue extraction",
+        "manual qualitative indexing"
+      ]
+    },
+    {
+      "heading": "What it is now",
+      "body": "Hamlet Act I scene 1 complete, at 137 lines across six scenes. If I want to do more it means copying a block, picking fields and cameras, casting from any of the game's characters, and writing lines. The cycle from edit to watching it on screen is about a minute.\n\nI learned that video games are A LOT of work to build. Even with AI tools, designing small sidequests would be a pretty substantial endeavor. I'm not sure whether I'll continue work on this, but it was a fun project.",
+      "tools": []
+    }
+  ],
+  "status": "Working. Two plays staged; the compiler is the deliverable. Next is a longer scene.",
+  "tags": [
+    "reverse-engineering",
+    "python",
+    "compilers",
+    "game-modding",
+    "shakespeare",
+    "tooling",
+    "validation"
+  ],
+  "objective": "",
+  "summary": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": [],
+  "cover": "/projects/prima-vista-cover",
+  "cover_alt": "A scene from Final Fantasy IX restaged as Hamlet: three characters stand on a wooden stage at night while a dialogue box reads, \"Looks he not like the King? Mark it, Horatio.\"",
+  "video": "Uj_bsrrk1P4",
+  "video_title": "Hamlet Act I Scene 1, staged in Final Fantasy IX",
+  "featured": true
+}

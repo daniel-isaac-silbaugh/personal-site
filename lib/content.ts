@@ -29,6 +29,14 @@ export interface ContentItem extends ManifestEntry {
   date?: string;
   tagline?: string;
   external_url?: string;
+  /** Base path of a cover image, without extension: /projects/foo -> .avif + .webp */
+  cover?: string;
+  cover_alt?: string;
+  /** YouTube video id, not a full URL. */
+  video?: string;
+  video_title?: string;
+  /** Lifts the item into the featured slot at the top of the homepage. */
+  featured?: boolean;
   objective?: string;
   summary?: string;
   sections?: Section[];
@@ -115,6 +123,11 @@ export function getGroupedByType(): { type: string; label: string; items: Conten
     label: toLabel(type),
     items: sortGroup(map.get(type)!),
   }));
+}
+
+/** The item flagged `featured`, if any. First wins if several are flagged. */
+export function getFeatured(): ContentItem | null {
+  return getAllPublished().find(i => i.featured) ?? null;
 }
 
 export function getBySlug(slug: string): ContentItem | null {

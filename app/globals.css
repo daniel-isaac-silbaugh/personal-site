@@ -1701,3 +1701,179 @@ body::after {
 [data-theme="dark"] .tt-when-dark {
   display: inline;
 }
+
+/* ── Media: covers and video ────────────────────────────────────
+   The video is a click-to-play facade. An iframe dropped into the page
+   costs several hundred KB and lets YouTube set cookies on every
+   visitor who never presses play, so the player only loads on click,
+   from the no-cookie host.
+   ─────────────────────────────────────────────────────────────── */
+
+.cover {
+  display: block;
+}
+
+.cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.cover-lead {
+  margin: 0 0 26px;
+}
+
+.video {
+  margin: 0 0 32px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.video-facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.video-facade img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.video-play,
+.featured-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: rgba(16, 26, 34, 0.72);
+  color: #fff;
+  padding-left: 4px;
+  transition: background 0.14s linear, transform 0.14s ease;
+}
+
+.video-facade:hover .video-play {
+  background: var(--l-ocean);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.video-label {
+  display: block;
+  padding: 10px 12px;
+  font-family: var(--font-mono-site), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--paper);
+}
+
+/* ── Featured panel on the homepage ─────────────────────────── */
+
+.featured-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 0;
+  border: none;
+}
+
+.featured .il-sheet {
+  background: var(--l-rock);
+  color: var(--on-layer);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+}
+
+.featured-link {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) 1fr;
+  gap: 22px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.featured-media {
+  position: relative;
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.featured-play {
+  width: 46px;
+  height: 46px;
+}
+
+.featured-link:hover .featured-play {
+  background: var(--l-ocean);
+}
+
+.featured-body {
+  display: block;
+  min-width: 0;
+}
+
+.featured-title {
+  display: block;
+  font-family: var(--font-display), "Futura", "Century Gothic", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.featured-link:hover .featured-title {
+  color: var(--l-ocean);
+}
+
+.featured-tagline {
+  display: block;
+  margin-top: 7px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--annot);
+}
+
+.featured-more {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--font-mono-site), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--l-ocean);
+}
+
+@media (max-width: 760px) {
+  .featured-link {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

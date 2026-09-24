@@ -1,8 +1,14 @@
-import { getGroupedByType, getBlurb, type ContentItem } from '../lib/content';
+import {
+  getGroupedByType,
+  getBlurb,
+  getFeatured,
+  type ContentItem,
+} from '../lib/content';
 import ThemeToggle from './ThemeToggle';
 import Subscribe from './Subscribe';
 import Socials from './Socials';
 import { Dim, Bubble, TitleBlock } from './Drafting';
+import { Cover } from './Media';
 import type { CSSProperties } from 'react';
 
 // CAD layer colours. Drawing sets really do assign a colour per layer, so
@@ -20,6 +26,7 @@ function sheetNo(i: number): string {
 
 export default function Home() {
   const groups = getGroupedByType();
+  const featured = getFeatured();
   const total = String(groups.length).padStart(2, '0');
 
   // One continuous item number across every section, like a drawing index.
@@ -116,6 +123,43 @@ export default function Home() {
             </header>
 
             <div className="index">
+              {featured && (
+                <section className="featured card">
+                  <h2 className="featured-label">
+                    <span className="il-sheet">Featured</span>
+                    <span className="il-rule" aria-hidden="true" />
+                  </h2>
+                  <a className="featured-link" href={`/projects/${featured.slug}`}>
+                    {featured.cover && (
+                      <span className="featured-media">
+                        <Cover
+                          base={featured.cover}
+                          alt={featured.cover_alt ?? featured.title}
+                          eager
+                        />
+                        {featured.video && (
+                          <span className="featured-play" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                              <path d="M8 5.5v13l11-6.5z" />
+                            </svg>
+                          </span>
+                        )}
+                      </span>
+                    )}
+                    <span className="featured-body">
+                      <span className="featured-title">{featured.title}</span>
+                      {featured.tagline && (
+                        <span className="featured-tagline">{featured.tagline}</span>
+                      )}
+                      <span className="featured-more">
+                        Read the write-up
+                        {featured.video ? ' and watch it run' : ''} &rarr;
+                      </span>
+                    </span>
+                  </a>
+                </section>
+              )}
+
               {groups.map(({ type, label, items }, i) => (
                 <section
                   key={type}
