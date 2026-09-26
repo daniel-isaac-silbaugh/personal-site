@@ -85,10 +85,7 @@ export default function Home() {
               </p>
 
               <p className="hero-lede">
-                Hey there, I&rsquo;m Dan. I do manual labor, default to systems-level
-                thinking, always
-                have a few entrepreneurial projects going, and write science
-                fiction. I am passionately disappointed by modern built
+                Hey there, I&rsquo;m Dan. I like to build things. I like to think. I&rsquo;m interested in how culture reacts to technology. I write science fiction. I am passionately disappointed by modern built
                 environments. Much like a Vulcan, I think the only rational,
                 logical way to live one&rsquo;s life is to try your best to be
                 a good person. As a curious generalist, I&rsquo;m always going
