@@ -66,6 +66,12 @@
     "published": true
   },
   {
+    "slug": "bing-boing-market-research",
+    "file": "bing-boing-market-research.json",
+    "type": "project",
+    "published": true
+  },
+  {
     "slug": "shakespeare-on-the-prima-vista",
     "file": "shakespeare-on-the-prima-vista.json",
     "type": "project",

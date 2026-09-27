@@ -1,0 +1,45 @@
+{
+  "title": "Bing Boing Market Research Tool",
+  "date": "2026-09-26",
+  "tagline": "A tool that takes a list of phrases and tells you how many people search for them, using a free Microsoft service most people do not know gives out the numbers.",
+  "sections": [
+    {
+      "heading": "Origin",
+      "body": "I have been building a set of tools to find markets rather than guess at them. One reads local convention centre calendars and works out which trades are coming to town. Another reads what those people say to each other in their own forums, so I can see the problems in their own words.\n\nBut while both of those tools aid in discovery and tell you what the problem may be, neither tells you how many people have it.\n\nThat is the question this answers. You paste in a list of phrases and it comes back with how often each one is searched, whether that is rising or falling, and whether the wording sounds like somebody shopping or somebody merely curious."
+    },
+    {
+      "heading": "Why not Google Trends",
+      "body": "Google Trends is the obvious tool to use.\n\nBut it has no usable API. Google announced one in July 2025 and it is still an application-gated alpha more than a year later, with no public pricing and no release date. The unofficial library everyone used has stopped working.\n\nThe deeper problem is that Trends gives you a number between 0 and 100, scaled against the highest point of whatever you happened to search. There is no denominator. You cannot compare one query to another, and you cannot tell whether a term at 100 means fifty searches or five million."
+    },
+    {
+      "heading": "The service that does give you numbers",
+      "body": "Bing Webmaster Tools has a keyword research feature, and it hands out real counts rather than an index. It is free. It has a plain interface for programs to talk to. The only requirement is that you prove you own a website, which is a formality and has nothing to do with what you are allowed to look up.\n\nSo I verified my own site, generated a key, and pointed a program at it. For each phrase it returns weekly counts going back about six months, split two ways: how many people typed that exact phrase, and how many typed something containing it.\n\nBing is roughly nine percent of American search, so multiplying figures by 10 gives a rough all-engine figure."
+    },
+    {
+      "heading": "What Bing Boing Market Research reports",
+      "body": "For every term: the weekly counts, an estimated monthly total, a small chart of the last six months, and the change from the start of that window to the end.\n\nThe ratio between broad and exact counts turned out to be the most useful column and I did not expect it. A high ratio means the subject is much bigger than your particular wording. You have the topic right and the words wrong, which matters if those words are going on a page or an advert."
+    },
+    {
+      "heading": "What it found",
+      "body": "One business I'm currently working on launching is Dum Phones, so I did some preliminary testing of that space\n\nBrand names beat the category by a wide margin. Two competing products pull about thirty thousand searches a month between them. Every generic phrase for the category, added together, pulls a fraction of that. People in this market do not search for the thing they want, they search for the company that makes it, which tells you where the effort has to go."
+    }
+  ],
+  "status": "Working. Runs in the browser, measures a list in one pass, saves everything to plain files and a database. Next is joining it to the forum mining, so the phrases being sized are ones real practitioners used rather than ones I thought of.",
+  "tags": [
+    "market-research",
+    "python",
+    "apis",
+    "search-data",
+    "tooling",
+    "validation",
+    "bing"
+  ],
+  "objective": "",
+  "summary": "",
+  "skills_demonstrated": [],
+  "actions": [],
+  "entities": [],
+  "cover": "/projects/bing-boing-market-research-cover",
+  "cover_alt": "The tool running in a browser: a panel of search phrases on the left, and a results table on the right showing weekly search counts, estimated monthly totals, six-month trend lines and intent labels for terms including 'dumb phone', 'gabb phone' and 'light phone'.",
+  "featured": true
+}
